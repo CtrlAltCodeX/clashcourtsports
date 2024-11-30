@@ -39,14 +39,14 @@
         <!-- Date -->
         <div class="mb-4">
             <label for="date" class="block text-gray-700 font-medium mb-2">Date</label>
-            <input type="date" name="date" id="date" value="{{ old('date', $event->date) }}" 
+            <input type="datetime-local" name="date" id="date" value="{{ old('date', $event->date) }}" 
                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
         </div>
 
         <!-- End Date -->
         <div class="mb-4">
             <label for="enddate" class="block text-gray-700 font-medium mb-2">End Date</label>
-            <input type="date" name="enddate" id="enddate" value="{{ old('enddate', $event->enddate) }}" 
+            <input type="datetime-local" name="enddate" id="enddate" value="{{ old('enddate', $event->enddate) }}" 
                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
         </div>
 

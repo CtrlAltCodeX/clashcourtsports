@@ -37,7 +37,7 @@ class OfficialsRegistrationController extends Controller
         // Create and save a new user instance
         $user = new User();
         $user->name = $request->organization_name;
-        $user->type = 'user'; // default type as 'user'
+        $user->type = 'admin'; // default type as 'admin'
         $user->phone_number = $request->phone_number;
         $user->email = $request->email;
         $user->city = $request->city;
@@ -108,3 +108,27 @@ class OfficialsRegistrationController extends Controller
         return redirect()->route('officials_registration.index')->with('success', 'Official deleted successfully.');
     }
 }
+
+// use Illuminate\Support\Facades\DB;
+
+// public function getNearbyUsers()
+// {
+//     $user = Auth::user();
+//     $latitude = $user->latitude;
+//     $longitude = $user->longitude;
+
+//     $nearbyUsers = User::select('*', DB::raw("(
+//         6371 * acos(
+//             cos(radians($latitude)) *
+//             cos(radians(latitude)) *
+//             cos(radians(longitude) - radians($longitude)) +
+//             sin(radians($latitude)) *
+//             sin(radians(latitude))
+//         )
+//     ) AS distance"))
+//     ->having('distance', '<', 10) // 10 kilometers radius
+//     ->orderBy('distance')
+//     ->get();
+
+//     return view('user.nearby_users', compact('nearbyUsers'));
+// } 

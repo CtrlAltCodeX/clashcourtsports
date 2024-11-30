@@ -1,0 +1,213 @@
+@media (min-width: 1440px) and (max-width: 1920px) {
+  .sports_container{
+    max-width: 1200px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .menu_container{
+    max-width: 1440px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (min-width: 1600px) and (max-width: 1799.98px) {}
+
+@media (min-width: 1400px) and (max-width: 1599.98px) {
+        
+}
+
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+    
+}
+@media (min-width: 992px) and (max-width: 1199.98px){
+   
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .footer_box {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    .help_type_list li {
+        flex: 0 0 50%;
+        max-width: 50%;   
+        margin-bottom: 32px; 
+    }
+    
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {}
+
+@media (max-width: 575.98px) {
+    .work_list li {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .work_box_img {
+        width: 100%;
+        height: auto;
+    }
+    .contact_box {
+        flex-direction: column;
+    }
+    .contact_box_right {
+        width: 100%;
+    }
+    .event_headng {
+        font-size: 32px;
+        line-height: 42px;
+    }
+    .event_sub_heading {
+        font-size: 18px;
+        line-height: 28px;
+    }
+    .price_list_btn {
+        font-size: 24px;
+        line-height: 34px;
+        padding: 16px;
+    }
+    .donation_box_card_header .nav-item{
+        width: 100%;
+    }
+    .donation_box_card_header .nav-item .nav-link {
+        font-size: 24px;
+        line-height: 34px;
+        padding: 20px 40px;
+        width: 100%;
+    }
+    .donation_monthly_btn {
+        font-size: 24px;
+        line-height: 34px;
+        padding: 20px 40px;
+        margin-bottom: 30px;
+    }
+    .donation_box h1 {
+        font-size: 32px;
+        line-height: 42px;
+    }
+    .donation_section {
+        padding: 60px 0px;
+    }
+    .minutes_text {
+        font-size: 60px;
+        line-height: 70px;
+    }
+    .minutes_text span {
+        font-size: 18px;
+        line-height: 28px;
+    }
+}
+
+@media (max-width: 360.98px) {
+    
+}
+
+@media (max-width: 991.98px) {
+    
+    .back_section_box p {
+        font-size: 18px;
+        line-height: 28px;
+        margin-bottom: 15px;
+    }
+    .testimonial_box h5 {
+        font-size: 32px;
+        line-height: 42px;
+    }
+    .banner_headng {
+        font-size: 32px;
+        line-height: 42px;
+    }
+    .banner_content {
+        color: #fff;
+        font-size: 18px;
+        line-height: 28px;
+        margin-bottom: 15px;
+    }
+    .banner_section {
+        padding: 60px 0px;
+    }
+    .registration_list li {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .registration_box_card {
+        height: 100%;
+        padding-bottom: 16px;
+    }
+    .registration_list li+ li{
+        margin-top: 30px;
+    }
+    .header_navbar .navbar-nav .nav-item .nav-link {
+        font-size: 18px;
+        line-height: 28px;
+        padding: 15px 0px;
+    }
+    .back_section {
+        padding: 60px 0px;
+        height: 100%;
+    }
+    .back_section_box h3 {
+        font-size: 32px;
+        line-height: 42px;
+    }
+    .about_content h2 {
+        font-size: 32px;
+        line-height: 42px;
+    }
+    .about_content p {
+        font-size: 18px;
+        line-height: 28px;
+    }
+    .registration_heading {
+        font-size: 32px;
+        line-height: 42px;
+        margin-bottom: 30px;
+    }
+    .back_btn {
+        font-size: 18px;
+        line-height: 28px;
+        padding: 15px 30px;
+    }
+    .work_list_box h4 {
+        font-size: 32px;
+        line-height: 42px;
+    }
+    .work_list_media_body h5 {
+        font-size: 18px;
+        line-height: 28px;
+    }
+    .join_now_btn {
+        font-size: 18px;
+        line-height: 28px;
+        padding: 15px 36px;
+    }
+    .contact_box_left h6 {
+        font-size: 32px;
+        line-height: 42px;
+    }
+    .contact_box_left p {
+        font-size: 18px;
+        line-height: 28px;
+        margin-bottom: 32px;
+    }
+    .info_label {
+        color: #000;
+        font-size: 18px;
+        line-height: 28px;
+    }
+    .header_navbar {
+        padding: 12px 0px;
+    }
+    .join_now_list li {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .hidden{
+        visibility: hidden;
+        display: none;
+    }
+    .join_now_bannner{
+        padding: 60px 0px;
+        height: 100%;
+    }
+}
