@@ -13,7 +13,7 @@
                     </li>
                     <li>
                         <a href="{{ route('user.events') }}" class="block p-4 rounded-lg hover:bg-gray-700">
-                            User Events
+                        Nearby Users
                         </a>
                     </li>
                     <li>
@@ -55,13 +55,13 @@
 
         <!-- Main Content -->
         <div class="flex-1 p-6">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            
                 <div class="bg-white shadow-sm sm:rounded-lg border border-gray-200">
                     <div class="p-6 text-gray-900">
                         @yield('admin-content')
                     </div>
                 </div>
-            </div>
+        
         </div>
     </div>
 </x-app-layout>

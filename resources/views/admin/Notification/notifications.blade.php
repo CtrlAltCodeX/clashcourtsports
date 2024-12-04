@@ -10,30 +10,41 @@
             @foreach($eventParticipants as $eventData)
                 <div class="mb-4 flex justify-between items-center">
                     <!-- Event Title -->
-                     <div>
-                     <h3 class="text-xl font-bold mb-2">{{ $eventData['event']->name }}</h3>
-                     <p class="text-gray-600">Participants: {{ $eventData['count'] }}</p>
-                     </div>
-                 
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">{{ $eventData['event']->name }}</h3>
+                        <p class="text-gray-600">Participants: {{ $eventData['count'] }}</p>
+                    </div>
 
-                    <!-- Send Email Button -->
-                    <button 
-                        data-event-id="{{ $eventData['event']->id }}"
-                        style="background-color: blue;" 
-                        class="send-email-btn text-white px-4 py-2 rounded hover:bg-blue-700">
-                        Send Email
-                    </button>
+                    <!-- Buttons Section -->
+                    <div>
+                        <!-- Send Email Button -->
+                        <button 
+                            data-event-id="{{ $eventData['event']->id }}"
+                            class="send-email-btn text-white px-4 py-2 rounded hover:bg-blue-700"
+                            style="background-color: blue;">
+                            Send Email
+                        </button>
+
+                        <!-- View Users Button -->
+                        <button 
+                            class="btn btn-primary toggle-users-btn" 
+                            data-target="#users-{{ $eventData['event']->id }}" 
+                            style="background-color:blue; color: #fff; border: none; padding: 10px 20px; font-size: 14px; border-radius: 5px; cursor: pointer; text-align: center;">
+                            View Users
+                        </button>
+                    </div>
                 </div>
 
-                <!-- Participants Table -->
-                @if($eventData['count'] > 0)
-                    <div class="table-responsive mb-4">
+                <!-- Participants Table (Hidden by Default) -->
+                <div id="users-{{ $eventData['event']->id }}" class="table-responsive mb-4" style="display: none;">
+                    @if($eventData['count'] > 0)
                         <table class="table-auto w-full border border-gray-300 text-center">
                             <thead class="bg-blue-100 text-blue-700">
                                 <tr>
                                     <th class="px-4 py-2 border">#</th>
                                     <th class="px-4 py-2 border">Name</th>
                                     <th class="px-4 py-2 border">Email</th>
+                                      <th class="px-4 py-2 border">Skill</th>
                                     <th class="px-4 py-2 border">Phone Number</th>
                                     <th class="px-4 py-2 border">City</th>
                                     <th class="px-4 py-2 border">State</th>
@@ -42,9 +53,11 @@
                             <tbody>
                                 @foreach($eventData['participants'] as $index => $userEvent)
                                     <tr class="hover:bg-gray-100">
-                                        <td class="px-4 py-2 border">{{ $index + 1 }}</td>  
+                                        <td class="px-4 py-2 border">{{ $index + 1 }}</td>
                                         <td class="px-4 py-2 border">{{ $userEvent->user->name }}</td>
                                         <td class="px-4 py-2 border">{{ $userEvent->user->email }}</td>
+                                        <td class="px-4 py-2 border">{{ $userEvent->user->Skill_Level }}</td>
+                                        
                                         <td class="px-4 py-2 border">{{ $userEvent->user->phone_number }}</td>
                                         <td class="px-4 py-2 border">{{ $userEvent->user->city }}</td>
                                         <td class="px-4 py-2 border">{{ $userEvent->user->state }}</td>
@@ -52,10 +65,10 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    </div>
-                @else
-                    <p class="mt-4 text-gray-600">No participants for this event.</p>
-                @endif
+                    @else
+                        <p class="mt-4 text-gray-600">No participants for this event.</p>
+                    @endif
+                </div>
             @endforeach
         </div>
     </div>
@@ -79,6 +92,30 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Toggle View Users Section
+            const toggleButtons = document.querySelectorAll('.toggle-users-btn');
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const targetId = button.getAttribute('data-target');
+                    const targetSection = document.querySelector(targetId);
+
+                    // Hide all other sections
+                    document.querySelectorAll('.table-responsive').forEach(section => {
+                        if (section !== targetSection) {
+                            section.style.display = 'none';
+                        }
+                    });
+
+                    // Toggle the clicked section
+                    if (targetSection.style.display === 'none') {
+                        targetSection.style.display = 'block';
+                    } else {
+                        targetSection.style.display = 'none';
+                    }
+                });
+            });
+
+            // Send Email Modal Logic
             const sendEmailButtons = document.querySelectorAll('.send-email-btn');
             const sendEmailModal = document.getElementById('sendEmailModal');
             const closeModal = document.getElementById('close-modal');
@@ -86,34 +123,28 @@
             const emailMessage = document.getElementById('email-message');
             const sendEmailBtn = document.getElementById('send-email');
             let eventId = null;
-
-            // Open modal on "Send Email" button click
             sendEmailButtons.forEach((button) => {
-                button.addEventListener('click', function () {
-                    eventId = button.getAttribute('data-event-id');
-                    
-                    // Fetch participant emails for the selected event
-                    fetch(`/admin/events/${eventId}/participants`)
-                        .then(response => response.json())
-                        .then(data => {
-                        console.log("data",data)
-                            // Display participant emails in the modal
-                            emailList.innerHTML = '';
-                            data.participants.forEach((participant) => {
-                                emailList.innerHTML += `<p><strong>Email</strong>: ${participant.user.email}</p>`;
-                            });
-                        });
-
-                    sendEmailModal.classList.remove('hidden');
+        button.addEventListener('click', function () {
+            eventId = button.getAttribute('data-event-id');
+            
+            // Fetch participant emails for the selected event
+            fetch(`/admin/events/${eventId}/participants`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("data", data);
+                    // Display participant emails in the modal
+                    const emails = data.participants.map(participant => participant.user.email);
+                    emailList.textContent = emails.join(', ');
                 });
-            });
 
-            // Close modal
+            sendEmailModal.classList.remove('hidden');
+        });
+    });
+
             closeModal.addEventListener('click', function () {
                 sendEmailModal.classList.add('hidden');
             });
 
-            // Handle email sending
             sendEmailBtn.addEventListener('click', function () {
                 const message = emailMessage.value;
 
@@ -121,8 +152,8 @@
                     alert('Please enter a message.');
                     return;
                 }
+                sendEmailModal.classList.add('hidden');
 
-                // Send email to participants
                 fetch(`/admin/events/${eventId}/send-email`, {
                     method: 'POST',
                     headers: {
@@ -131,29 +162,16 @@
                     },
                     body: JSON.stringify({ message })
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Email sent successfully!');
-                        sendEmailModal.classList.add('hidden');
-                    } else {
-                        alert('Failed to send email.');
-                    }
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Email sent successfully!');
+                            sendEmailModal.classList.add('hidden');
+                        } else {
+                            alert('Failed to send email.');
+                        }
+                    });
             });
         });
     </script>
-    
-    <style>
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
 @endsection

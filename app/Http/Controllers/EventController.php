@@ -26,13 +26,13 @@ class EventController extends Controller
             'date' => 'required|date',
             'capacity' => 'required|integer|min:1',
             'pricing' => 'required|numeric|min:0',
-            'enddate' => 'nullable|date',        // Validate enddate
-            'game_name' => 'nullable|string|max:255',  // Validate game_name
-            'double_price' => 'nullable|numeric|min:0', // Validate double_price
+            'enddate' => 'nullable|date',       
+            'game_name' => 'nullable|string|max:255', 
+            'double_price' => 'nullable|numeric|min:0', 
         ]);
         
-        // Add the current user_id to the event data
-        $request['user_id'] = auth()->id();  // Store the logged-in user's ID
+     
+        $request['user_id'] = auth()->id(); 
         
         Event::create($request->all());
         
@@ -57,9 +57,9 @@ class EventController extends Controller
             'date' => 'required|date',
             'capacity' => 'required|integer|min:1',
             'pricing' => 'required|numeric|min:0',
-            'enddate' => 'nullable|date',        // Validate enddate
-            'game_name' => 'nullable|string|max:255',  // Validate game_name
-            'double_price' => 'nullable|numeric|min:0', // Validate double_price
+            'enddate' => 'nullable|date',       
+            'game_name' => 'nullable|string|max:255',  
+            'double_price' => 'nullable|numeric|min:0', 
         ]);
     
         $event->update($request->all());

@@ -34,14 +34,38 @@ class AuthenticatedSessionController extends Controller
     /**
      * Destroy an authenticated session.
      */
+    // public function destroy(Request $request): RedirectResponse
+    // {
+    //     Auth::guard('web')->logout();
+
+    //     $request->session()->invalidate();
+
+    //     $request->session()->regenerateToken();
+
+    //     return redirect('/');
+    // }
+
     public function destroy(Request $request): RedirectResponse
-    {
-        Auth::guard('web')->logout();
+{
+    // Retrieve the authenticated user before logging out
+    $user = Auth::user();
 
-        $request->session()->invalidate();
 
-        $request->session()->regenerateToken();
+    // Perform the logout
+    Auth::guard('web')->logout();
 
-        return redirect('/');
+    // Invalidate the session and regenerate the CSRF token
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    // Determine the redirect URL based on user type
+    $redirectUrl = '/'; // Default redirect URL
+    if ($user && $user->type === 'Player') {
+        $redirectUrl = '/clashsports/login';
     }
+
+    // Redirect to the determined URL
+    return redirect($redirectUrl);
+}
+
 }

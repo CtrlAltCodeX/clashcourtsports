@@ -8,7 +8,7 @@ use Stripe;
 use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth; // Add this line
+use Illuminate\Support\Facades\Auth; 
 use Illuminate\Http\Request;
 
 class ManagePlayersController extends Controller
@@ -18,9 +18,9 @@ class ManagePlayersController extends Controller
     {
         $currentDate = Carbon::now();
     
-        // Fetch and sort events
+       
         $events = Event::all()->sortBy(function ($event) use ($currentDate) {
-            return $event->enddate < $currentDate ? 1 : 0; // Active events first, expired events last
+            return $event->enddate < $currentDate ? 1 : 0; 
         });
     
         return view('user.events.index', compact('events'));
@@ -28,7 +28,7 @@ class ManagePlayersController extends Controller
 
         public function JoinNow($id)
         {
-            // Retrieve the user by ID
+          
             $official = Event::findOrFail($id);
   
             return view('user.auth.joinNow', compact('official'));
@@ -47,10 +47,11 @@ public function StripeCheckout(Request $request, $id)
                 'state' => 'required|string|max:255',
                 'zip_code' => 'required|string|max:10',
                 'game_type' => 'required',
-                'flexRadioDefault' => 'required', // Validation for Beginner/Advanced radio buttons
-                'password' => 'nullable|string', // Password optional for existing users
+                'selected_game' => 'required',
+                'flexRadioDefault' => 'required',
+                'password' => 'nullable|string'
             ]);
-        
+          
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
         
             $redirectUrl = route('stripe.checkout.success').'?session_id={CHECKOUT_SESSION_ID}';
@@ -65,7 +66,7 @@ public function StripeCheckout(Request $request, $id)
                             'product_data' => [
                                 'name' => "Event Participation: {$request->first_name}",
                             ],
-                            'unit_amount' => $request->game_type * 100, // Convert to cents
+                            'unit_amount' => $request->game_type * 100,
                             'currency' => "USD",
                         ],
                         'quantity' => 1,
@@ -84,6 +85,7 @@ public function StripeCheckout(Request $request, $id)
                     'Skill_Level' => $request->flexRadioDefault,
                     'password' => $request->password,
                     'latitude' => $request->latitude,
+                    'selected_game' => $request->selected_game,
                     'longitude' => $request->longitude,
                 ],
             ]);
@@ -131,12 +133,14 @@ public function StripeCheckout(Request $request, $id)
                 $paymentData['user_id'] = $user->id;
         
                 \App\Models\Payment::create($paymentData);
-        
                 UserEvent::updateOrCreate(
                     ['user_id' => $user->id, 'event_id' => $event->id],
-                    ['latitude' => $session->metadata->latitude, 'longitude' => $session->metadata->longitude]
+                    [
+                        'latitude' => $session->metadata->latitude,
+                        'longitude' => $session->metadata->longitude,
+                        'selected_game' => $session->metadata->selected_game 
+                    ]
                 );
-        
                 return redirect()->route('user.auth.login')->with('alert', 'Payment successful and event joined.');
             } catch (\Exception $e) {
                 return redirect()->route('user.auth.login')->with('error', 'Payment failed. Please try again.');
@@ -156,14 +160,14 @@ public function StripeCheckout(Request $request, $id)
                 'state' => 'required|string|max:255',
                 'zip_code' => 'required|string|max:10',
              
-                'password' => 'nullable|string', // Password optional for existing users
+                'password' => 'nullable|string',
             ]);
         
-            // Check if the email exists in the users table
+         
             $existingUser = User::where('email', $request->email)->first();
         
             if ($existingUser) {
-                // If the user already exists, return with an alert and save their participation
+             
                 UserEvent::create([
                     'user_id' => $existingUser->id,
                     'event_id' => $id,
@@ -173,8 +177,7 @@ public function StripeCheckout(Request $request, $id)
         
                 return redirect()->back()->with('alert', 'Your account already exists. You have successfully joined the event with same email id and password');
             }
-        
-            // Create a new user
+
             $user = User::create([
                 'name' => $request->first_name . ' ' . $request->last_name,
                 'type' => 'Player',
@@ -187,7 +190,7 @@ public function StripeCheckout(Request $request, $id)
                 'password' => Hash::make($request->password),
             ]);
         
-            // Save the event participation
+        
             UserEvent::create([
                 'user_id' => $user->id,
                 'event_id' => $id,
@@ -199,48 +202,38 @@ public function StripeCheckout(Request $request, $id)
         }
         
 
-          // Show the login form
     public function loginForm()
     {
         return view('user.auth.login');
     }
 
-    // Handle the login request
     public function login(Request $request)
     {
-        // Validate input
+    
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required|string|min:8',
+            'password' => 'required',
         ]);
     
-        // Attempt to authenticate the user
+      
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            // Check if the authenticated user is of type 'Player'
-            $user = Auth::user(); // Get the authenticated user
+          
+            $user = Auth::user();
             
             if ($user->type !== 'Player') {
-                // If the user type is not 'Player', log them out and show an error
+          
                 Auth::logout();
                 return back()->withErrors(['email' => 'You are not authorized to access this page.'])->withInput();
             }
     
-            // Redirect to the user's dashboard or home page
+        
             return redirect()->route('dashboard');
         } else {
-            // If authentication fails, redirect back with an error
+       
             return back()->withErrors(['email' => 'Invalid credentials.'])->withInput();
         }
     }
     
 
-    // Handle the logout request
-    // public function logout()
-    // {
-    //     // Log the user out
-    //     Auth::logout();
 
-    //     // Redirect to the login page
-    //     return redirect()->route('user.auth.login')->with('success', 'Logged out successfully.');
-    // }
 }

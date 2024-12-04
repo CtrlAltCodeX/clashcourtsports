@@ -22,34 +22,38 @@
                 <table class="table-auto w-full border border-gray-300 text-center">
                     <thead class="bg-blue-100 text-blue-700">
                         <tr>
-                            <th class="px-4 py-2 border">Name</th>
-                            <th class="px-4 py-2 border">Game Name</th>  <!-- New column -->
+                            <th class=" py-2 border">Name</th>
+                            <th class=" py-2 border">Game Name</th>  
 
-                            <th class="px-4 py-2 border">Location</th>
+                            <th class=" py-2 border">Game Start Date</th>
+                            <th class=" py-2 border">Game End Date</th>
+                            <th class=" py-2 border">Location</th>
+                            <th class=" py-2 border">Date</th>
+                            <th class=" py-2 border">End Date</th> 
 
-                            <th class="px-4 py-2 border">Date</th>
-                            <th class="px-4 py-2 border">End Date</th>    <!-- New column -->
-
-                            <th class="px-4 py-2 border">Capacity</th>
-                            <th class="px-4 py-2 border">Single Price</th>
-                            <th class="px-4 py-2 border">Double Price</th> <!-- New column -->
-                            <th class="px-4 py-2 border">Actions</th>
+                            <th class=" py-2 border">Capacity</th>
+                            <th class=" py-2 border">Single Price</th>
+                            <th class=" py-2 border">Double Price</th>
+                            <th class=" py-2 border">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($events as $event)
                             <tr class="hover:bg-gray-100">
-                                <td class="px-4 py-2 border">{{ $event->name }}</td>
-                            <td class="px-4 py-2 border">{{ $event->game_name }}</td>  <!-- Displaying the new field -->
+                                <td class=" py-2 border">{{ $event->name }}</td>
+                            <td class=" py-2 border">{{ $event->game_name }}</td> 
+                            <td class=" py-2 border">{{ \Carbon\Carbon::parse($event->game_start_date)->format('m-d-Y H:i') }}</td>
+                            <td class=" py-2 border">{{ \Carbon\Carbon::parse($event->game_end_date)->format('m-d-Y H:i') }}</td>
 
-                                <td class="px-4 py-2 border">{{ $event->location }}</td>
-                                <td class="px-4 py-2 border">{{ $event->date }}</td>
-                                <td class="px-4 py-2 border">{{ $event->enddate }}</td>    <!-- Displaying the new field -->
+                                <td class=" py-2 border">{{ $event->location }}</td>
+                                <td class=" py-2 border">{{ \Carbon\Carbon::parse($event->date)->format('m-d-Y H:i') }}</td>
+                                  <td class=" py-2 border">{{ \Carbon\Carbon::parse($event->enddate)->format('m-d-Y H:i') }}</td>
 
-                                <td class="px-4 py-2 border">{{ $event->capacity }}</td>
-                                <td class="px-4 py-2 border">${{ number_format($event->pricing, 2) }}</td>
-                                <td class="px-4 py-2 border">${{ number_format($event->double_price, 2) }}</td> <!-- Displaying the new field -->
-                                <td class="px-4 py-2 border">
+
+                                <td class=" py-2 border">{{ $event->capacity }}</td>
+                                <td class=" py-2 border">${{ number_format($event->pricing, 2) }}</td>
+                                <td class=" py-2 border">${{ number_format($event->double_price, 2) }}</td> <!-- Displaying the new field -->
+                                <td class=" py-2 border">
                                     <div class="flex justify-center space-x-3">
                                         <a href="{{ route('events.edit', $event) }}" style="background-color: #10B981" class="text-white px-3 py-2 rounded text-sm flex items-center hover:bg-teal-600 focus:outline-none">
                                             <i class="fas fa-edit mr-1"></i> Edit

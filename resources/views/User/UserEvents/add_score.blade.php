@@ -21,6 +21,7 @@
                             <th class="px-4 py-2 border">Game Name</th>
                             <th class="px-4 py-2 border">Score</th>
                             <th class="px-4 py-2 border">Status</th>
+                            <th class="px-4 py-2 border">Select User</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,6 +47,27 @@
                                 <td class="px-4 py-2 border">
                                     {{ ucfirst($userEvent->status ?? 'pending') }}
                                 </td>
+                                <td class="px-4 py-2 border">
+                                    @if ($userEvent->score === null)
+                                        <!-- Dropdown for selecting users based on conditions -->
+                                        <div class="mt-2">
+                                        <select 
+                                            name="selected_users[{{ $userEvent->id }}]" 
+                                            id="users_{{ $userEvent->id }}" 
+                                            class="form-control w-3/4 mx-auto border border-gray-300 rounded px-2 py-1">
+                                            <option value="">Select a User</option>
+                                            @foreach ($usersForDropdown[$userEvent->id] as $user)
+                                                <option value="{{ $user->email }}">
+                                                    {{ $user->name }} ({{ $user->email }})
+                                                </option>
+                                            @endforeach
+                                        </select>
+
+                                        </div>
+                                    @else
+                                        No user selection required
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -65,14 +87,9 @@
     document.addEventListener('DOMContentLoaded', function () {
         const maxInputs = 5;
 
-        // Test log to confirm script is running
-        console.log("test");
-
         // Add new input field when "+" is clicked
         document.querySelectorAll('.add-score').forEach(button => {
             button.addEventListener('click', function () {
-                console.log('Button clicked!');
-
                 const userEventId = this.dataset.id;
                 const scoreContainer = this.closest('.input-group');
                 const inputFields = scoreContainer.querySelectorAll('input');

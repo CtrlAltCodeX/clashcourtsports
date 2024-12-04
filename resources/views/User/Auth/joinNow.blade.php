@@ -28,7 +28,7 @@
     <div class="join_now_bannner">
       <div class="container sports_container">
         <div class="event_content">
-          <h1 class="event_headng">The Event is coming soon</h1>
+          <h1 class="event_headng">The {{$official->name}} is coming soon</h1>
           <p class="event_sub_heading">Get ready for something exciting! Our team is hard at work crafting an exceptional experience for you.</p>
           <a  href="{{ route('user.auth.login') }}" class="btn event_btn" target="_blank">Join Now</a>
         </div>
@@ -55,7 +55,18 @@
     </li>
           </ul>
         </div>
-      
+
+        <div id="event-details" style=" text-align: center; margin-top: 20px; font-size: 1.2em;">
+  <p>
+    Event started on: <strong> {{ \Carbon\Carbon::parse($official->date)->format('m-d-Y H:i') }}</strong>
+  </p>
+  <p>
+    Event will end on: <strong>{{ \Carbon\Carbon::parse($official->enddate)->format('m-d-Y H:i') }}</strong>
+  </p>
+  <p>
+    Thank you for joining! Be sure to enjoy the game!
+  </p>
+</div>
   <form action="{{ route('stripe.checkout.joinNow', $official->id) }}" method="POST">
   @csrf
   <div class="login_section">
@@ -145,26 +156,29 @@
         
           <!-- Game Option -->
           <li>
-    <div class="radio_box mb_30">
-        <p class="label_from mb_30">{{ $official->game_name }}<span>*</span></p>
-        <div class="form-check remember_check radio_check">
-            <input class="form-check-input" type="radio" name="game_type" value="{{ $official->pricing }}" id="radiocheck_single">
-            <label class="form-check-label" for="radiocheck_single">
-                Singles - ${{ number_format($official->pricing, 2) }}
-            </label>
-        </div>
-        <div class="form-check remember_check radio_check">
-            <input class="form-check-input" type="radio" name="game_type" value="{{ $official->double_price }}" id="radiocheck_double">
-            <label class="form-check-label" for="radiocheck_double">
-                Doubles - ${{ number_format($official->double_price, 2) }}
-            </label>
-        </div>
-    
-        @error('game_type')
-            <small class="text-danger">{{ $message }}</small>
-        @enderror
-    </div>
-</li>
+            <div class="radio_box mb_30">
+              <p class="label_from mb_30">{{ $official->game_name }}<span>*</span></p>
+              <div class="form-check remember_check radio_check">
+                  <input class="form-check-input" type="radio" name="game_type" value="{{ $official->pricing }}" id="radiocheck_single" data-type="singles">
+                  <label class="form-check-label" for="radiocheck_single">
+                      Singles - ${{ number_format($official->pricing, 2) }}
+                  </label>
+              </div>
+              <div class="form-check remember_check radio_check">
+                  <input class="form-check-input" type="radio" name="game_type" value="{{ $official->double_price }}" id="radiocheck_double" data-type="doubles">
+                  <label class="form-check-label" for="radiocheck_double">
+                      Doubles - ${{ number_format($official->double_price, 2) }}
+                  </label>
+              </div>
+              <input type="hidden" name="selected_game" id="selected_game">
+             
+
+              @error('game_type')
+                  <small class="text-danger">{{ $message }}</small>
+              @enderror
+            </div>
+          </li>
+
 
 <li >
   <div class="radio_box mb_30">
@@ -242,28 +256,41 @@
 </script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
+    const gameTypeRadios = document.querySelectorAll('input[name="game_type"]');
+
+// Listen for changes to any of the radio buttons
+gameTypeRadios.forEach(radio => {
+    radio.addEventListener('change', function () {
+        const selectedGameType = this.getAttribute('data-type'); // "singles" or "doubles"
+        const selectedPrice = this.value.split('|')[1]; // Extract price from value (after the '|')
+
+        // Update the hidden input field with game type and price
+        document.getElementById('selected_game').value = `${selectedGameType}`;
+
+      
+    });
+});
     // Get the end date from server-side (use PHP/Laravel Blade to embed data)
     const endDate = new Date("{{ $official->enddate }}").getTime();
-
     function updateTimer() {
-      const now = new Date().getTime();
-      const timeRemaining = endDate - now;
+  const now = new Date().getTime();
+  const timeRemaining = endDate - now;
 
-      if (timeRemaining > 0) {
-        // Calculate hours, minutes, and seconds
-        const hours = Math.floor((timeRemaining / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((timeRemaining / (1000 * 60)) % 60);
-        const seconds = Math.floor((timeRemaining / 1000) % 60);
+  if (timeRemaining > 0) {
+    // Calculate total time left
+    const totalHours = Math.floor(timeRemaining / (1000 * 60 * 60)); // Total hours left
+    const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60)); // Remaining minutes
+    const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000); // Remaining seconds
 
-        // Update the HTML content
-        document.getElementById("hours").innerHTML = `${hours} <span>Hours</span>`;
-        document.getElementById("minutes").innerHTML = `${minutes} <span>Minutes</span>`;
-        document.getElementById("seconds").innerHTML = `${seconds} <span>Seconds</span>`;
-      } else {
-        // When the timer ends
-        document.querySelector(".timer_list").innerHTML = "<p>The event has ended.</p>";
-      }
-    }
+    // Update the HTML content
+    document.getElementById("hours").innerHTML = `${totalHours} <span>Hours</span>`;
+    document.getElementById("minutes").innerHTML = `${minutes} <span>Minutes</span>`;
+    document.getElementById("seconds").innerHTML = `${seconds} <span>Seconds</span>`;
+  } else {
+    // When the timer ends
+    document.querySelector(".timer_list").innerHTML = "<p>The event has ended.</p>";
+  }
+}
 
     // Update the timer every second
     setInterval(updateTimer, 1000);

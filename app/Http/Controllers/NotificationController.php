@@ -12,19 +12,18 @@ class NotificationController extends Controller
 {
     public function index()
     {
-        // Get all events
+ 
         $events = Event::all();
 
-        // Initialize an array to hold event-wise participant details
         $eventParticipants = [];
 
         foreach ($events as $event) {
-            // Get participants (users) for each event
+           
             $participants = UserEvent::where('event_id', $event->id)
-                ->with('user') // eager load users who participated
+                ->with('user') 
                 ->get();
 
-            // Store the event data and participant count
+            
             $eventParticipants[] = [
                 'event' => $event,
                 'participants' => $participants,
@@ -32,7 +31,7 @@ class NotificationController extends Controller
             ];
         }
 
-        // Pass the data to the view
+      
         return view('admin.Notification.notifications', compact('eventParticipants'));
     }
 
@@ -46,7 +45,7 @@ class NotificationController extends Controller
         return response()->json(['participants' => $participants]);
     }
 
-    // Send email to event participants
+  
     public function sendEmail(Request $request, $eventId)
     {
         $participants = UserEvent::where('event_id', $eventId)

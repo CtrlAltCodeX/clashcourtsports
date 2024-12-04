@@ -12,12 +12,14 @@ class Event extends Model
     protected $fillable = [
         'name',
         'location',
+        'game_start_date',
+        'game_end_date',
         'date',
         'capacity',
         'pricing',
-        'enddate',         // Added field
-        'game_name',       // Added field
-        'double_price',    // Added field
+        'enddate',        
+        'game_name',      
+        'double_price',   
         'user_id'
     ];
 }
