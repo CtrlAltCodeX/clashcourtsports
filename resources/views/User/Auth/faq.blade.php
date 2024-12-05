@@ -17,11 +17,11 @@
 
 <body>
   <div class="body_main">
-  @include('layouts.header')
-    <div class="faq_section">
+    @include('layouts.header')
+    <div class="faq_section" style="background-image: url('http://127.0.0.1:8001/storage/FAQ_Banner.png');background-repeat: no-repeat;background-size: cover;">
       <div class="container sports_container">
         <div class="faq_box">
-          <h2 class="faq_heading">FAQ</h2>
+          <h2 class="faq_heading text-white">FAQ</h2>
           <div class="accordion" id="accordionExample">
             <div class="accordion-item accordion_item">
               <h2 class="accordion-header">

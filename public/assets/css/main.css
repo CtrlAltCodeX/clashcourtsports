@@ -112,7 +112,7 @@ button:focus {
 }
 .header_navbar .navbar-nav .nav-item .nav-link {
 	font-family: "Quattrocento", sans-serif;
-    font-size: 24px;
+    font-size: 21px;
     line-height: 34px;
     color: #fff;
     transition: .5s ease-in-out;
@@ -231,7 +231,7 @@ button:focus {
     margin-bottom: 0px;
 }
 .registration_heading{
-	font-size: 36px;
+	font-size: 40px;
 	line-height: 46px;
 	color: #000;
 	font-weight: bold;
@@ -318,7 +318,7 @@ button:focus {
 	text-transform: uppercase;
 }
 .back_section_box p{
-	font-size: 24px;
+	font-size: 21px;
 	line-height: 34px;
 	font-weight: bold;
 	color: #fff;
@@ -410,14 +410,14 @@ button:focus {
 }
 .work_list_media_body h5{
     color: #251F1F;
-    font-size: 24px;
+    font-size: 21px;
     line-height: 30px;
     font-weight: bold;
 	font-family: "Quattrocento", sans-serif;
 	margin-bottom: 0;
 }
 .work_list_box h4{
-	font-size: 36px;
+	font-size: 40px;
     line-height: 46px;
 	font-weight: bold;
 	color: #251F1F;
@@ -454,7 +454,7 @@ button:focus {
 	text-transform: uppercase;
 }
 .testimonial_box p{
-	font-size: 24px;
+	font-size: 21px;
     line-height: 34px;
 	color: #000000;
 	margin-bottom: 0px;
@@ -474,7 +474,7 @@ button:focus {
 	margin-right: 60px;
 }
 .contact_box_left h6{
-	font-size: 36px;
+	font-size: 40px;
     line-height: 46px;
 	font-weight: bold;
 	text-transform: uppercase;
@@ -482,7 +482,7 @@ button:focus {
 	margin-bottom: 16px;
 }
 .contact_box_left p{
-	font-size: 24px;
+	font-size: 21px;
     line-height: 34px;
 	color: #000000;
 	margin-bottom: 0px;
@@ -491,7 +491,7 @@ button:focus {
 }
 .info_label{
     color: #000;
-    font-size: 24px;
+    font-size: 21px;
     font-style: normal;
     font-weight: bold;
     line-height: 34px;
@@ -522,11 +522,11 @@ button:focus {
 }
 .about_section{
 	padding-top: 80px;
-	padding-bottom: 80px;
+	/* padding-bottom: 80px; */
 }
 .about_content h2{
 	color: #000;
-    font-size: 36px;
+    font-size: 40px;
     font-weight: bold;
     line-height: 46px;
     margin-bottom: 16px;
@@ -534,7 +534,7 @@ button:focus {
 }
 .about_content p{
 	color: #000;
-    font-size: 24px;
+    font-size: 21px;
     font-style: normal;
     font-weight: normal;
     line-height: 34px;
@@ -566,9 +566,9 @@ button:focus {
 }
 .label_from{
 	font-family: "Quattrocento", sans-serif;
-	font-size: 24px;
+	font-size: 21px;
 	line-height: 34px;
-	color: #000000;
+	color: white;
 	font-weight: bold;
 	margin-bottom: 8px;
 }
@@ -581,7 +581,7 @@ button:focus {
 .lost_link{
 	color: #5992FF;
 	font-family: "Quattrocento", sans-serif;
-	font-size: 24px;
+	font-size: 21px;
 	line-height: 34px;
 	font-weight: bold;
 	margin-bottom: 64px;
@@ -597,9 +597,9 @@ button:focus {
 }
 
 .remember_check .form-check-label {
-	font-size: 24px;
+	font-size: 21px;
 	line-height: 34px;
-	color: #000000;
+	color: white;
 	font-family: "Quattrocento", sans-serif;
 	position: relative;
 }
@@ -665,7 +665,7 @@ button:focus {
 	background-color: #fff;
 	border: 0px solid #B6B6B6;
 	box-shadow: none;
-	font-size: 36px;
+	font-size: 40px;
 	line-height: 46px;
 	font-weight: 600;
 	text-transform: uppercase;
@@ -692,7 +692,7 @@ button:focus {
 	padding: 20px;
 }
 .accordion_body p{
-	font-size: 24px;
+	font-size: 21px;
 	line-height: 32px;
 	color: #000;
 	font-family: "Quattrocento", sans-serif;
@@ -719,7 +719,7 @@ button:focus {
 }
 .event_btn{
 	color: #fff;
-    font-size: 24px;
+    font-size: 21px;
     font-weight: bold;
     line-height: 34px;
     padding: 8px 40px;
@@ -784,7 +784,7 @@ button:focus {
 }
 .minutes_text span{
 	display: block;
-	font-size: 24px;
+	font-size: 21px;
 	line-height: 34px;
 	font-weight: bold;
 	color: #fff;
@@ -824,7 +824,7 @@ button:focus {
 	margin-bottom: 30px;
 }
 .donation_box_card_header .nav-item .nav-link{
-	font-size: 36px;
+	font-size: 40px;
 	line-height: 46px;
 	font-family: "Quattrocento", sans-serif;
 	font-weight: bold;
@@ -841,7 +841,7 @@ button:focus {
 }
 .donation_monthly_btn{
 	width: 100%;
-	font-size: 36px;
+	font-size: 40px;
 	line-height: 46px;
 	font-family: "Quattrocento", sans-serif;
 	font-weight: bold;
@@ -896,7 +896,7 @@ button:focus {
 	color: #fff;
 }
 .gift_text{
-	font-size: 36px;
+	font-size: 40px;
 	line-height: 46px;
 	font-family: "Quattrocento", sans-serif;
 	font-weight: bold;
@@ -918,7 +918,7 @@ button:focus {
 	padding: 0;	
 }
 .continue_btn{
-	font-size: 24px;
+	font-size: 21px;
     line-height: 34px;
     font-family: "Quattrocento", sans-serif;
     font-weight: bold;
@@ -946,7 +946,7 @@ button:focus {
 }
 .member_sub_heading{
 	font-family: "Quattrocento", sans-serif;
-	font-size: 24px;
+	font-size: 21px;
 	line-height: 34px;
 	font-weight: normal;
 	color: #000;
@@ -1050,7 +1050,7 @@ button:focus {
 	padding: 20px;
 }
 .events_heading{
-    font-size: 36px;
+    font-size: 40px;
     line-height: 46px;
     font-weight: 600;
     text-transform: uppercase;
@@ -1058,14 +1058,14 @@ button:focus {
 	margin-bottom: 16px;
 }
 .event_subheading{
-	font-size: 24px;
+	font-size: 21px;
     line-height: 32px;
     color: #000;
     font-family: "Quattrocento", sans-serif;
     margin-bottom: 16px;
 }
 .event_date{
-	font-size: 24px;
+	font-size: 21px;
     line-height: 34px;
     color: #000000;
     margin-bottom: 16px;
@@ -1087,7 +1087,7 @@ button:focus {
 }
 
 .join_now_radio .form-check-label {
-	font-size: 24px;
+	font-size: 21px;
 	line-height: 34px;
 	color: #000000;
 	font-family: "Quattrocento", sans-serif;

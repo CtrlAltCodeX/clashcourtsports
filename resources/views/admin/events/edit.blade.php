@@ -1,4 +1,4 @@
-@extends('layouts.Sidebar')
+@extends('layouts.sidebar')
 
 @section('admin-content')
     <div class="flex justify-between items-center mb-6">

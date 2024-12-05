@@ -21,66 +21,74 @@
 
     <!-- Alert Section -->
     @if(session('alert'))
-      <div class="alert alert-warning">
-        {{ session('alert') }}
-      </div>
+    <div class="alert alert-warning">
+      {{ session('alert') }}
+    </div>
     @endif
 
     <!-- Banner Section -->
-    <div class="login_banner_section">
+    <div class="login_banner_section" style="position:relative;color:white;">
       <img src="{{ asset('assets/images/login-banner.png') }}" alt="Login Banner">
+
+      <div class="login_section" style="
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 45%;
+">
+        <div class="container sports_container">
+          <form action="{{ route('userPost.auth.login') }}" method="POST">
+            @csrf
+            <div class="login_box">
+              <!-- Email Input -->
+              <div class="login_group mb_30">
+                <p class="label_from">Email Address <span>*</span></p>
+                <input type="email" name="email" class="form-control info_form_control" placeholder="Enter your email" required>
+                @error('email')
+                <div class="text-danger mt-2">{{ $message }}</div>
+                @enderror
+              </div>
+
+              <!-- Password Input -->
+              <div class="login_group mb_30">
+                <p class="label_from">Password <span>*</span></p>
+                <input type="password" name="password" class="form-control info_form_control" placeholder="Enter your password" required>
+                @error('password')
+                <div class="text-danger mt-2">{{ $message }}</div>
+                @enderror
+              </div>
+
+              <!-- General Error Display -->
+              @if ($errors->has('email'))
+              <div class="text-danger mt-2">{{ $errors->first('email') }}</div>
+              @endif
+
+              <!-- Forgot Password -->
+              <div class="login_group">
+                <a href="{{ route('password.request') }}" class="lost_link">Lost Your Password?</a>
+              </div>
+
+              <!-- Remember Me -->
+              <div class="login_group">
+                <div class="form-check remember_check">
+                  <input type="checkbox" name="remember" class="form-check-input" id="remember">
+                  <label class="form-check-label" for="remember">Remember Me</label>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="login_group">
+                <button type="submit" class="btn join_now_btn">Log In</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
 
     <!-- Login Section -->
-    <div class="login_section">
-      <div class="container sports_container">
-        <form action="{{ route('userPost.auth.login') }}" method="POST">
-          @csrf
-          <div class="login_box">
-            <!-- Email Input -->
-            <div class="login_group mb_30">
-              <p class="label_from">Email Address <span>*</span></p>
-              <input type="email" name="email" class="form-control info_form_control" placeholder="Enter your email" required>
-              @error('email')
-                <div class="text-danger mt-2">{{ $message }}</div>
-              @enderror
-            </div>
-
-            <!-- Password Input -->
-            <div class="login_group mb_30">
-              <p class="label_from">Password <span>*</span></p>
-              <input type="password" name="password" class="form-control info_form_control" placeholder="Enter your password" required>
-              @error('password')
-                <div class="text-danger mt-2">{{ $message }}</div>
-              @enderror
-            </div>
-
-            <!-- General Error Display -->
-            @if ($errors->has('email'))
-              <div class="text-danger mt-2">{{ $errors->first('email') }}</div>
-            @endif
-
-            <!-- Forgot Password -->
-            <div class="login_group">
-              <a href="{{ route('password.request') }}" class="lost_link">Lost Your Password?</a>
-            </div>
-
-            <!-- Remember Me -->
-            <div class="login_group">
-              <div class="form-check remember_check">
-                <input type="checkbox" name="remember" class="form-check-input" id="remember">
-                <label class="form-check-label" for="remember">Remember Me</label>
-              </div>
-            </div>
-
-            <!-- Submit Button -->
-            <div class="login_group">
-              <button type="submit" class="btn join_now_btn">Log In</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
 
     <!-- Footer Section -->
     @include('layouts.footer')

@@ -8,16 +8,16 @@
   <meta name="description" content="Clash Court Sports">
   <meta name="keywords" content="Clash Court Sports">
   <link rel="icon" type="image/ico" href="{{ asset('assets/images/favicon.ico') }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
 </head>
 
 <body>
   <div class="body_main">
-  @include('layouts.header')
+    @include('layouts.header')
 
 
     <div class="banner_section">
@@ -63,23 +63,23 @@
               <div class="registration_box_card">
                 <div class="registration_box_inner">
                   <h6>Play Singles - $50</h6>
-                  <a href="#" class="btn registration_for_btn">Register for spring 2024</a>
+                  <a href="#" class="btn registration_for_btn">Register for Spring 2025</a>
                 </div>
               </div>
             </li>
             <li>
               <div class="registration_box_card bg_two">
                 <div class="registration_box_inner">
-                  <h6>Play Singles - $50</h6>
-                  <a href="#" class="btn registration_for_btn">Register for spring 2024</a>
+                  <h6>Play Double - $50</h6>
+                  <a href="#" class="btn registration_for_btn">Register for Spring 2025</a>
                 </div>
               </div>
             </li>
             <li>
               <div class="registration_box_card bg_three">
                 <div class="registration_box_inner">
-                  <h6>Rules</h6>
-                  <a href="#" class="btn registration_for_btn">Register for spring 2024</a>
+                  <h6>Rules & FAQ</h6>
+                  <a href="{{ route('user.auth.faq') }}" class="btn registration_for_btn">Know More</a>
                 </div>
               </div>
             </li>
@@ -97,7 +97,7 @@
             the sport. Your support goes straight to the school, empowering our youth and fostering
             a community of enthusiastic athletes. Thank you for considering this cause and
             for your invaluable support!</p>
-          <a href="{{ route('user.auth.donation') }}" class="btn back_btn">Donate to a school of your choice</a>
+          <a href="{{ route('user.auth.donation') }}" class="btn back_btn">Donate To A School Of Your Choice</a>
         </div>
       </div>
     </div>
@@ -144,7 +144,7 @@
               </div>
             </li>
             <li>
-              <div class="work_box_img"><img  src="{{ asset('assets/images/work_box_img.svg') }}" alt=""></div>
+              <div class="work_box_img"><img src="{{ asset('assets/images/work_box_img.svg') }}" alt=""></div>
             </li>
         </div>
       </div>
@@ -191,7 +191,7 @@
               <textarea name="message" class="form-control info_form_control" rows="6"
                 placeholder="Type your Message"></textarea>
             </div>
-            <a href="join-now.html" class="btn join_now_btn" target="_blank">Join Now</a>
+            <a href="join-now.html" class="btn join_now_btn" target="_blank">Send</a>
           </div>
         </div>
       </div>
@@ -199,10 +199,10 @@
     @include('layouts.footer')
   </div>
   <script src="{{ asset('assets/js/jquery.js') }}"></script>
-    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('assets/js/owl.carousel.js') }}"></script>
-    <script src="{{ asset('assets/js/custom.js') }}"></script>
+  <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+  <script src="{{ asset('assets/js/bootstrap.js') }}"></script>
+  <script src="{{ asset('assets/js/owl.carousel.js') }}"></script>
+  <script src="{{ asset('assets/js/custom.js') }}"></script>
 
 </body>
 

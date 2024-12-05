@@ -10,10 +10,10 @@
       </button>
       <div class="collapse navbar-collapse" id="sportsmenunavbar">
         <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link active" href="{{ route('clashsports') }}">Home</a></li>
-        <li class="nav-item"><a class="nav-link"  href="{{ route('user.auth.login') }}">Login</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ route('clashsports.events') }}">Join Now</a></li>
-          <li class="nav-item"><a class="nav-link"  href="{{ route('user.auth.faq') }}">FAQ</a></li>
+          <li class="nav-item"><a class="nav-link active" href="{{ route('clashsports') }}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ route('user.auth.login') }}">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="">Join Now</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ route('user.auth.faq') }}">FAQ</a></li>
         </ul>
       </div>
     </nav>
