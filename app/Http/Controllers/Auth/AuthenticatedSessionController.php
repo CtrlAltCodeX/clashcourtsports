@@ -61,7 +61,7 @@ class AuthenticatedSessionController extends Controller
     // Determine the redirect URL based on user type
     $redirectUrl = '/'; // Default redirect URL
     if ($user && $user->type === 'Player') {
-        $redirectUrl = '/clashsports/login';
+        $redirectUrl = '/login';
     }
 
     // Redirect to the determined URL

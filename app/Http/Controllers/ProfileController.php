@@ -20,19 +20,40 @@ class ProfileController extends Controller
     }
 
  
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+ public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+        // Fill the user model with validated data
         $request->user()->fill($request->validated());
 
+        // Check if the email field was modified and reset verification
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
 
+        // Handle profile image upload
+        if ($request->hasFile('profile_image')) {
+            // Delete old image if it exists
+            if ($request->user()->profile_image) {
+                $oldImagePath = public_path('assets/storage/' . $request->user()->profile_image);
+                if (file_exists($oldImagePath)) {
+                    @unlink($oldImagePath);
+                }
+            }
+
+            // Store new image in the custom folder
+            $fileName = time() . '_' . $request->file('profile_image')->getClientOriginalName();
+            $request->file('profile_image')->move(public_path('assets/storage'), $fileName);
+
+            // Save the file name in the database
+            $request->user()->profile_image = $fileName;
+        }
+
+        // Save the updated user details
         $request->user()->save();
 
+        // Redirect back with a success message
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
-
   
     public function destroy(Request $request): RedirectResponse
     {

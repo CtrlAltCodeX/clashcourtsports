@@ -1,3 +1,4 @@
+
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">
@@ -5,7 +6,7 @@
         </h2>
 
         <p class="mt-1 text-sm text-gray-600">
-            {{ __("Update your account's profile information and email address.") }}
+            {{ __("Update your account's profile information, email address, and profile image.") }}
         </p>
     </header>
 
@@ -13,9 +14,34 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
         @csrf
         @method('patch')
+
+        <div class="flex items-center">
+        <div class="mr-4">
+            @if ($user->profile_image)
+                <div class="relative w-20 h-20">
+                    <img src="{{ asset('assets/storage/' . $user->profile_image) }}" 
+                        alt="Profile Image" 
+                        class="w-full h-full rounded-full object-cover border-2 border-gray-300 shadow">
+                </div>
+            @else
+                <div class="relative w-20 h-20">
+                    <img src="{{ asset('assets/images/default_profile.png') }}" 
+                        alt="Default Profile Image" 
+                        class="w-full h-full rounded-full object-cover border-2 border-gray-300 shadow">
+                </div>
+            @endif
+        </div>
+
+
+            <div>
+                <x-input-label for="profile_image" :value="__('Profile Image')" />
+                <input id="profile_image" name="profile_image" type="file" class="mt-1 block w-full">
+                <x-input-error class="mt-2" :messages="$errors->get('profile_image')" />
+            </div>
+        </div>
 
         <div>
             <x-input-label for="name" :value="__('Name')" />
