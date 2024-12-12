@@ -130,6 +130,7 @@
                 class="form-control w-3/4 mx-auto border border-gray-300 rounded px-2 py-1"
                 min="0" max="100" 
                 placeholder="Enter opponent's score">
+                <button type="button" class="btn btn-sm btn-success add-opponent-score" data-id="{{ $userEvent->id }}">+ Add</button>
         </div>
     @else
         @if (isset($userEvent->opponent_score))

@@ -16,8 +16,10 @@
             </div>
 
             @if (session('success'))
-                <div class="bg-green-100 text-green-700 p-3 rounded mb-4">{{ session('success') }}</div>
-            @endif
+    <div style="background-color: #d1fae5; color: #047857; padding: 0.75rem; border-radius: 0.375rem; margin-bottom: 1rem;">
+        {{ session('success') }}
+    </div>
+@endif
 
             <div class="table-responsive">
                 <table class="table-auto w-full border border-gray-300 text-center">
@@ -26,6 +28,7 @@
                             <th class="px-4 py-2 border">Organization Name</th>
                             <th class="px-4 py-2 border">Phone Number</th>
                             <th class="px-4 py-2 border">Email</th>
+                            <!-- <th class="px-4 py-2 border">Type</th>  -->
                             <th class="px-4 py-2 border">City</th>
                             <th class="px-4 py-2 border">State</th>
                             <th class="px-4 py-2 border">ZIP Code</th>
@@ -38,8 +41,10 @@
                                 <td class="px-4 py-2 border">{{ $official->name }}</td>
                                 <td class="px-4 py-2 border">{{ $official->phone_number }}</td>
                                 <td class="px-4 py-2 border">{{ $official->email }}</td>
+                                <!-- <td class="px-4 py-2 border">{{ $official->type }}</td> -->
                                 <td class="px-4 py-2 border">{{ $official->city }}</td>
                                 <td class="px-4 py-2 border">{{ $official->state }}</td>
+                            
                                 <td class="px-4 py-2 border">{{ $official->zip_code }}</td>
                                 <td class="px-4 py-2 border">
                                     <div class="flex justify-center space-x-3">
@@ -53,7 +58,7 @@
 <form action="{{ route('officials_registration.destroy', ['officials_registration' => $official->id]) }}" 
       method="POST" 
       class="inline-block" 
-      onsubmit="return confirm('Are you sure?')">
+      onsubmit="return confirm('Are you sure you want to delete?')">
     @csrf
     @method('DELETE')
     <button type="submit" 

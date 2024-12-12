@@ -13,8 +13,7 @@ class UserEventController extends Controller
     public function index()
     {
         $user = auth()->user();
-    
-        // Retrieve all user events
+
         $userEvents = UserEvent::where('user_id', $user->id)->get();
     
         $eventsWithNearbyUsers = [];
@@ -25,8 +24,7 @@ class UserEventController extends Controller
             $latitude = $userEvent->latitude;
             $longitude = $userEvent->longitude;
             $userSkillLevel = $user->Skill_Level;
-    
-            // Adjust distance calculation to filter users within 10 miles
+
             $nearbyUsers = UserEvent::select('user_events.*', 'users.name', 'users.email', 'users.Skill_Level')
                 ->join('users', 'users.id', '=', 'user_events.user_id')
                 ->where('user_events.selected_game', $userEvent->selected_game)
@@ -55,8 +53,7 @@ class UserEventController extends Controller
     public function AddScore()
     {
         $user = auth()->user();
-        
-        // Fetch events where the logged-in user is participating
+
         $userEvents = UserEvent::with('event')
             ->where('user_id', $user->id)
             ->get();
@@ -65,7 +62,7 @@ class UserEventController extends Controller
         $usersForDropdown = [];
         
         foreach ($userEvents as $userEvent) {
-            // Fetch users for the dropdown (opponents for the current user's events)
+     
             $usersForEvent = UserEvent::select(
                 'user_events.*',
                 'users.name',
@@ -88,15 +85,15 @@ class UserEventController extends Controller
                     ->where('event_id', $userEvent->event_id)
                     ->first();
                 
-                // Get the opponent's email
+    
                 if ($opponentScore) {
                     $opponentUser = User::find($opponentScore->user_id); 
               
                     if ($opponentUser) {
-                        $userEvent->opponent_email = $opponentUser->email; // Store opponent's email in the event
-                        $userEvent->user_event_id = $opponentScore->id; // Store the user_event_id
+                        $userEvent->opponent_email = $opponentUser->email; 
+                        $userEvent->user_event_id = $opponentScore->id;
                     }
-                    $userEvent->opponent_score = json_decode($opponentScore->score); // Assuming score is stored as JSON
+                    $userEvent->opponent_score = json_decode($opponentScore->score);
                 }
             }elseif ($userEvent->sender_opponent_id) {
 
@@ -105,18 +102,17 @@ class UserEventController extends Controller
                     ->where('event_id', $userEvent->event_id)
                     ->first();
                 
-                // Get the opponent's email
                 if ($opponentScore) {
                     $opponentUser = User::find($opponentScore->user_id); 
               
                     if ($opponentUser) {
-                        $userEvent->opponent_email = $opponentUser->email; // Store opponent's email in the event
-                        $userEvent->user_event_id = $opponentScore->id; // Store the user_event_id
+                        $userEvent->opponent_email = $opponentUser->email; 
+                        $userEvent->user_event_id = $opponentScore->id; 
                     }
-                    $userEvent->opponent_score = json_decode($opponentScore->score); // Assuming score is stored as JSON
+                    $userEvent->opponent_score = json_decode($opponentScore->score);
                 }
-                // If reciver_opponent_id is not set, check sender_opponent_id and assign approval status
-                $userEvent->show_approval_buttons = true; // Add flag for showing approval buttons
+                
+                $userEvent->show_approval_buttons = true;
             }
         }
 
@@ -185,6 +181,7 @@ public function SaveScore(Request $request)
 
     // Get the specific event_id for the clicked form
     $eventId = $request->input('event_id');
+    // echo $eventId;die;
    
 
     // Get the scores, selected user, and opponent scores for the specific event
@@ -262,7 +259,7 @@ public function SaveManualMatch(Request $request)
         'event_id' => 'required',
         'scores' => 'required|array',
         'opponent_scores' => 'required|array',
-        'selected_user' => 'required|exists:user_events,id',  // Ensure selected user exists
+        'selected_user' => 'required|exists:user_events,id', 
         'latitude' => 'required|numeric',
         'longitude' => 'required|numeric',
     ]);

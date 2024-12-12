@@ -11,10 +11,13 @@ class OfficialsRegistrationController extends Controller
 
     public function index()
     {
-        $officials = User::where('type', '!=', 'Supper')->get();
+        $officials = User::where('type', '=', 'admin')
+                         ->orderBy('created_at', 'desc') // Order by latest created records
+                         ->get();
+    
         return view('admin.officials_registration.index', compact('officials'));
     }
-
+    
     public function create()
     {
         return view('admin.officials_registration.create');
@@ -25,15 +28,14 @@ class OfficialsRegistrationController extends Controller
     {
         $request->validate([
             'organization_name' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:20',
+            'phone_number' => 'required|digits:10',
             'email' => 'required|email|unique:users,email',
             'city' => 'required|string|max:255',
             'state' => 'required|string|max:255',
-            'zip_code' => 'required|string|max:10',
+            'zip_code' => 'required|digits:6',
             'password' => 'required|string|min:8|confirmed',
         ]);
-
-   
+//    echo "true";die;
         $user = new User();
         $user->name = $request->organization_name;
         $user->type = 'admin';
@@ -69,14 +71,14 @@ class OfficialsRegistrationController extends Controller
     {
         $request->validate([
             'organization_name' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:20',
-            'email' => 'required|email|unique:users,email,' . $id,
+            'phone_number' => 'required|digits:10',
+            'email' => 'required|email',
             'city' => 'required|string|max:255',
             'state' => 'required|string|max:255',
-            'zip_code' => 'required|string|max:10',
-            'password' => 'nullable|string|min:8|confirmed', 
+            'zip_code' => 'required|digits:6',
+            'password' => 'nullable|string|min:8|confirmed', // Make password nullable
         ]);
-
+    
      
         $user = User::findOrFail($id);
 
