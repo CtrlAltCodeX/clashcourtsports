@@ -18,8 +18,12 @@
             <x-dropdown align="right" width="48">
                 <x-slot name="trigger">
                     <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 focus:outline-none transition ease-in-out duration-150">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-blue-500 text-white font-bold text-xl">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-white-500 text-black font-bold text-xl border">
+                            @if(!auth()->user()->profile_image)
                             {{ Auth::user()->name[0] }}
+                            @else
+                            <img src="/assets/storage/{{auth()->user()->profile_image }}" class="flex items-center justify-center h-12 w-12 rounded-full bg-white-500 border text-black font-bold text-xl" />
+                            @endif
                         </div>
 
                         <div class="ms-1">

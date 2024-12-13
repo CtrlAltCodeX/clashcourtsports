@@ -2,7 +2,7 @@
 
 @section('admin-content')
 <div class="container my-5">
-    <div style="display: flex; flex-direction: row;  gap: 20px;">
+    <div style="display: flex; flex-direction: row; gap: 20px; margin-bottom: 40px;">
         <!-- Total Events Card -->
         <div class="card shadow-lg border-0 text-center" style="background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; border-radius: 15px; width: 300px;">
             <div class="card-body d-flex flex-column justify-content-center align-items-center" style="min-height: 200px;">
@@ -24,4 +24,5 @@
         </div>
     </div>
 </div>
+
 @endsection
