@@ -7,17 +7,17 @@
                 <!-- Check user type -->
                 @if(auth()->user()->type === 'Player')
                 <li>
-                    <a href="{{ route('dashboard') }}" class="block p-4 rounded-lg {{ str_contains(request()->route()->getName(), 'dashboard') == 'dashboard' ? 'bg-gray-700' : '' }} hover:bg-gray-700">
+                    <a href="{{ route('user.dashboard') }}" class="block p-4 rounded-lg {{ str_contains(request()->route()->getName(), 'dashboard') == 'dashboard' ? 'bg-gray-700' : '' }} hover:bg-gray-700">
                         Dashboard
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('user.events') }}" class="block p-4 rounded-lg {{ str_contains(request()->route()->getName(), 'user.events') == 'user.events' ? 'bg-gray-700' : '' }} hover:bg-gray-700">
+                    <a href="{{ route('user.events') }}" class="block p-4 rounded-lg {{ (str_contains(request()->route()->getName(), 'user.events') && request()->route()->getName() == 'user.events') ? 'bg-gray-700' : '' }} hover:bg-gray-700">
                         User Events
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('user.events.score') }}" class="block p-4 rounded-lg {{ str_contains(request()->route()->getName(), 'user.events.score') == 'user.events.score' ? 'bg-gray-700' : '' }} hover:bg-gray-700">
+                    <a href="{{ route('user.events.score') }}" class="block p-4 rounded-lg {{ str_contains(request()->route()->getName(), 'user.events.score') ? 'bg-gray-700' : '' }} hover:bg-gray-700">
                         Events Score
                     </a>
                 </li>

@@ -21,23 +21,24 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/user-events', [UserEventController::class, 'index'])
         ->name('user.events')->middleware('auth');
 
-    Route::get('/events-Score', [UserEventController::class, 'AddScore'])
+        Route::get('/user-dashboard', [UserEventController::class, 'dashboard'])
+        ->name('user.dashboard')->middleware('auth');
+
+    Route::get('/events-score', [UserEventController::class, 'AddScore'])
         ->name('user.events.score')->middleware('auth');
 
     Route::post('/events-score/save', [UserEventController::class, 'SaveScore'])
         ->name('user.events.save_score');
 
-        // Route for showing the "Add Match Manually" page
-Route::get('/user/events/add-manually', [UserEventController::class, 'showAddMatchForm'])
-->name('user.events.add.manually');
+    // Route for showing the "Add Match Manually" page
+    Route::get('/user/events/add-manually', [UserEventController::class, 'showAddMatchForm'])
+        ->name('user.events.add.manually');
 
-// Route to save the manually added match
-Route::post('/user/events/save-match', [UserEventController::class, 'SaveManualMatch'])
-->name('user.events.save.match');
+    // Route to save the manually added match
+    Route::post('/user/events/save-match', [UserEventController::class, 'SaveManualMatch'])
+        ->name('user.events.save.match');
 
-
-        Route::post('/events/update-status/{event}', [UserEventController::class, 'updateStatus'])->name('user.userevents.updateStatus');
-
+    Route::post('/events/update-status/{event}', [UserEventController::class, 'updateStatus'])->name('user.userevents.updateStatus');
 
     Route::get('/manage-scores', [ManageScoreController::class, 'index'])
         ->name('admin.manage_scores.index');

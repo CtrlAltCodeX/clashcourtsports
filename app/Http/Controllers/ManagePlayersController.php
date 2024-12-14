@@ -227,7 +227,7 @@ public function StripeCheckout(Request $request, $id)
             }
     
         
-            return redirect()->route('dashboard');
+            return redirect()->route('user.dashboard');
         } else {
        
             return back()->withErrors(['email' => 'Invalid credentials.'])->withInput();
