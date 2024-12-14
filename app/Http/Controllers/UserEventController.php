@@ -181,6 +181,9 @@ public function SaveScore(Request $request)
 
     // Get the specific event_id for the clicked form
     $eventId = $request->input('event_id');
+    // echo "<pre>";
+    // print_r($request->all());
+    // echo "</pre>";die;
     // echo $eventId;die;
    
 
@@ -274,12 +277,7 @@ public function SaveManualMatch(Request $request)
     
     // Find the selected user event record to get the associated user ID
     $selectedUserEvent = UserEvent::findOrFail($selectedUserEventId);
-    // echo $eventId;
-    // echo "<pre>";
-    // print_r($request->all());
-    // $event = Event::find($eventId);
-    // print_r($selectedUserEvent);
-    // die;
+ 
     $selectedUser = $selectedUserEvent->user;  // Get the actual User associated with the event
 
     // Retrieve the selected_game from the existing user event (instead of Event model)
@@ -287,32 +285,36 @@ public function SaveManualMatch(Request $request)
 
     // Save the current user's UserEvent
     $currentUserEvent = new UserEvent();
-    $currentUserEvent->user_id = $user->id; // Set the current user's ID
-    $currentUserEvent->event_id =  $selectedUserEvent->event_id; // Set the event ID
-    $currentUserEvent->score = json_encode($request->input('scores')); // Store current user's scores as JSON
-    $currentUserEvent->selected_game = $selectedGame; // Use the selected game from the user's event
-    $currentUserEvent->status = 'Requested'; // Set the status to 'Requested'
-    $currentUserEvent->reciver_opponent_id = $selectedUserEventId; // Set the opponent's UserEvent ID (sender)
-    $currentUserEvent->latitude = $request->input('latitude'); // Store latitude
-    $currentUserEvent->longitude = $request->input('longitude'); // Store longitude
-    $currentUserEvent->save(); // Save the current user's event
+    $currentUserEvent->user_id = $user->id;
+    $currentUserEvent->event_id = $selectedUserEvent->event_id;
+    $currentUserEvent->score = json_encode($request->input('scores'));
+    $currentUserEvent->selected_game = $selectedGame;
+    $currentUserEvent->status = 'Requested';
+    $currentUserEvent->latitude = $request->input('latitude');
+    $currentUserEvent->longitude = $request->input('longitude');
+    $currentUserEvent->save(); // Pehle save karein
 
     // Save the selected opponent's UserEvent
     $opponentUserEvent = new UserEvent();
-    $opponentUserEvent->user_id = $selectedUser->id; // Set the opponent's user ID
-    $opponentUserEvent->event_id = $selectedUserEvent->event_id; // Set the event ID
-    $opponentUserEvent->score = json_encode($request->input('opponent_scores')); // Store opponent's scores as JSON
-    $opponentUserEvent->selected_game = $selectedGame; // Use the selected game from the user's event
-    $opponentUserEvent->status = 'Requested'; // Set the status to 'Requested'
-    $opponentUserEvent->sender_opponent_id = $currentUserEvent->id; // Set the current user's UserEvent ID (receiver)
-    $opponentUserEvent->latitude = $request->input('latitude'); // Store latitude
-    $opponentUserEvent->longitude = $request->input('longitude'); // Store longitude
-    $opponentUserEvent->save(); // Save the opponent's event
+    $opponentUserEvent->user_id = $selectedUser->id;
+    $opponentUserEvent->event_id = $selectedUserEvent->event_id;
+    $opponentUserEvent->score = json_encode($request->input('opponent_scores'));
+    $opponentUserEvent->selected_game = $selectedGame;
+    $opponentUserEvent->status = 'Requested';
+    $opponentUserEvent->latitude = $request->input('latitude');
+    $opponentUserEvent->longitude = $request->input('longitude');
+    $opponentUserEvent->save(); // Opponent ka event bhi save karein
+
+    // Update the records with correct IDs
+    $currentUserEvent->reciver_opponent_id = $opponentUserEvent->id;
+    $currentUserEvent->save(); // Dubara save karein
+
+    $opponentUserEvent->sender_opponent_id = $currentUserEvent->id;
+    $opponentUserEvent->save(); // Dubara save karein
 
     // Redirect with success message
     return redirect()->route('user.events.score')->with('success', 'Match added successfully!');
 }
-
 
 
 }

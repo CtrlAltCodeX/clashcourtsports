@@ -25,6 +25,9 @@ class ProfileController extends Controller
         // Fill the user model with validated data
         $request->user()->fill($request->validated());
 
+        if ($request->has('phone_number')) {
+            $request->user()->phone_number = $request->input('phone_number');
+        }
         // Check if the email field was modified and reset verification
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
