@@ -31,8 +31,8 @@
             <h2 class="events_heading">{{ $event->name }}</h2>
             <p class="event_subheading">{{ $event->game_name }} - {{ $event->location }}</p>
             <p class="event_date">
-              {{ \Carbon\Carbon::parse($event->date)->format('d F Y') }} To 
-              {{ \Carbon\Carbon::parse($event->enddate)->format('d F Y') }}
+              {{ \Carbon\Carbon::parse($event->date)->format(' F d Y') }} To 
+              {{ \Carbon\Carbon::parse($event->enddate)->format('F d  Y') }}
             </p>
             @if ($isExpired)
               <span class="btn expired_btn" style="background-color: #ccc; cursor: not-allowed;">Expired Event</span>

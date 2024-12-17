@@ -22,7 +22,7 @@ class ManagePlayersController extends Controller
         $events = Event::all()->sortBy(function ($event) use ($currentDate) {
             return $event->enddate < $currentDate ? 1 : 0; 
         });
-    
+
         return view('user.events.index', compact('events'));
     }
 

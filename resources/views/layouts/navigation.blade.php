@@ -20,8 +20,14 @@
                 </div>
             @endif
 
-            <!-- Admin Panel Text -->
-            <span class="text-lg font-semibold ml-2">Admin Panel</span>
+            @if (Auth::user()->type==="Player")
+                    <!-- Admin Panel Text -->
+                    <span class="text-lg font-semibold ml-2">{{Auth::user()->name}}</span>
+            @else
+              <!-- Admin Panel Text -->
+              <span class="text-lg font-semibold ml-2">Admin Panel</span>
+            @endif
+          
         </div>
 
         <!-- Right side Dropdown -->

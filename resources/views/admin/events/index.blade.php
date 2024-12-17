@@ -14,9 +14,10 @@
     @endif
 
     <div class="table-responsive">
-        <table class="table-auto w-full border border-gray-300 text-center">
+    <table class="table-auto w-full border border-gray-300 text-center">
             <thead class="bg-blue-100 text-blue-700">
                 <tr>
+                <th class="py-2 border">#</th>
                     <th class=" py-2 border">Name</th>
                     <th class=" py-2 border">Game Name</th>
                     <th class=" py-2 border">More Info</th>
@@ -24,8 +25,10 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($events as $event)
+            @forelse ($events as $index => $event)
                 <tr class="hover:bg-gray-100">
+                <td class="py-2 border">{{ $events->firstItem() + $index }}</td>
+
                     <td class=" py-2 border">{{ $event->name }}</td>
                     <td class=" py-2 border">{{ $event->game_name }}</td>
                     <td class=" py-2 border">
@@ -40,7 +43,7 @@
                             <form action="{{ route('events.destroy', $event) }}" method="POST" class="inline-block">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" style="background-color: #f56565; margin-left: 10px;" class="text-white px-3 py-2 rounded text-sm flex items-center hover:bg-red-600 focus:outline-none" onclick="return confirm('Are you sure?')">
+                                <button type="submit" style="background-color: #f56565; margin-left: 10px;" class="text-white px-3 py-2 rounded text-sm flex items-center hover:bg-red-600 focus:outline-none" onclick="return confirm('Are you sure you want to delete?')">
                                     <i class="fas fa-trash-alt mr-1"></i>
                                 </button>
                             </form>
@@ -67,19 +70,19 @@
                                     <span class="text-gray-900">{{ $event->capacity }}</span>
                                 </li>
                                 <li class="flex items-center">
-                                    <span class="text-gray-700 font-medium w-1/3">⏳ Game Start:</span>
+                                    <span class="text-gray-700 font-medium w-1/3">⏳ Session Start:</span>
                                     <span class="text-gray-900">{{ \Carbon\Carbon::parse($event->game_start_date)->format('m-d-Y H:i') }}</span>
                                 </li>
                                 <li class="flex items-center">
-                                    <span class="text-gray-700 font-medium w-1/3">⏳ Game End:</span>
+                                    <span class="text-gray-700 font-medium w-1/3">⏳ Session End:</span>
                                     <span class="text-gray-900">{{ \Carbon\Carbon::parse($event->game_end_date)->format('m-d-Y H:i') }}</span>
                                 </li>
                                 <li class="flex items-center">
-                                    <span class="text-gray-700 font-medium w-1/3">📅 Event Start:</span>
+                                    <span class="text-gray-700 font-medium w-1/3">📅 Registration Start:</span>
                                     <span class="text-gray-900">{{ \Carbon\Carbon::parse($event->date)->format('m-d-Y H:i') }}</span>
                                 </li>
                                 <li class="flex items-center">
-                                    <span class="text-gray-700 font-medium w-1/3">📅 Event End:</span>
+                                    <span class="text-gray-700 font-medium w-1/3">📅 Registration End:</span>
                                     <span class="text-gray-900">{{ \Carbon\Carbon::parse($event->enddate)->format('m-d-Y H:i') }}</span>
                                 </li>
                                 <li class="flex items-center">
@@ -103,6 +106,11 @@
             </tbody>
         </table>
     </div>
+
+    <!-- Pagination Links -->
+    <div class="mt-4">
+        {{ $events->links('pagination::tailwind') }} <!-- Use TailwindCSS pagination links -->
+    </div>
 </div>
 @endsection
 
@@ -112,7 +120,6 @@
 <script>
     $(document).ready(function() {
         $(".toggle-details").on("click", function() {
-            // Find the next row and toggle its visibility
             $(this).closest("tr").next(".details-row").toggleClass("hidden");
         });
     });

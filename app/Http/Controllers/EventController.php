@@ -9,9 +9,10 @@ class EventController extends Controller
 {
     public function index()
     {
-        $events = Event::all();
+        $events = Event::paginate(10); // 10 records per page, you can adjust this number
         return view('admin.events.index', compact('events'));
     }
+    
 
     public function create()
     {

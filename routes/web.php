@@ -7,6 +7,7 @@ use App\Http\Controllers\ManagePlayersController;
 use App\Http\Controllers\OfficialsRegistrationController;
 use App\Http\Controllers\UserEventController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ManageScoreController;
 
 Route::middleware('admin')->prefix('admin')->group(function () {
@@ -72,6 +73,13 @@ Route::get('donation', function () {
 
 Route::get('join-now/{id}', [ManagePlayersController::class, 'JoinNow'])
     ->name('user.auth.joinNow');
+
+    Route::post('/contact', [ContactController::class, 'store'])
+    ->name('contact.store');
+
+    Route::get('/contact', [ContactController::class, 'index'])
+    ->name('admin.contact.index');
+
 
 Route::post('join-now/{id}', [ManagePlayersController::class, 'StripeCheckout'])
     ->name('stripe.checkout.joinNow');

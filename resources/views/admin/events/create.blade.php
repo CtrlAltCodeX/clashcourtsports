@@ -28,13 +28,13 @@
 
         <!-- Game Start Date -->
         <div class="mb-4">
-        <label for="game_start_date" class="block text-gray-700 font-medium mb-2">Game Start Date Time</label>
+        <label for="game_start_date" class="block text-gray-700 font-medium mb-2">Session start date</label>
         <input type="datetime-local" name="game_start_date" id="game_start_date" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
     </div>
 
     <!-- Game End Date -->
     <div class="mb-4">
-        <label for="game_end_date" class="block text-gray-700 font-medium mb-2">Game End Date</label>
+        <label for="game_end_date" class="block text-gray-700 font-medium mb-2">Session end date</label>
         <input type="datetime-local" name="game_end_date" id="game_end_date" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
     </div>
     <!-- Location -->
@@ -47,13 +47,13 @@
 
     <!-- Date -->
     <div class="mb-4">
-        <label for="date" class="block text-gray-700 font-medium mb-2">Start Date Time</label>
+        <label for="date" class="block text-gray-700 font-medium mb-2">Registration Start Date</label>
         <input type="datetime-local" name="date" id="date" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
     </div>
 
     <!-- End Date -->
     <div class="mb-4">
-        <label for="enddate" class="block text-gray-700 font-medium mb-2">End Date Time</label>
+        <label for="enddate" class="block text-gray-700 font-medium mb-2">Registration End Date</label>
         <input type="datetime-local" name="enddate" id="enddate" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
     </div>
 
@@ -84,4 +84,27 @@
         </button>
     </div>
 </form>
+
+<script>
+    // Current date and time ko YYYY-MM-DDTHH:MM format mein convert karte hain
+    function setMinDateTime() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+
+        const currentDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+
+        // Sare datetime-local fields mein minimum date set karte hain
+        document.getElementById('game_start_date').min = currentDateTime;
+        document.getElementById('game_end_date').min = currentDateTime;
+        document.getElementById('date').min = currentDateTime;
+        document.getElementById('enddate').min = currentDateTime;
+    }
+
+    // Page load hone par function call karte hain
+    window.onload = setMinDateTime;
+</script>
 @endsection

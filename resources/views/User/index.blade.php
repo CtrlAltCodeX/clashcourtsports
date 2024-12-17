@@ -18,7 +18,12 @@
 <body>
   <div class="body_main">
     @include('layouts.header')
-
+    @if(session('alert'))
+    <div class="alert alert-warning">
+        {{ session('alert') }}
+    </div>
+ 
+@endif
 
     <div class="banner_section">
       <div class="container sports_container">
@@ -177,22 +182,25 @@
             <p>Fill out the form below to get in touch with us. We are here to answer any questions you may have and
               provide you with the best tennis experience.</p>
           </div>
-          <div class="contact_box_right">
-            <div class="info_group">
-              <p class="info_label">First Name</p>
-              <input type="text" name="firstName" class="form-control info_form_control" placeholder="E.g Nishtha">
-            </div>
-            <div class="info_group">
-              <p class="info_label">Email Address</p>
-              <input type="text" name="firstName" class="form-control info_form_control" placeholder="abc@gmail.com">
-            </div>
-            <div class="info_group">
-              <p class="info_label">Message</p>
-              <textarea name="message" class="form-control info_form_control" rows="6"
-                placeholder="Type your Message"></textarea>
-            </div>
-            <a href="join-now.html" class="btn join_now_btn" target="_blank">Send</a>
-          </div>
+          <form action="{{ route('contact.store') }}" method="POST">
+    @csrf
+    <div class="contact_box_right">
+        <div class="info_group">
+            <p class="info_label">First Name</p>
+            <input type="text" name="first_name" class="form-control info_form_control" placeholder="E.g Nishtha" required>
+        </div>
+        <div class="info_group">
+            <p class="info_label">Email Address</p>
+            <input type="email" name="email" class="form-control info_form_control" placeholder="abc@gmail.com" required>
+        </div>
+        <div class="info_group">
+            <p class="info_label">Message</p>
+            <textarea name="message" class="form-control info_form_control" rows="6" placeholder="Type your Message" required></textarea>
+        </div>
+        <button type="submit" class="btn join_now_btn">Send</button>
+    </div>
+</form>
+
         </div>
       </div>
     </div>
