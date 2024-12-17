@@ -322,8 +322,7 @@ class UserEventController extends Controller
             'scores' => 'required|array',
             'opponent_scores' => 'required|array',
             'selected_user' => 'required|exists:user_events,id', 
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
+           
         ]);
 
         $eventId = $request->input('event_id');

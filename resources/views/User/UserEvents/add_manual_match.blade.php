@@ -54,8 +54,6 @@
             </div>
         </div>
 
-        <input type="hidden" name="latitude" id="latitude">
-        <input type="hidden" name="longitude" id="longitude">
 
         <!-- Submit Button -->
         <div>
@@ -66,24 +64,8 @@
     </div>
 </form>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANGZDqrXUiu4UkxKiZIaRe9jw&libraries=places"></script>
 
-<script>
-    // Use the Geolocation API
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            function(position) {
-                document.getElementById('latitude').value = position.coords.latitude;
-                document.getElementById('longitude').value = position.coords.longitude;
-            },
-            function(error) {
-                console.error('Error obtaining location:', error);
-            }
-        );
-    } else {
-        alert('Geolocation is not supported by this browser.');
-    }
-</script>
+
 <script>
     let scoreCount = 1; // Initial count for score inputs
     let opponentScoreCount = 1; // Initial count for opponent score inputs
