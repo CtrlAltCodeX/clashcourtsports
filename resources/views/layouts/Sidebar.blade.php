@@ -50,6 +50,11 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('show.donations.index') }}" class="block {{ str_contains(request()->route()->getName(), 'notification') ? 'bg-gray-700' : '' }} p-4 rounded-lg hover:bg-gray-700">
+                        Donations
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('admin.contact.index') }}" class="block {{ str_contains(request()->route()->getName(), 'notification') ? 'bg-gray-700' : '' }} p-4 rounded-lg hover:bg-gray-700">
                         ContactUs
                     </a>
