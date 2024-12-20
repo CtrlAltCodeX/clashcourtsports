@@ -21,7 +21,7 @@
                     <th class="py-2 border">Plan</th>
                     <th class="py-2 border">Amount</th>
                     <th class="py-2 border">Payment Status</th>
-                    <th class="py-2 border">transaction_id</th>
+                  
            
 
                 </tr>
@@ -35,7 +35,7 @@
                         <td class="py-2 border">{{ $donation->plan }}</td>
                         <td class="py-2 border">${{ number_format($donation->amount, 2) }}</td>
                         <td class="py-2 border">{{ ucfirst($donation->payment_status) }}</td>
-                        <td class="py-2 border">{{ ucfirst($donation->transaction_id) }}</td>
+                      
 
                      
                     </tr>

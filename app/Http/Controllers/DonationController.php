@@ -16,7 +16,6 @@ class DonationController extends Controller
     {
         $plan = $request->input('plan');
     
-        // Determine the amount based on the selected plan
         $amount = $request->input('amount') === 'other'
             ? ($plan === 'monthly' ? $request->input('custom_amount_monthly') : $request->input('custom_amount_once'))
             : $request->input('amount');
@@ -25,37 +24,35 @@ class DonationController extends Controller
             return back()->with('error', 'Invalid donation amount.');
         }
     
-        // Initialize Stripe client
+
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-    
-        // Redirect URLs
+   
         $successUrl = route('donation.checkout.success') . '?session_id={CHECKOUT_SESSION_ID}';
         $cancelUrl = route('donation.checkout.cancel');
     
         try {
             if ($plan === 'monthly') {
-                // Dynamically create a price for the monthly subscription
+           
                 $dynamicPrice = $stripe->prices->create([
-                    'unit_amount' => $amount * 100, // Amount in cents
+                    'unit_amount' => $amount * 100,
                     'currency' => 'USD',
                     'recurring' => ['interval' => 'month'],
-                    'product' => env('STRIPE_PRODUCT_ID'), // Replace with your existing product ID
+                    'product' => env('STRIPE_PRODUCT_ID'),
                 ]);
     
-                // Create a checkout session with the dynamically created price
                 $response = $stripe->checkout->sessions->create([
                     'success_url' => $successUrl,
                     'cancel_url' => $cancelUrl,
                     'payment_method_types' => ['card'],
                     'line_items' => [[
-                        'price' => $dynamicPrice->id, // Use the dynamically created price ID
+                        'price' => $dynamicPrice->id, 
                         'quantity' => 1,
                     ]],
                     'mode' => 'subscription',
                     'allow_promotion_codes' => true,
                 ]);
             } else {
-                // Create one-time donation session
+           
                 $response = $stripe->checkout->sessions->create([
                     'success_url' => $successUrl,
                     'cancel_url' => $cancelUrl,
@@ -66,7 +63,7 @@ class DonationController extends Controller
                             'product_data' => [
                                 'name' => 'One-Time Donation',
                             ],
-                            'unit_amount' => $amount * 100, // Convert amount to cents
+                            'unit_amount' => $amount * 100, 
                         ],
                         'quantity' => 1,
                     ]],
@@ -74,8 +71,7 @@ class DonationController extends Controller
                     'allow_promotion_codes' => true,
                 ]);
             }
-    
-            // Redirect to Stripe Checkout page
+
             return redirect($response->url);
         } catch (\Exception $e) {
             return back()->with('error', 'Error creating payment session: ' . $e->getMessage());
