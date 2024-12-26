@@ -18,7 +18,7 @@
 <body>
   <div class="body_main">
     @include('layouts.header')
-    <div class="faq_section" style="background-image: url('http://127.0.0.1:8001/storage/FAQ_Banner.png');background-repeat: no-repeat;background-size: cover;">
+    <div class="faq_section bg_img_login bg_img_faq">
       <div class="container sports_container">
         <div class="faq_box">
           <h2 class="faq_heading text-white">FAQ</h2>

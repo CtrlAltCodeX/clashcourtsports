@@ -28,7 +28,11 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        if (auth()->user()->type != 'admin') {
+            return redirect()->intended(route('dashboard', absolute: false));
+        }
+
+        return redirect()->intended(route('events.index', absolute: false));
     }
 
     /**
@@ -46,26 +50,25 @@ class AuthenticatedSessionController extends Controller
     // }
 
     public function destroy(Request $request): RedirectResponse
-{
-    // Retrieve the authenticated user before logging out
-    $user = Auth::user();
+    {
+        // Retrieve the authenticated user before logging out
+        $user = Auth::user();
 
 
-    // Perform the logout
-    Auth::guard('web')->logout();
+        // Perform the logout
+        Auth::guard('web')->logout();
 
-    // Invalidate the session and regenerate the CSRF token
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
+        // Invalidate the session and regenerate the CSRF token
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-    // Determine the redirect URL based on user type
-    $redirectUrl = '/'; // Default redirect URL
-    if ($user && $user->type === 'Player') {
-        $redirectUrl = '/login';
+        // Determine the redirect URL based on user type
+        $redirectUrl = '/'; // Default redirect URL
+        if ($user && $user->type === 'Player') {
+            $redirectUrl = '/login';
+        }
+
+        // Redirect to the determined URL
+        return redirect($redirectUrl);
     }
-
-    // Redirect to the determined URL
-    return redirect($redirectUrl);
-}
-
 }

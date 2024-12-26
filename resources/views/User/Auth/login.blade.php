@@ -27,17 +27,8 @@
     @endif
 
     <!-- Banner Section -->
-    <div class="login_banner_section" style="position:relative;color:white;">
-      <img src="{{ asset('assets/images/login-banner.png') }}" alt="Login Banner">
-
-      <div class="login_section" style="
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 45%;
-">
+    <div class="login_banner_section bg_img_login">
+      <div class="login_section">
         <div class="container sports_container">
           <form action="{{ route('userPost.auth.login') }}" method="POST">
             @csrf

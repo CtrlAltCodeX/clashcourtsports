@@ -45,7 +45,7 @@ class ProfileController extends Controller
 
             // Store new image in the custom folder
             $fileName = time() . '_' . $request->file('profile_image')->getClientOriginalName();
-            $request->file('profile_image')->move(public_path('assets/storage'), $fileName);
+            $request->file('profile_image')->move('assets/storage', $fileName);
 
             // Save the file name in the database
             $request->user()->profile_image = $fileName;

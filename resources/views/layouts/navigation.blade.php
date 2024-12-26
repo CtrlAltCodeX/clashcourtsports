@@ -4,7 +4,7 @@
 
             <!-- Primary Navigation Menu -->
     <div class=" mx-auto px-0 sm:px-0 lg:px-0 flex justify-between">
-        <div class="w-64 bg-gray-800 flex justify-between items-center h-16">
+        <div class="w-64 bg-gray-800 flex items-center h-16 p-4">
             <!-- Avatar with First Letter of User's Name -->
             @if (Auth::user()->profile_image)
                 <div class="relative w-16 h-16">

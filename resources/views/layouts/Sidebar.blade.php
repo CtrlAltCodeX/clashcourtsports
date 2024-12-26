@@ -1,6 +1,6 @@
 <!-- resources/views/admin/dashboard.blade.php -->
 <x-app-layout>
-    <div class="flex min-h-screen bg-gray-100">
+    <div class="flex min-h-screen">
         <!-- sidebar -->
         <div class="w-64 bg-gray-800 text-white p-6">
             <ul class="space-y-2">
@@ -22,11 +22,13 @@
                     </a>
                 </li>
                 @else
+                @if(auth()->user()->type != 'admin')
                 <li>
                     <a href="{{ route('dashboard') }}" class="block p-4 rounded-lg {{ str_contains(request()->route()->getName(), 'dashboard') ? 'bg-gray-700' : '' }} hover:bg-gray-700">
                         Dashboard
                     </a>
                 </li>
+                @endif
                 <li>
                     <a href="{{ route('events.index') }}" class="block p-4 rounded-lg {{ str_contains(request()->route()->getName(), 'events') ? 'bg-gray-700' : '' }} hover:bg-gray-700">
                         Event Management
@@ -51,7 +53,7 @@
 
                 <li>
                     <a href="{{ route('admin.contact.index') }}" class="block {{ str_contains(request()->route()->getName(), 'notification') ? 'bg-gray-700' : '' }} p-4 rounded-lg hover:bg-gray-700">
-                        ContactUs
+                        Contact Us
                     </a>
                 </li>
                 @endif

@@ -50,14 +50,14 @@ class UserEventController extends Controller
     public function dashboard()
     {
         $user = auth()->user();
-    
+
         // Fetch approved UserEvents where the user is the participant
         $userEvents = UserEvent::where('user_id', $user->id)
             ->where('status', 'Approved')
             ->get();
-    
+
         $eventData = [];
-    
+
         foreach ($userEvents as $userEvent) {
             // Fetch the opponent's UserEvent based on reciver_opponent_id or sender_opponent_id
             $opponentEvent = null;
@@ -66,20 +66,20 @@ class UserEventController extends Controller
             } elseif ($userEvent->sender_opponent_id) {
                 $opponentEvent = UserEvent::find($userEvent->sender_opponent_id);
             }
-    
+
             if ($opponentEvent) {
                 // Safely decode and sum scores, ensuring they are integers
-                $currentUserScore = is_array(json_decode($userEvent->score, true)) 
-                    ? array_sum(json_decode($userEvent->score, true)) 
+                $currentUserScore = is_array(json_decode($userEvent->score, true))
+                    ? array_sum(json_decode($userEvent->score, true))
                     : (int) json_decode($userEvent->score, true);
-    
-                $opponentScore = is_array(json_decode($opponentEvent->score, true)) 
-                    ? array_sum(json_decode($opponentEvent->score, true)) 
+
+                $opponentScore = is_array(json_decode($opponentEvent->score, true))
+                    ? array_sum(json_decode($opponentEvent->score, true))
                     : (int) json_decode($opponentEvent->score, true);
-    
+
                 // Determine if the current user won or lost
                 $result = $currentUserScore > $opponentScore ? 'Win' : 'Loss';
-    
+
                 // Group by event_id and accumulate win, loss counts
                 $eventId = $userEvent->event_id;
                 if (!isset($eventData[$eventId])) {
@@ -89,7 +89,7 @@ class UserEventController extends Controller
                         'loss_count' => 0,
                     ];
                 }
-    
+
                 if ($result === 'Win') {
                     $eventData[$eventId]['win_count'] += 1;
                 } else {
@@ -97,18 +97,18 @@ class UserEventController extends Controller
                 }
             }
         }
-    
+
         // Calculate total_score for each event
         foreach ($eventData as $eventId => &$event) {
             $event['total_score'] = ($event['win_count'] * 3) + ($event['loss_count'] * 1);
         }
-    
+
         // Convert eventData to a simple array for the view
         $data = array_values($eventData);
-    
+
         return view('user.dashboard', compact('data'));
     }
-    
+
 
     public function AddScore()
     {
@@ -237,10 +237,10 @@ class UserEventController extends Controller
             'opponent_scores' => 'required',
         ]);
 
-    // Get the specific event_id for the clicked form
-    $eventId = $request->input('event_id');
-    // echo $eventId;die;
-   
+        // Get the specific event_id for the clicked form
+        $eventId = $request->input('event_id');
+        // echo $eventId;die;
+
 
         // Get the scores, selected user, and opponent scores for the specific event
         $currentUserScore = $request->input("scores.$eventId", null);
@@ -321,8 +321,8 @@ class UserEventController extends Controller
             'event_id' => 'required',
             'scores' => 'required|array',
             'opponent_scores' => 'required|array',
-            'selected_user' => 'required|exists:user_events,id', 
-           
+            'selected_user' => 'required|exists:user_events,id',
+
         ]);
 
         $eventId = $request->input('event_id');
@@ -331,15 +331,15 @@ class UserEventController extends Controller
 
         $selectedUserEvent = UserEvent::findOrFail($selectedUserEventId);
         $selectedeventData = UserEvent::findOrFail($eventId);
-        $selectedUser = $selectedUserEvent->user;  
-      
-    
+        $selectedUser = $selectedUserEvent->user;
+
+
         // Retrieve the selected_game from the existing user event (instead of Event model)
         $selectedGame = $selectedeventData->selected_game;
         $latitude = $selectedeventData->latitude;
         $longitude = $selectedeventData->longitude;
-        $event_id= $selectedeventData->event_id;
-    
+        $event_id = $selectedeventData->event_id;
+
         // Save the current user's UserEvent
         $currentUserEvent = new UserEvent();
         $currentUserEvent->user_id = $user->id;
@@ -350,7 +350,7 @@ class UserEventController extends Controller
         $currentUserEvent->latitude =   $latitude;
         $currentUserEvent->longitude =   $longitude;
         $currentUserEvent->save(); // Pehle save karein
-    
+
         // Save the selected opponent's UserEvent
         $opponentUserEvent = new UserEvent();
         $opponentUserEvent->user_id = $selectedUser->id;
@@ -361,15 +361,13 @@ class UserEventController extends Controller
         $opponentUserEvent->latitude =  $latitude;
         $opponentUserEvent->longitude =  $longitude;
         $opponentUserEvent->save();
-    
+
         $currentUserEvent->reciver_opponent_id = $opponentUserEvent->id;
         $currentUserEvent->save();
-    
+
         $opponentUserEvent->sender_opponent_id = $currentUserEvent->id;
-        $opponentUserEvent->save(); 
+        $opponentUserEvent->save();
 
         return redirect()->route('user.events.score')->with('success', 'Match added successfully!');
     }
-
-
 }

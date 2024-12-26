@@ -22,7 +22,7 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/user-events', [UserEventController::class, 'index'])
         ->name('user.events')->middleware('auth');
 
-        Route::get('/user-dashboard', [UserEventController::class, 'dashboard'])
+    Route::get('/user-dashboard', [UserEventController::class, 'dashboard'])
         ->name('user.dashboard')->middleware('auth');
 
     Route::get('/events-score', [UserEventController::class, 'AddScore'])
@@ -74,10 +74,10 @@ Route::get('donation', function () {
 Route::get('join-now/{id}', [ManagePlayersController::class, 'JoinNow'])
     ->name('user.auth.joinNow');
 
-    Route::post('/contact', [ContactController::class, 'store'])
+Route::post('/contact', [ContactController::class, 'store'])
     ->name('contact.store');
 
-    Route::get('/contact', [ContactController::class, 'index'])
+Route::get('/contact', [ContactController::class, 'index'])
     ->name('admin.contact.index');
 
 

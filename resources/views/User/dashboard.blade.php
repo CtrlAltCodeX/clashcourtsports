@@ -18,16 +18,16 @@
             </thead>
             <tbody>
                 @forelse($data as $entry)
-                    <tr class="hover:bg-gray-100">
-                        <td class="py-2 border">{{ $entry['event_name'] }}</td>
-                        <td class="py-2 border text-success font-semibold">{{ $entry['win_count'] }}</td>
-                        <td class="py-2 border text-danger font-semibold">{{ $entry['loss_count'] }}</td>
-                        <td class="py-2 border text-primary font-semibold">{{ $entry['total_score'] }}</td>
-                    </tr>
+                <tr class="hover:bg-gray-100">
+                    <td class="py-2 border">{{ $entry['event_name'] }}</td>
+                    <td class="py-2 border text-success font-semibold">{{ $entry['win_count'] }}</td>
+                    <td class="py-2 border text-danger font-semibold">{{ $entry['loss_count'] }}</td>
+                    <td class="py-2 border text-primary font-semibold">{{ $entry['total_score'] }}</td>
+                </tr>
                 @empty
-                    <tr>
-                        <td colspan="4" class="py-4 text-gray-500">No data available.</td>
-                    </tr>
+                <tr>
+                    <td colspan="4" class="py-4 text-gray-500">No data available.</td>
+                </tr>
                 @endforelse
             </tbody>
         </table>

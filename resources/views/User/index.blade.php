@@ -20,10 +20,10 @@
     @include('layouts.header')
     @if(session('alert'))
     <div class="alert alert-warning">
-        {{ session('alert') }}
+      {{ session('alert') }}
     </div>
- 
-@endif
+
+    @endif
 
     <div class="banner_section">
       <div class="container sports_container">
@@ -75,7 +75,7 @@
             <li>
               <div class="registration_box_card bg_two">
                 <div class="registration_box_inner">
-                  <h6>Play Double - $50</h6>
+                  <h6>Play Doubles - $50</h6>
                   <a href="#" class="btn registration_for_btn">Register for Spring 2025</a>
                 </div>
               </div>
@@ -112,7 +112,7 @@
           <ul class="work_list">
             <li>
               <div class="work_list_box">
-                <h4>How it works</h4>
+                <h4>How It Works</h4>
                 <div class="work_list_media">
                   <div class="work_icon">
                     1
@@ -126,7 +126,7 @@
                     2
                   </div>
                   <div class="work_list_media_body">
-                    <h5>Connect with opponents</h5>
+                    <h5>Connect With Opponents</h5>
                   </div>
                 </div>
                 <div class="work_list_media">
@@ -183,23 +183,23 @@
               provide you with the best tennis experience.</p>
           </div>
           <form action="{{ route('contact.store') }}" method="POST">
-    @csrf
-    <div class="contact_box_right">
-        <div class="info_group">
-            <p class="info_label">First Name</p>
-            <input type="text" name="first_name" class="form-control info_form_control" placeholder="E.g Nishtha" required>
-        </div>
-        <div class="info_group">
-            <p class="info_label">Email Address</p>
-            <input type="email" name="email" class="form-control info_form_control" placeholder="abc@gmail.com" required>
-        </div>
-        <div class="info_group">
-            <p class="info_label">Message</p>
-            <textarea name="message" class="form-control info_form_control" rows="6" placeholder="Type your Message" required></textarea>
-        </div>
-        <button type="submit" class="btn join_now_btn">Send</button>
-    </div>
-</form>
+            @csrf
+            <div class="contact_box_right">
+              <div class="info_group">
+                <p class="info_label">First Name</p>
+                <input type="text" name="first_name" class="form-control info_form_control" placeholder="E.g Nishtha" required>
+              </div>
+              <div class="info_group">
+                <p class="info_label">Email Address</p>
+                <input type="email" name="email" class="form-control info_form_control" placeholder="abc@gmail.com" required>
+              </div>
+              <div class="info_group">
+                <p class="info_label">Message</p>
+                <textarea name="message" class="form-control info_form_control" rows="6" placeholder="Type your Message" required></textarea>
+              </div>
+              <button type="submit" class="btn join_now_btn">Send</button>
+            </div>
+          </form>
 
         </div>
       </div>

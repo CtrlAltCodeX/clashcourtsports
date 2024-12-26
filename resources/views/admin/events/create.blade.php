@@ -22,7 +22,7 @@
 
     <!-- Game Name -->
     <div class="mb-4">
-        <label for="game_name" class="block text-gray-700 font-medium mb-2">Game Name Time</label>
+        <label for="game_name" class="block text-gray-700 font-medium mb-2">Game Name</label>
         <input type="text" name="game_name" id="game_name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
     </div>
 
