@@ -9,6 +9,7 @@ use App\Http\Controllers\UserEventController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ManageScoreController;
+use App\Http\Controllers\DonationController;
 
 Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
@@ -70,6 +71,19 @@ Route::get('faq', function () {
 Route::get('donation', function () {
     return view('user.auth.donation');
 })->name('user.auth.donation');
+
+Route::post('/donation', [DonationController::class, 'submitDonation'])
+->name('donation.submit');
+
+Route::get('donation/checkout/success', [DonationController::class, 'DonationCheckoutSuccess'])
+    ->name('donation.checkout.success');
+
+ Route::get('donation/checkout/cancel', [DonationController::class, 'DonationCheckoutCancel'])
+    ->name('donation.checkout.cancel');
+
+Route::get('show/donations', [DonationController::class, 'index'])
+    ->name('show.donations.index');
+
 
 Route::get('join-now/{id}', [ManagePlayersController::class, 'JoinNow'])
     ->name('user.auth.joinNow');
