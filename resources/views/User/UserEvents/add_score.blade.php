@@ -11,163 +11,125 @@
             Add Manually
         </a>
     </div>
-
+    
     <div class="table-responsive">
-        <form action="{{ route('user.events.save_score') }}" method="POST">
-            @csrf
-            <table class="table-auto w-full border border-gray-300 text-center">
-                <thead class="bg-blue-100 text-blue-700">
-                    <tr>
-                        <th class="px-4 py-2 border">Event Name</th>
-                        <th class="px-4 py-2 border">Game Name</th>
-                        <th class="px-4 py-2 border">Your Score</th>
-                        <th class="px-4 py-2 border">Status</th>
-                        <th class="px-4 py-2 border">Select Opponent</th>
-                        <th class="px-4 py-2 border">Opponent Score</th>
-                        <th class="px-4 py-2 border">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($userEvents as $userEvent)
-                    <input type="hidden" name="event_id" value="{{ $userEvent->id }}"> <!-- Include the event_id for the form -->
-                    <tr class="hover:bg-gray-100">
-                        <td class="px-4 py-2 border">{{ $userEvent->event->name }}</td>
-                        <td class="px-4 py-2 border">{{ $userEvent->event->game_name }}</td>
-
-                        <!-- Your Score -->
-                        <td class="px-4 py-2 border">
-                            @php $scores = json_decode($userEvent->score); @endphp
-                            @if ($userEvent->status === 'Rejected')
-                            <div id="score-display-{{ $userEvent->id }}">
-                                {{ $scores ? implode(', ', $scores) : 'No scores available' }}
-                            </div>
-                            <div class="hidden mt-2" id="score-inputs-{{ $userEvent->id }}">
-                                @foreach ($scores as $score)
-                                <input
-                                    type="number"
-                                    name="scores[{{ $userEvent->id }}][]"
-                                    class="form-control w-3/4 mx-auto mb-1 border border-gray-300 rounded px-2 py-1"
-                                    value="{{ $score }}"
-                                    min="0" max="100">
-                                @endforeach
-                            </div>
-                            <button type="button" class="retry-btn text-red-600 font-semibold mt-2" data-id="{{ $userEvent->id }}">Retry</button>
-                            @elseif ($userEvent->status === 'pending')
-                            <div class="input-group flex flex-col gap-2" id="score-inputs-container-{{ $userEvent->id }}">
-                                <input
-                                    type="number"
-                                    name="scores[{{ $userEvent->id }}][]"
-                                    class="form-control w-full mx-auto border border-gray-300 rounded px-2 py-1"
-                                    min="0" max="100"
-                                    placeholder="Enter your score">
-                                <button type="button" class="btn btn-sm btn-success add-score" data-id="{{ $userEvent->id }}">Add</button>
-                            </div>
-                            @else
-                            <div>{{ $scores ? implode(', ', $scores) : 'No scores available' }}</div>
-                            @endif
-                        </td>
-
-                        <!-- Status -->
-                        <td class="px-4 py-2 border">{{ ucfirst($userEvent->status) }}</td>
-                        <td class="px-4 py-2 border">
-                            @if ($userEvent->status === 'pending')
-                            <select
-                                name="selected_users[{{ $userEvent->id }}]"
-                                class="form-control w-3/4 mx-auto border border-gray-300 rounded px-2 py-1">
-                                <option value="">Select a User</option>
-                                @if(isset($usersForDropdown[$userEvent->id]))
-                                @foreach ($usersForDropdown[$userEvent->id] as $users)
-                                <option value="{{ $users[0]?->user_event_id }}">{{ $users[0]?->name }} {{ $users[0]?->email }}</option>
-                                @endforeach
-                                @endif
-                            </select>
-                            @else
-                            @if (isset($userEvent->opponent_email))
-                            <!-- If opponent_email exists, show it and store user_event_id -->
-                            <input type="hidden"
-                                value="{{ $userEvent->user_event_id }}"
-                                name="selected_users[{{ $userEvent->id }}]"
-                                class="form-control w-3/4 mx-auto border border-gray-300 rounded px-2 py-1">
-                            <div>Opponent: {{ $userEvent->opponent_email }}</div>
-                            @else
-
-                            @endif
-                            @endif
-                        </td>
-
-                        <!-- Opponent Score -->
-                        <td class="px-4 py-2 border">
-                            @if ($userEvent->status === 'Rejected')
-                            <div id="opponent-score-display-{{ $userEvent->id }}">
-                                @if (isset($userEvent->opponent_score))
-                                {{ implode(', ', $userEvent->opponent_score) }}
-                                @else
-                                No opponent score available
-                                @endif
-                            </div>
-                            <div class="hidden mt-2" id="opponent-score-inputs-{{ $userEvent->id }}">
-                                @foreach ($userEvent->opponent_score as $score)
-                                <input
-                                    type="number"
-                                    name="opponent_scores[{{ $userEvent->id }}][]"
-                                    class="form-control w-3/4 mx-auto mb-1 border border-gray-300 rounded px-2 py-1"
-                                    value="{{ $score }}"
-                                    min="0" max="100">
-                                @endforeach
-                            </div>
-
-                            <button type="button" class="retry-btn text-red-600 font-semibold mt-2" data-id="{{ $userEvent->id }}">Retry</button>
-                            @elseif ($userEvent->status === 'pending')
-                            <div class="input-group flex flex-col gap-2" id="opponent-score-inputs-container-{{ $userEvent->id }}">
-                                <input
-                                    type="number"
-                                    name="opponent_scores[{{ $userEvent->id }}][]"
-                                    class="form-control w-3/4 mx-auto border border-gray-300 rounded px-2 py-1"
-                                    min="0" max="100"
-                                    placeholder="Enter opponent's score">
-                                <button type="button" class="btn btn-sm btn-success add-opponent-score" data-id="{{ $userEvent->id }}">Add</button>
-                            </div>
-                            @else
-                            @if (isset($userEvent->opponent_score))
-                            <div>{{ implode(', ', $userEvent->opponent_score) }}</div>
-                            @else
-                            <div>No opponent score available</div>
-                            @endif
-                            @endif
-                        </td>
-
-                        <td class="px-4 py-2 border" style="text-align: center; padding: 10px; border: 1px solid #ccc;">
-                            <input type="hidden" name="event_ids[]" value="{{ $userEvent->id }}">
-
-                            @if (isset($userEvent->show_approval_buttons) && $userEvent->show_approval_buttons)
-                            @if ($userEvent->status == 'Requested')
-
-                            <button type="button" class="status-btn approve-btn" data-status="Approved"
-                                style="background-color: #22c55e; color: #fff; padding: 6px 12px; border-radius: 4px; border: none; cursor: pointer; margin-right: 8px;">
-                                Approve
-                            </button>
-                            <button type="button" class="status-btn reject-btn" data-status="Rejected"
-                                style="background-color: #ef4444; color: #fff; padding: 6px 12px; border-radius: 4px; border: none; cursor: pointer;">
-                                Reject
-                            </button>
-
-                            @elseif ($userEvent->status == 'Approved')
-                            <span style="color: #22c55e;">Event Approved</span>
-                            @elseif ($userEvent->status == 'Rejected')
-                            <span style="color: #ef4444;">Event Rejected</span>
-                            @endif
-                            @else
-                            <button type="submit" class="btn btn-sm btn-primary" style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer;">
-                                Submit
-                            </button>
-                            @endif
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </form>
-    </div>
+        <table class="table-auto w-full border border-gray-300 text-center">
+            <thead class="bg-blue-100 text-blue-700">
+                <tr>
+                    <th class="px-4 py-2 border">Event Name</th>
+                    <th class="px-4 py-2 border">Game Name</th>
+                    <th class="px-4 py-2 border">Your Score</th>
+                    <th class="px-4 py-2 border">Status</th>
+                    <th class="px-4 py-2 border">Select Opponent</th>
+                    <th class="px-4 py-2 border">Opponent Score</th>
+                    <th class="px-4 py-2 border">Action</th>
+                </tr>
+            </thead>
+        </table>
+        
+        <div class="table-row-group">
+            @foreach ($userEvents as $userEvent)
+            <form action="{{ route('user.events.save_score') }}" method="POST" class="table-row hover:bg-gray-100">
+                @csrf
+                <input type="hidden" name="event_id" value="{{ $userEvent->id }}">
+    
+                <!-- Event Name -->
+                <div class="table-cell px-4 py-2 border">
+                    {{ $userEvent->event->name }}
+                </div>
+    
+                <!-- Game Name -->
+                <div class="table-cell px-4 py-2 border">
+                    {{ $userEvent->event->game_name }}
+                </div>
+    
+                <!-- Your Score -->
+                <div class="table-cell px-4 py-2 border">
+                    @php $scores = json_decode($userEvent->score); @endphp
+                    @if ($userEvent->status === 'Rejected')
+                    <div id="score-display-{{ $userEvent->id }}">
+                        {{ $scores ? implode(', ', $scores) : 'No scores available' }}
+                    </div>
+                    <div class="hidden mt-2" id="score-inputs-{{ $userEvent->id }}">
+                        @foreach ($scores as $score)
+                        <input
+                            type="number"
+                            name="scores[{{ $userEvent->id }}][]"
+                            class="form-input w-3/4 mx-auto mb-1 border border-gray-300 rounded px-2 py-1"
+                            value="{{ $score }}" min="0" max="100">
+                        @endforeach
+                    </div>
+                    <button type="button" class="retry-btn text-red-600 font-semibold mt-2" data-id="{{ $userEvent->id }}">Retry</button>
+                    @elseif ($userEvent->status === 'pending')
+                    <div class="flex flex-col gap-2">
+                        <input
+                            type="number"
+                            name="scores[{{ $userEvent->id }}][]"
+                            class="form-input w-full mx-auto border border-gray-300 rounded px-2 py-1"
+                            min="0" max="100"
+                            placeholder="Enter your score">
+                        <button type="button" class="btn btn-success text-white bg-green-500 rounded px-3 py-1" data-id="{{ $userEvent->id }}">Add</button>
+                    </div>
+                    @else
+                    <div>{{ $scores ? implode(', ', $scores) : 'No scores available' }}</div>
+                    @endif
+                </div>
+    
+                <!-- Status -->
+                <div class="table-cell px-4 py-2 border">
+                    {{ ucfirst($userEvent->status) }}
+                </div>
+    
+                <!-- Select Opponent -->
+                <div class="table-cell px-4 py-2 border">
+                    @if ($userEvent->status === 'pending')
+                    <select
+                        name="selected_users[{{ $userEvent->id }}]"
+                        class="form-select w-3/4 mx-auto border border-gray-300 rounded px-2 py-1">
+                        <option value="">Select a User</option>
+                        @if(isset($usersForDropdown[$userEvent->id]))
+                        @foreach ($usersForDropdown[$userEvent->id] as $users)
+                        <option value="{{ $users[0]?->user_event_id }}">{{ $users[0]?->name }} {{ $users[0]?->email }}</option>
+                        @endforeach
+                        @endif
+                    </select>
+                    @else
+                    <div>Opponent: {{ $userEvent->opponent_email ?? 'No opponent' }}</div>
+                    @endif
+                </div>
+    
+                <!-- Opponent Score -->
+                <div class="table-cell px-4 py-2 border">
+                    @if ($userEvent->status === 'Rejected')
+                    <div>{{ $userEvent->opponent_score ? implode(', ', $userEvent->opponent_score) : 'No opponent score available' }}</div>
+                    @elseif ($userEvent->status === 'pending')
+                    <div class="flex flex-col gap-2">
+                        <input
+                            type="number"
+                            name="opponent_scores[{{ $userEvent->id }}][]"
+                            class="form-input w-3/4 mx-auto border border-gray-300 rounded px-2 py-1"
+                            min="0" max="100"
+                            placeholder="Enter opponent's score">
+                        <button type="button" class="btn btn-success text-white bg-green-500 rounded px-3 py-1" data-id="{{ $userEvent->id }}">Add</button>
+                    </div>
+                    @else
+                    <div>{{ $userEvent->opponent_score ? implode(', ', $userEvent->opponent_score) : 'No opponent score available' }}</div>
+                    @endif
+                </div>
+    
+                <!-- Actions -->
+                <div class="table-cell px-4 py-2 border text-center">
+                    @if ($userEvent->status === 'Requested')
+                    <button type="button" class="text-white bg-green-500 px-3 py-1 rounded" data-status="Approved">Approve</button>
+                    <button type="button" class="text-white bg-red-500 px-3 py-1 rounded" data-status="Rejected">Reject</button>
+                    @else
+                    <button type="submit" class="text-white bg-blue-500 px-3 py-1 rounded">Submit</button>
+                    @endif
+                </div>
+            </form>
+            @endforeach
+        </div>
+    <div>
 </div>
 
 <script>
