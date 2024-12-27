@@ -54,6 +54,9 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('events/{eventId}/participants', [NotificationController::class, 'getParticipants']);
 
     Route::post('events/{eventId}/send-email', [NotificationController::class, 'sendEmail']);
+
+    Route::get('events/group/wise', [EventController::class, 'playerGroupWise'])
+        ->name('events.group.wise');
 });
 
 Route::get('/', function () {
@@ -73,12 +76,12 @@ Route::get('donation', function () {
 })->name('user.auth.donation');
 
 Route::post('/donation', [DonationController::class, 'submitDonation'])
-->name('donation.submit');
+    ->name('donation.submit');
 
 Route::get('donation/checkout/success', [DonationController::class, 'DonationCheckoutSuccess'])
     ->name('donation.checkout.success');
 
- Route::get('donation/checkout/cancel', [DonationController::class, 'DonationCheckoutCancel'])
+Route::get('donation/checkout/cancel', [DonationController::class, 'DonationCheckoutCancel'])
     ->name('donation.checkout.cancel');
 
 Route::get('show/donations', [DonationController::class, 'index'])

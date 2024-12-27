@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
- 
+
     use HasFactory, Notifiable;
 
     /**
@@ -26,7 +26,8 @@ class User extends Authenticatable
         'city',
         'state',
         'zip_code',
-        'Skill_Level'
+        'Skill_Level',
+        'group'
     ];
 
     /**
@@ -50,5 +51,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function userevent()
+    {
+        return $this->hasOne(UserEvent::class);
     }
 }

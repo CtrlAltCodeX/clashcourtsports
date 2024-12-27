@@ -21,6 +21,11 @@
                         Events Score
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('events.group.wise', ['group', auth()->user()->group]) }}" class="block {{ str_contains(request()->route()->getName(), 'group.wise') ? 'bg-gray-700' : '' }} p-4 rounded-lg hover:bg-gray-700">
+                        Event Group Wise
+                    </a>
+                </li>
                 @else
                 @if(auth()->user()->type != 'admin')
                 <li>
@@ -59,6 +64,12 @@
                 <li>
                     <a href="{{ route('admin.contact.index') }}" class="block {{ str_contains(request()->route()->getName(), 'notification') ? 'bg-gray-700' : '' }} p-4 rounded-lg hover:bg-gray-700">
                         Contact Us
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('events.group.wise') }}" class="block {{ str_contains(request()->route()->getName(), 'group.wise') ? 'bg-gray-700' : '' }} p-4 rounded-lg hover:bg-gray-700">
+                        Event Group Wise
                     </a>
                 </li>
                 @endif

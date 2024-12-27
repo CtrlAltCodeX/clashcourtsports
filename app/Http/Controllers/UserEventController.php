@@ -32,9 +32,9 @@ class UserEventController extends Controller
                 ->where('users.id', '!=', $user->id)
                 ->whereRaw("
                     3959 * acos(
-                        cos(radians(?)) * cos(radians(latitude)) *
-                        cos(radians(longitude) - radians(?)) +
-                        sin(radians(?)) * sin(radians(latitude))
+                        cos(radians(?)) * cos(radians(user_events.latitude)) *
+                        cos(radians(user_events.longitude) - radians(?)) +
+                        sin(radians(?)) * sin(radians(user_events.latitude))
                     ) <= 10
                 ", [$latitude, $longitude, $latitude])
                 ->get();

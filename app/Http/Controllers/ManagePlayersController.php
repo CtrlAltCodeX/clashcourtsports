@@ -52,7 +52,7 @@ class ManagePlayersController extends Controller
             'flexRadioDefault' => 'required',
             'password' => 'nullable|string'
         ]);
-    
+
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
         $redirectUrl = route('stripe.checkout.success') . '?session_id={CHECKOUT_SESSION_ID}';
@@ -117,6 +117,11 @@ class ManagePlayersController extends Controller
                 'transaction_id' => $session->id,
             ];
 
+            // Determine group name dynamically
+            $userCount = User::count() + 1; // Add 1 to include the new user being registered
+            $groupIndex = intdiv($userCount - 1, 10); // Determine group index
+            $groupName = 'Group ' . chr(65 + $groupIndex); // Convert index to letter (A, B, C...)
+
             $user = User::firstOrCreate(
                 ['email' => $session->customer_email],
                 [
@@ -128,12 +133,14 @@ class ManagePlayersController extends Controller
                     'zip_code' => $session->metadata->zip_code ?? '',
                     'Skill_Level' => $session->metadata->Skill_Level ?? '',
                     'password' => Hash::make($session->metadata->password),
+                    'group' => $groupName, // Assign group name
                 ]
             );
 
             $paymentData['user_id'] = $user->id;
 
             \App\Models\Payment::create($paymentData);
+
             UserEvent::updateOrCreate(
                 ['user_id' => $user->id, 'event_id' => $event->id],
                 [
