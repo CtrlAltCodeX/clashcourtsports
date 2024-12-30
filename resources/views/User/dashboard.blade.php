@@ -1,6 +1,12 @@
 @extends('layouts.sidebar')
 
 @section('admin-content')
+@if(session('alert'))
+    <div class="alert alert-warning">
+      {{ session('alert') }}
+    </div>
+    @endif
+
 <div class="container mx-auto my-5">
     <div class="flex justify-between">
         <div class="flex justify-between items-center mb-4">

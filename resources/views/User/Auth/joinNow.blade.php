@@ -69,11 +69,26 @@
         </div>
         <form action="{{ route('stripe.checkout.joinNow', $official->id) }}" method="POST">
           @csrf
+
+       
+
           <div class="login_section">
             <div class="container sports_container">
               <div class="login_box">
                 <ul class="join_now_list">
                   <!-- First Name -->
+                  @if(Auth::check())
+               <!-- If user is logged in -->
+               <input type="hidden" name="first_name" value="{{ Auth::user()->name }}">
+              <input type="hidden" name="last_name" value="{{ Auth::user()->name }}">
+              <input type="hidden" name="phone_number" value="{{ Auth::user()->phone_number }}">
+              <input type="hidden" name="email" value="{{ Auth::user()->email }}">
+              <input type="hidden" name="city" value="{{ Auth::user()->city }}">
+              <input type="hidden" name="state" value="{{ Auth::user()->state }}">
+              <input type="hidden" name="zip_code" value="{{ Auth::user()->zip_code }}">
+              <input type="hidden" name="password" value="">
+
+                @else
                   <li>
                     <div class="login_group mb_30">
                       <p class="label_from">First Name <span>*</span></p>
@@ -154,6 +169,7 @@
                     </div>
                   </li>
 
+                  @endif
                   <!-- Game Option -->
                   <li>
                     <div class="radio_box mb_30">

@@ -39,6 +39,7 @@ class ManagePlayersController extends Controller
 
     public function StripeCheckout(Request $request, $id)
     {
+      
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -149,7 +150,13 @@ class ManagePlayersController extends Controller
                     'selected_game' => $session->metadata->selected_game
                 ]
             );
-            return redirect()->route('user.auth.login')->with('alert', 'Payment successful and event joined.');
+
+            if (Auth::check()) {
+                return redirect()->route('user.dashboard')->with('alert', 'Payment successful and event joined.');
+            } else {
+                return redirect()->route('user.auth.login')->with('alert', 'Payment successful and event joined.');
+            }
+         
         } catch (\Exception $e) {
             return redirect()->route('user.auth.login')->with('error', 'Payment failed. Please try again.');
         }
