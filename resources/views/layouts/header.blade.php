@@ -1,5 +1,5 @@
 <div class="header_section">
-  <div class="container menu_container">
+  <div class="container menu_container" style="max-width: 1800px;">
     <nav class="navbar navbar-expand-lg header_navbar">
       <a class="navbar-brand" href="/">
         <img src="{{ asset('assets/images/logo.svg') }}" alt="Clash Court Sports Logo" title="Clash Court Sports" />

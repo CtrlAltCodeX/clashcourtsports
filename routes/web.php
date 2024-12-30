@@ -57,6 +57,9 @@ Route::middleware('admin')->prefix('admin')->group(function () {
 
     Route::get('events/group/wise', [EventController::class, 'playerGroupWise'])
         ->name('events.group.wise');
+
+    Route::get('upcoming/events', [EventController::class, 'upcomingEvents'])
+        ->name('events.upcoming');
 });
 
 Route::get('/', function () {
@@ -96,7 +99,6 @@ Route::post('/contact', [ContactController::class, 'store'])
 
 Route::get('/contact', [ContactController::class, 'index'])
     ->name('admin.contact.index');
-
 
 Route::post('join-now/{id}', [ManagePlayersController::class, 'StripeCheckout'])
     ->name('stripe.checkout.joinNow');

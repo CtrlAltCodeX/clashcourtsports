@@ -2,9 +2,24 @@
 
 @section('admin-content')
 <div class="container mx-auto my-5">
-    <div class="flex justify-between items-center mb-4">
-        <h5 class="text-lg font-medium">Win/Loss Dashboard</h5>
+    <div class="flex justify-between">
+        <div class="flex justify-between items-center mb-4">
+            <h5 class="text-lg font-medium">Win/Loss Dashboard</h5>
+        </div>
+
+        <div class="gap-2 flex items-center mb-2">
+            <a href="{{ route('profile.edit') }}" style="background-color: #10B981; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem;">
+                Update Profile
+            </a>
+            <a href="{{ route('user.events.add.manually') }}" style="background-color: #10B981; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem;">
+                Update Score
+            </a>
+            <a href="{{ route('clashsports.events') }}" style="background-color: #10B981; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem;">
+                Register For Next Sessions
+            </a>
+        </div>
     </div>
+
 
     <div class="table-responsive">
         <table class="table-auto w-full border border-gray-300 text-center">

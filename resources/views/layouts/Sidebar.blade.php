@@ -26,6 +26,11 @@
                         Event Group Wise
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('events.upcoming') }}" class="block {{ str_contains(request()->route()->getName(), 'events.upcoming') ? 'bg-gray-700' : '' }} p-4 rounded-lg hover:bg-gray-700">
+                        Upcoming Events
+                    </a>
+                </li>
                 @else
                 @if(auth()->user()->type != 'admin')
                 <li>

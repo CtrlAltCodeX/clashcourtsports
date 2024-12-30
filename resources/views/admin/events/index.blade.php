@@ -14,10 +14,10 @@
     @endif
 
     <div class="table-responsive">
-    <table class="table-auto w-full border border-gray-300 text-center">
+        <table class="table-auto w-full border border-gray-300 text-center">
             <thead class="bg-blue-100 text-blue-700">
                 <tr>
-                <th class="py-2 border">#</th>
+                    <th class="py-2 border">#</th>
                     <th class=" py-2 border">Name</th>
                     <th class=" py-2 border">Game Name</th>
                     <th class=" py-2 border">More Info</th>
@@ -25,9 +25,9 @@
                 </tr>
             </thead>
             <tbody>
-            @forelse ($events as $index => $event)
+                @forelse ($events as $index => $event)
                 <tr class="hover:bg-gray-100">
-                <td class="py-2 border">{{ $events->firstItem() + $index }}</td>
+                    <td class="py-2 border">{{ $events->firstItem() + $index }}</td>
 
                     <td class=" py-2 border">{{ $event->name }}</td>
                     <td class=" py-2 border">{{ $event->game_name }}</td>

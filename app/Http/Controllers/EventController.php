@@ -167,4 +167,11 @@ class EventController extends Controller
 
         return view('admin.events.group_wise', compact('events', 'groups', 'users', 'data'));
     }
+
+    public function upcomingEvents()
+    {
+        $events = Event::where('enddate', '>=', now())->paginate(10);
+
+        return view('admin.events.upcoming', compact('events'));
+    }
 }

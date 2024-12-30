@@ -110,7 +110,7 @@
 
     <!-- Pagination -->
     <div class="mt-4">
-        {{ $users->links() }}
+        {{ $data->links() }}
     </div>
 </div>
 @endsection
