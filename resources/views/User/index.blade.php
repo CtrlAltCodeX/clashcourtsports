@@ -67,16 +67,16 @@
             <li>
               <div class="registration_box_card">
                 <div class="registration_box_inner">
-                  <h6>Play Singles - $50</h6>
-                  <a href="#" class="btn registration_for_btn">Register for Spring 2025</a>
+                  <h6>Play Singles - $40</h6>
+                  <a href="{{ route('clashsports.events') }}" class="btn registration_for_btn">Register for Spring 2025</a>
                 </div>
               </div>
             </li>
             <li>
               <div class="registration_box_card bg_two">
                 <div class="registration_box_inner">
-                  <h6>Play Doubles - $50</h6>
-                  <a href="#" class="btn registration_for_btn">Register for Spring 2025</a>
+                  <h6>Play Doubles - $40</h6>
+                  <a href="{{ route('clashsports.events') }}" class="btn registration_for_btn">Register for Spring 2025</a>
                 </div>
               </div>
             </li>

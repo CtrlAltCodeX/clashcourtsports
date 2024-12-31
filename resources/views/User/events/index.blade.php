@@ -37,7 +37,7 @@
             @if ($isExpired)
               <span class="btn expired_btn" style="background-color: #ccc; cursor: not-allowed;">Expired Event</span>
             @else
-              <a href="{{ route('user.auth.joinNow', ['id' => $event->id]) }}" class="btn join_now_btn" target="_blank">Register Now</a>
+              <a href="{{ route('user.auth.joinNow', ['id' => $event->id]) }}" class="btn join_now_btn" >Register Now</a>
             @endif
           </div>
         @empty

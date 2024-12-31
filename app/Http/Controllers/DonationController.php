@@ -105,7 +105,7 @@ class DonationController extends Controller
                     $donation->payment_status = $session->payment_status;
                     $donation->transaction_id =  $transactionId; 
                     $donation->save();
-                    return back()->with('success', 'Payment successful');
+                    return back()->with('success', ' thank you for joining , See you on the courts!');
         } catch (\Exception $e) {
             return back()->with('error', 'Error retrieving payment session: ' . $e->getMessage());
         }

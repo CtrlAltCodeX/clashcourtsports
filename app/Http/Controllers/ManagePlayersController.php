@@ -11,7 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Mail;
 class ManagePlayersController extends Controller
 {
 
@@ -89,6 +89,7 @@ class ManagePlayersController extends Controller
                 'latitude' => $request->latitude,
                 'selected_game' => $request->selected_game,
                 'longitude' => $request->longitude,
+                'session_name' => $request->session_name,
             ],
         ]);
 
@@ -151,10 +152,21 @@ class ManagePlayersController extends Controller
                 ]
             );
 
+              // Send the welcome email
+        Mail::send('emails.register', ['contact' => [
+            'first_name' => $session->metadata->first_name, 
+            'season_name' => $session->metadata->session_name ?? '', 
+        ]], function ($message) use ($session) {
+            $message->to($session->customer_email)
+                ->subject('Welcome to Clash Court Sports!');
+        });
+
+
+
             if (Auth::check()) {
-                return redirect()->route('user.dashboard')->with('alert', 'Payment successful and event joined.');
+                return redirect()->route('user.dashboard')->with('alert', ' thank you for joining , See you on the courts!');
             } else {
-                return redirect()->route('user.auth.login')->with('alert', 'Payment successful and event joined.');
+                return redirect()->route('user.auth.login')->with('alert', ' thank you for joining , See you on the courts!');
             }
          
         } catch (\Exception $e) {
