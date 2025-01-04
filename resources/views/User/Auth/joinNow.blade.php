@@ -36,33 +36,33 @@
     </div>
     <div class="login_section">
       <div class="container sports_container">
-      <div class="timer_box">
-  <ul class="timer_list">
-    <li>
-      <div class="timer_box_inner">
-        <p class="minutes_text" id="days">-- <span>Days</span></p>
-      </div>
-    </li>
-    <li>
-      <div class="timer_box_inner">
-        <p class="minutes_text" id="hours">-- <span>Hours</span></p>
-      </div>
-    </li>
-    <li>
-      <div class="timer_box_inner">
-        <p class="minutes_text" id="minutes">-- <span>Minutes</span></p>
-      </div>
-    </li>
-  </ul>
-</div>
+        <div class="timer_box">
+          <ul class="timer_list">
+            <li>
+              <div class="timer_box_inner">
+                <p class="minutes_text" id="days">-- <span>Days</span></p>
+              </div>
+            </li>
+            <li>
+              <div class="timer_box_inner">
+                <p class="minutes_text" id="hours">-- <span>Hours</span></p>
+              </div>
+            </li>
+            <li>
+              <div class="timer_box_inner">
+                <p class="minutes_text" id="minutes">-- <span>Minutes</span></p>
+              </div>
+            </li>
+          </ul>
+        </div>
 
 
         <div id="event-details" style=" text-align: center; margin-top: 20px; font-size: 1.2em;">
           <p>
-            Event started on: <strong> {{ \Carbon\Carbon::parse($official->date)->format('m-d-Y H:i') }}</strong>
+            Event started on: <strong> {{ \Carbon\Carbon::parse($official->date)->format('F d Y') }}</strong>
           </p>
           <p>
-            Event will end on: <strong>{{ \Carbon\Carbon::parse($official->enddate)->format('m-d-Y H:i') }}</strong>
+            Event will end on: <strong>{{ \Carbon\Carbon::parse($official->enddate)->format('F d Y') }}</strong>
           </p>
           <p>
             Thank you for joining! Be sure to enjoy the game!
@@ -71,26 +71,24 @@
         <form action="{{ route('stripe.checkout.joinNow', $official->id) }}" method="POST">
           @csrf
 
-       
-
           <div class="login_section">
             <div class="container sports_container">
               <div class="login_box">
                 <ul class="join_now_list">
-                <input type="hidden" name="session_name" value="{{ $official->name }}">
+                  <input type="hidden" name="session_name" value="{{ $official->name }}">
                   <!-- First Name -->
                   @if(Auth::check())
-               <!-- If user is logged in -->
-               <input type="hidden" name="first_name" value="{{ Auth::user()->name }}">
-              <input type="hidden" name="last_name" value="{{ Auth::user()->name }}">
-              <input type="hidden" name="phone_number" value="{{ Auth::user()->phone_number }}">
-              <input type="hidden" name="email" value="{{ Auth::user()->email }}">
-              <input type="hidden" name="city" value="{{ Auth::user()->city }}">
-              <input type="hidden" name="state" value="{{ Auth::user()->state }}">
-              <input type="hidden" name="zip_code" value="{{ Auth::user()->zip_code }}">
-              <input type="hidden" name="password" value="">
+                  <!-- If user is logged in -->
+                  <input type="hidden" name="first_name" value="{{ Auth::user()->name }}">
+                  <input type="hidden" name="last_name" value="{{ Auth::user()->name }}">
+                  <input type="hidden" name="phone_number" value="{{ Auth::user()->phone_number }}">
+                  <input type="hidden" name="email" value="{{ Auth::user()->email }}">
+                  <input type="hidden" name="city" value="{{ Auth::user()->city }}">
+                  <input type="hidden" name="state" value="{{ Auth::user()->state }}">
+                  <input type="hidden" name="zip_code" value="{{ Auth::user()->zip_code }}">
+                  <input type="hidden" name="password" value="">
 
-                @else
+                  @else
                   <li>
                     <div class="login_group mb_30">
                       <p class="label_from" style="color:black">First Name <span>*</span></p>
@@ -204,20 +202,20 @@
                       <div class="form-check join_now_radio">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" value="beginner" id="radiocheck1">
                         <label class="form-check-label" for="radiocheck1">
-                       
+
                           Beginner (1.0- 2.5)
                           <p class="tooltip_text">
                             • 1.0- 1.5: Complete beginner who can hit the ball occasionally but struggles with control and rallies. <br>
                             • 2.0- 2.5: Can sustain short rallies, understands basic rules, and is improving consistency. Can start a rally with serve and return; some control over direction but still inconsistent. <br>
-                            • 3.0: Can rally with moderate consistency; developing placement, serves, and volleys.
                           </p>
                         </label>
                       </div>
                       <div class="form-check join_now_radio">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" value="advanced" id="radiocheck2">
                         <label class="form-check-label" for="radiocheck2">
-                        Advanced (3.0-4.0)
+                          Advanced (3.0-4.0)
                           <p class="tooltip_text">
+                            • 3.0: Can rally with moderate consistency; developing placement, serves, and volleys.
                             • 3.5: Can hit with depth and control; starts using strategy and is comfortable at the net. <br>
                             • 4.0: Reliable strokes, good footwork, and can execute spin and directional shots under pressure.
                           </p>
@@ -289,34 +287,34 @@
 
       });
     });
-      // Get the end date from server-side (use PHP/Laravel Blade to embed data)
-      const endDate = new Date("{{ $official->enddate }}").getTime();
+    // Get the end date from server-side (use PHP/Laravel Blade to embed data)
+    const endDate = new Date("{{ $official->enddate }}").getTime();
 
-function updateTimer() {
-  const now = new Date().getTime();
-  const timeRemaining = endDate - now;
+    function updateTimer() {
+      const now = new Date().getTime();
+      const timeRemaining = endDate - now;
 
-  if (timeRemaining > 0) {
-    // Calculate days, hours, and minutes left
-    const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24)); // Total days left
-    const totalHours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); // Remaining hours
-    const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60)); // Remaining minutes
+      if (timeRemaining > 0) {
+        // Calculate days, hours, and minutes left
+        const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24)); // Total days left
+        const totalHours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); // Remaining hours
+        const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60)); // Remaining minutes
 
-    // Update the HTML content
-    document.getElementById("days").innerHTML = `${days} <span>Days</span>`;
-    document.getElementById("hours").innerHTML = `${totalHours} <span>Hours</span>`;
-    document.getElementById("minutes").innerHTML = `${minutes} <span>Minutes</span>`;
-  } else {
-    // When the timer ends
-    document.querySelector(".timer_list").innerHTML = "<p>The event has ended.</p>";
-  }
-}
+        // Update the HTML content
+        document.getElementById("days").innerHTML = `${days} <span>Days</span>`;
+        document.getElementById("hours").innerHTML = `${totalHours} <span>Hours</span>`;
+        document.getElementById("minutes").innerHTML = `${minutes} <span>Minutes</span>`;
+      } else {
+        // When the timer ends
+        document.querySelector(".timer_list").innerHTML = "<p>The event has ended.</p>";
+      }
+    }
 
-// Update the timer every minute
-setInterval(updateTimer, 60000); // Update every minute
+    // Update the timer every minute
+    setInterval(updateTimer, 60000); // Update every minute
 
-// Initialize the timer immediately
-updateTimer();
+    // Initialize the timer immediately
+    updateTimer();
   });
 </script>
 

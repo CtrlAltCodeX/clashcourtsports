@@ -133,7 +133,34 @@
               </h2>
               <div id="collapseNine" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body accordion_body">
-                  <p>You can reach our customer support team by email at support@clashcourttennis.com.</p>
+                  <p>You can reach our customer support team by email at support@clashcourtsports.com.</p>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item accordion_item">
+              <h2 class="accordion-header">
+                <button class="accordion-button accordion_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                  Rules of Advance
+                </button>
+              </h2>
+              <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body accordion_body">
+                  • Can rally with moderate consistency; developing placement, serves, and volleys.
+                  • Can hit with depth and control; starts using strategy and is comfortable at the net. <br>
+                  • Reliable strokes, good footwork, and can execute spin and directional shots under pressure.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item accordion_item">
+              <h2 class="accordion-header">
+                <button class="accordion-button accordion_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                  Rules of Beginner
+                </button>
+              </h2>
+              <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body accordion_body">
+                  • Complete beginner who can hit the ball occasionally but struggles with control and rallies. <br>
+                  • Can sustain short rallies, understands basic rules, and is improving consistency. Can start a rally with serve and return; some control over direction but still inconsistent. <br>
                 </div>
               </div>
             </div>

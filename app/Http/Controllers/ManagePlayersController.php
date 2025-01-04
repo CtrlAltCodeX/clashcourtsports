@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+
 class ManagePlayersController extends Controller
 {
 
@@ -35,11 +36,8 @@ class ManagePlayersController extends Controller
         return view('user.auth.joinNow', compact('official'));
     }
 
-
-
     public function StripeCheckout(Request $request, $id)
     {
-      
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -152,23 +150,20 @@ class ManagePlayersController extends Controller
                 ]
             );
 
-              // Send the welcome email
-        Mail::send('emails.register', ['contact' => [
-            'first_name' => $session->metadata->first_name, 
-            'season_name' => $session->metadata->session_name ?? '', 
-        ]], function ($message) use ($session) {
-            $message->to($session->customer_email)
-                ->subject('Welcome to Clash Court Sports!');
-        });
-
-
+            // Send the welcome email
+            Mail::send('emails.register', ['contact' => [
+                'first_name' => $session->metadata->first_name,
+                'season_name' => $session->metadata->session_name ?? '',
+            ]], function ($message) use ($session) {
+                $message->to($session->customer_email)
+                    ->subject('Welcome to Clash Court Sports!');
+            });
 
             if (Auth::check()) {
-                return redirect()->route('user.dashboard')->with('alert', ' thank you for joining , See you on the courts!');
+                return redirect()->route('user.dashboard')->with('alert', ' Thank you for joining , See you on the courts!');
             } else {
-                return redirect()->route('user.auth.login')->with('alert', ' thank you for joining , See you on the courts!');
+                return redirect()->route('user.auth.login')->with('alert', ' Thank you for joining , See you on the courts!');
             }
-         
         } catch (\Exception $e) {
             return redirect()->route('user.auth.login')->with('error', 'Payment failed. Please try again.');
         }

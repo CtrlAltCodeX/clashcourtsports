@@ -1,33 +1,30 @@
 <nav x-data="{ open: false }" class="text-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
- 
-
-            <!-- Primary Navigation Menu -->
     <div class=" mx-auto px-0 sm:px-0 lg:px-0 flex justify-between">
         <div class="w-64 bg-gray-800 flex items-center h-16 p-4">
             <!-- Avatar with First Letter of User's Name -->
             @if (Auth::user()->profile_image)
-                <div class="relative w-16 h-16">
-                    <img src="{{ asset('assets/storage/' . Auth::user()->profile_image) }}"
-                         alt="Profile Image"
-                         class="w-full h-full rounded-full object-cover border-2 border-gray-300 shadow">
-                </div>
+            <div class="relative w-16 h-16">
+                <img src="{{ asset('assets/storage/' . Auth::user()->profile_image) }}"
+                    alt="Profile Image"
+                    class="w-full h-full rounded-full object-cover border-2 border-gray-300 shadow">
+            </div>
             @else
-                <div class="relative w-16 h-16">
-                    <img src="{{ asset('assets/images/default_profile.png') }}"
-                         alt="Default Profile Image"
-                         class="w-full h-full rounded-full object-cover border-2 border-gray-300 shadow">
-                </div>
+            <div class="relative w-16 h-16">
+                <img src="{{ asset('assets/images/default_profile.png') }}"
+                    alt="Default Profile Image"
+                    class="w-full h-full rounded-full object-cover border-2 border-gray-300 shadow">
+            </div>
             @endif
 
             @if (Auth::user()->type==="Player")
-                    <!-- Admin Panel Text -->
-                    <span class="text-lg font-semibold ml-2">{{Auth::user()->name}}</span>
+            <!-- Admin Panel Text -->
+            <span class="text-lg font-semibold ml-2">{{Auth::user()->name}}</span>
             @else
-              <!-- Admin Panel Text -->
-              <span class="text-lg font-semibold ml-2">Admin Panel</span>
+            <!-- Admin Panel Text -->
+            <span class="text-lg font-semibold ml-2">Admin Panel</span>
             @endif
-          
+
         </div>
 
         <!-- Right side Dropdown -->

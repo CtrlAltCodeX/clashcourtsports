@@ -13,7 +13,7 @@
                 </li>
                 <li>
                     <a href="{{ route('user.events') }}" class="block p-4 rounded-lg {{ (str_contains(request()->route()->getName(), 'user.events') && request()->route()->getName() == 'user.events') ? 'bg-gray-700' : '' }} hover:bg-gray-700">
-                        User Events
+                        Events
                     </a>
                 </li>
                 <li>

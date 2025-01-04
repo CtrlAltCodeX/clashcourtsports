@@ -60,6 +60,12 @@ Route::middleware('admin')->prefix('admin')->group(function () {
 
     Route::get('upcoming/events', [EventController::class, 'upcomingEvents'])
         ->name('events.upcoming');
+
+    Route::get('/contact', [ContactController::class, 'index'])
+        ->name('admin.contact.index');
+
+    Route::post('/contacts/reply', [ContactController::class, 'reply'])
+        ->name('contacts.reply');
 });
 
 Route::get('/', function () {
@@ -96,9 +102,6 @@ Route::get('join-now/{id}', [ManagePlayersController::class, 'JoinNow'])
 
 Route::post('/contact', [ContactController::class, 'store'])
     ->name('contact.store');
-
-Route::get('/contact', [ContactController::class, 'index'])
-    ->name('admin.contact.index');
 
 Route::post('join-now/{id}', [ManagePlayersController::class, 'StripeCheckout'])
     ->name('stripe.checkout.joinNow');

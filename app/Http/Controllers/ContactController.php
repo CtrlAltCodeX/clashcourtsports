@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactReplyMail;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
-
     public function index()
     {
-        // Fetch all contact messages
         $contacts = Contact::all();
+
         return view('admin.contact.index', compact('contacts'));
     }
-
 
     public function store(Request $request)
     {
@@ -40,5 +39,19 @@ class ContactController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('clashsports')->with('alert', $e->getMessage());
         }
+    }
+
+    public function reply(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'reply_message' => 'required|string',
+        ]);
+
+        Mail::to($request->email)->send(new ContactReplyMail($request->reply_message));
+
+        Contact::where('email', $request->email)->update(['is_replied' => true]);
+
+        return redirect()->back()->with('success', 'Reply sent successfully.');
     }
 }

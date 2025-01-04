@@ -21,13 +21,25 @@
 <style>
     body {
         background-image: url('/assets/images/faq.jpeg');
-        background-size:cover;
+        background-size: cover;
     }
 </style>
 
 <body class="font-sans antialiased">
     <div class="min-h-screen">
         @include('layouts.navigation')
+
+        @if(session('alert'))
+        <div class="alert alert-warning">
+            {{ session('alert') }}
+        </div>
+        @endif
+
+        @if(session('error'))
+        <div class="alert alert-warning">
+            {{ session('error') }}
+        </div>
+        @endif
 
         <!-- Page Heading -->
         @isset($header)

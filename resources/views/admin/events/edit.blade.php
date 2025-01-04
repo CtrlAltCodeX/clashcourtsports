@@ -30,14 +30,14 @@
         </div>
   
      <div class="mb-4">
-            <label for="game_start_date" class="block text-gray-700 font-medium mb-2">Game Start Date</label>
+            <label for="game_start_date" class="block text-gray-700 font-medium mb-2">Session Start Date</label>
             <input type="datetime-local" name="game_start_date" id="game_start_date" value="{{ old('game_start_date', $event->game_start_date) }}" 
                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
         </div>
 
       
         <div class="mb-4">
-            <label for="game_end_date" class="block text-gray-700 font-medium mb-2">Game End Date</label>
+            <label for="game_end_date" class="block text-gray-700 font-medium mb-2">Session End Date</label>
             <input type="datetime-local" name="game_end_date" id="game_end_date" value="{{ old('game_end_date', $event->game_end_date) }}" 
                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
         </div>
@@ -50,14 +50,14 @@
 
 
         <div class="mb-4">
-            <label for="date" class="block text-gray-700 font-medium mb-2">Start Date Time</label>
+            <label for="date" class="block text-gray-700 font-medium mb-2">Registration Date Time</label>
             <input type="datetime-local" name="date" id="date" value="{{ old('date', $event->date) }}" 
                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
         </div>
 
      
         <div class="mb-4">
-            <label for="enddate" class="block text-gray-700 font-medium mb-2">End Date Time</label>
+            <label for="enddate" class="block text-gray-700 font-medium mb-2">Registration Date Time</label>
             <input type="datetime-local" name="enddate" id="enddate" value="{{ old('enddate', $event->enddate) }}" 
                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
         </div>

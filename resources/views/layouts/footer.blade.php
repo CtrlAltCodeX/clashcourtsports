@@ -1,8 +1,8 @@
 <div class="footer_section">
-  <div class="container sports_container" style="max-width: 1800px;">
+  <div class="container sports_container" style="max-width: 1800px;padding: 0px 50px;">
     <div class="footer_top_box d-flex align-items-center justify-content-between">
       <a class="navbar-brand" href="/">
-        <img src="assets/images/logo.svg" alt="Clash Court Sports lOGO" title="Clash Court Sports">
+        <img src="/assets/images/logo.svg" alt="Clash Court Sports lOGO" title="Clash Court Sports">
       </a>
       <div class="footer_social_icon">
         <a href="https://www.facebook.com/profile.php?id=61570296652204" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>

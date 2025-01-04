@@ -26,6 +26,12 @@
     </div>
     @endif
 
+    @if(session('error'))
+    <div class="alert alert-warning">
+      {{ session('error') }}
+    </div>
+    @endif
+
     <!-- Banner Section -->
     <div class="login_banner_section bg_img_login">
       <div class="login_section">
