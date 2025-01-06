@@ -8,6 +8,7 @@
   <meta name="description" content="Clash Court Sports">
   <link rel="icon" type="image/ico" href="{{ asset('assets/images/favicon.ico') }}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <title>Clash Court Sports</title>
   <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">

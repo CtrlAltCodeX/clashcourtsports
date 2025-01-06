@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <title>Clash Court Sports</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="title" content="Clash Court Sports - Donation">
@@ -126,20 +127,20 @@
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.js') }}"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Update plan field on tab click
-            $('#monthly-tab').on('click', function () {
+            $('#monthly-tab').on('click', function() {
                 $('#plan').val('monthly');
                 resetCustomAmountFields();
             });
 
-            $('#once-tab').on('click', function () {
+            $('#once-tab').on('click', function() {
                 $('#plan').val('once');
                 resetCustomAmountFields();
             });
 
             // Handle amount selection
-            $('input[name="amount"]').on('change', function () {
+            $('input[name="amount"]').on('change', function() {
                 const selectedTab = $('#plan').val();
                 if ($(this).val() === 'other') {
                     if (selectedTab === 'monthly') {
@@ -157,7 +158,7 @@
             });
 
             // Update the gift amount when entering a custom amount
-            $('input[name="custom_amount_monthly"], input[name="custom_amount_once"]').on('input', function () {
+            $('input[name="custom_amount_monthly"], input[name="custom_amount_once"]').on('input', function() {
                 const customAmount = $(this).val();
                 $('#giftAmount').text(customAmount ? `$${customAmount}` : '$0'); // Update dynamically
             });

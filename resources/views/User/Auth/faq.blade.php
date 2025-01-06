@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <title>Clash Court Sports</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="title" content="Clash Court Sports- FAQ">
   <meta name="description" content="Clash Court Sports">
@@ -85,7 +86,12 @@
               </h2>
               <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body accordion_body">
-                  <p>We follow USTA’s NRTP Rating system. Please visit XXX for a breakdown of the rating system.</p>
+                  <p>We follow USTA’s NRTP Rating system.</p>
+                  1.0 - 1.5: Complete beginner who can hit the ball occasionally but struggles with control and rallies. <br>
+                  2.0 - 2.5: Can sustain short rallies, understands basic rules, and is improving consistency. Can start a rally with serve and return; some control over direction but still inconsistent. <br>
+                  3.0 Can rally with moderate consistency; developing placement, serves, and volleys.<br>
+                  3.5 Can hit with depth and control; starts using strategy and is comfortable at the net. <br>
+                  4.0 Reliable strokes, good footwork, and can execute spin and directional shots under pressure.
                 </div>
               </div>
             </div>
@@ -134,33 +140,6 @@
               <div id="collapseNine" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body accordion_body">
                   <p>You can reach our customer support team by email at support@clashcourtsports.com.</p>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item accordion_item">
-              <h2 class="accordion-header">
-                <button class="accordion-button accordion_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
-                  Rules of Advance
-                </button>
-              </h2>
-              <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body accordion_body">
-                  • Can rally with moderate consistency; developing placement, serves, and volleys.
-                  • Can hit with depth and control; starts using strategy and is comfortable at the net. <br>
-                  • Reliable strokes, good footwork, and can execute spin and directional shots under pressure.
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item accordion_item">
-              <h2 class="accordion-header">
-                <button class="accordion-button accordion_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
-                  Rules of Beginner
-                </button>
-              </h2>
-              <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body accordion_body">
-                  • Complete beginner who can hit the ball occasionally but struggles with control and rallies. <br>
-                  • Can sustain short rallies, understands basic rules, and is improving consistency. Can start a rally with serve and return; some control over direction but still inconsistent. <br>
                 </div>
               </div>
             </div>

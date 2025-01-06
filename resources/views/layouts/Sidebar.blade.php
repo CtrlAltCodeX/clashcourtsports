@@ -57,7 +57,7 @@
                 </li>
                 <li>
                     <a href="{{ route('notifications.index') }}" class="block {{ str_contains(request()->route()->getName(), 'notification') ? 'bg-gray-700' : '' }} p-4 rounded-lg hover:bg-gray-700">
-                        Notifications
+                        Events Participants
                     </a>
                 </li>
 

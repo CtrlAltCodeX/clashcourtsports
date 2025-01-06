@@ -58,7 +58,7 @@
                         </table>
                     </div>
                     @else
-                    <p class="text-red-500 mt-4">No users found within 10km with matching skill level.</p>
+                    <p class="text-red-500 mt-4">No users found within 10 Miles with matching skill level.</p>
                     @endif
                 </div>
             </div>

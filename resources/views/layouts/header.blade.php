@@ -18,11 +18,13 @@
           <li class="nav-item"><a class="nav-link" href="{{ route('user.auth.faq') }}">FAQ</a></li>
           @if(auth()->user())
           @if (Auth::user()->profile_image)
-          <div class="relative w-16 h-16">
-            <img src="{{ asset('assets/storage/' . Auth::user()->profile_image) }}"
-              alt="Profile Image"
-              class="w-full h-full rounded-full object-cover border-2 border-gray-300 shadow">
-          </div>
+          <a href="{{ route('user.dashboard') }}">
+            <div class="relative w-16 h-16">
+              <img src="{{ asset('assets/storage/' . Auth::user()->profile_image) }}"
+                alt="Profile Image"
+                class="w-full h-full rounded-full object-cover border-2 border-gray-300 shadow" style="width: 50px;border-radius: 50px;">
+            </div>
+          </a>
           @else
           <a href="{{ route('user.dashboard') }}">
             <div class="relative w-16 h-16">

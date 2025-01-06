@@ -5,7 +5,7 @@
         <img src="/assets/images/logo.svg" alt="Clash Court Sports lOGO" title="Clash Court Sports">
       </a>
       <div class="footer_social_icon">
-        <a href="https://www.facebook.com/profile.php?id=61570296652204" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=61570296652204" target="_blank"><i class="fa fa-facebook text-white" aria-hidden="true"></i></a>
         <!--<a href="/"><i class="fa fa-twitter" aria-hidden="true"></i></a>-->
         <!--<a href="/"><i class="fa fa-instagram" aria-hidden="true"></i></a>-->
         <!--<a href="/"><i class="fa fa-linkedin" aria-hidden="true"></i></a>-->

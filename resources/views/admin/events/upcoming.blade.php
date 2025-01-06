@@ -10,6 +10,8 @@
                     <th class="py-2 border">#</th>
                     <th class=" py-2 border">Event Name</th>
                     <th class=" py-2 border">Game Name</th>
+                    <th class=" py-2 border">Registeration Start Date</th>
+                    <th class=" py-2 border">Registeration End Date</th>
                     <th class=" py-2 border">Actions</th>
                 </tr>
             </thead>
@@ -20,6 +22,8 @@
 
                     <td class=" py-2 border">{{ $event->name }}</td>
                     <td class=" py-2 border">{{ $event->game_name }}</td>
+                    <td class=" py-2 border">{{ $event->game_start_date }}</td>
+                    <td class=" py-2 border">{{ $event->game_end_date }}</td>
 
                     <td class="py-2 border">
                         <div class="flex justify-center space-x-3">

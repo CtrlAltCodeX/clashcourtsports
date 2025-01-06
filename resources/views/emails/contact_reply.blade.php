@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Reply to Your Contact Message</title>
 </head>
-
 <body>
     <p>Dear User,</p>
     <p>Thank you for reaching out to us. Here is our response to your message:</p>
@@ -13,7 +11,6 @@
     </blockquote>
     <p>If you have any further questions, feel free to reply to this email.</p>
     <p>Best regards,</p>
-    <p>Clash Court Sports Team</p>
+    <p>Your Team</p>
 </body>
-
 </html>

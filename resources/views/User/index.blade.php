@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <title>Clash Court Sports</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="title" content="Clash Court Sports- Home">
@@ -22,6 +23,7 @@
     <div class="alert alert-warning">
       {{ session('alert') }}
     </div>
+
     @endif
 
     <div class="banner_section">
@@ -144,7 +146,7 @@
                     <h5>Record Scores</h5>
                   </div>
                 </div>
-                <a href="member.html" class="btn join_now_btn mt_32">Join Now</a>
+                <a href="{{ route('clashsports.events') }}" class="btn join_now_btn mt_32">Join Now</a>
               </div>
             </li>
             <li>

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="title" content="Clash Court Sports- Join Now">
   <meta name="description" content="Clash Court Sports">
+  <title>Clash Court Sports</title>
   <meta name="keywords" content="Clash Court Sports">
   <link rel="icon" type="image/ico" href="{{ asset('assets/images/favicon.ico') }}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -59,13 +60,16 @@
 
         <div id="event-details" style=" text-align: center; margin-top: 20px; font-size: 1.2em;">
           <p>
-            Event started on: <strong> {{ \Carbon\Carbon::parse($official->date)->format('F d Y') }}</strong>
+            Registration will start on:
+            <strong>{{ \Carbon\Carbon::parse($official->date)->format('F d, Y h:i A') }}</strong>
           </p>
           <p>
-            Event will end on: <strong>{{ \Carbon\Carbon::parse($official->enddate)->format('F d Y') }}</strong>
+            Registration will end on:
+            <strong>{{ \Carbon\Carbon::parse($official->enddate)->format('F d, Y h:i A') }}</strong>
           </p>
+
           <p>
-            Thank you for joining! Be sure to enjoy the game!
+            Thank you for joining! See you on the courts!
           </p>
         </div>
         <form action="{{ route('stripe.checkout.joinNow', $official->id) }}" method="POST">
@@ -203,7 +207,7 @@
                         <input class="form-check-input" type="radio" name="flexRadioDefault" value="beginner" id="radiocheck1">
                         <label class="form-check-label" for="radiocheck1">
 
-                          Beginner (1.0- 2.5)
+                          Beginner (1.0- 2.5) *
                           <p class="tooltip_text">
                             • 1.0- 1.5: Complete beginner who can hit the ball occasionally but struggles with control and rallies. <br>
                             • 2.0- 2.5: Can sustain short rallies, understands basic rules, and is improving consistency. Can start a rally with serve and return; some control over direction but still inconsistent. <br>
@@ -213,7 +217,7 @@
                       <div class="form-check join_now_radio">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" value="advanced" id="radiocheck2">
                         <label class="form-check-label" for="radiocheck2">
-                          Advanced (3.0-4.0)
+                          Advanced (3.0-4.0) *
                           <p class="tooltip_text">
                             • 3.0: Can rally with moderate consistency; developing placement, serves, and volleys.
                             • 3.5: Can hit with depth and control; starts using strategy and is comfortable at the net. <br>
