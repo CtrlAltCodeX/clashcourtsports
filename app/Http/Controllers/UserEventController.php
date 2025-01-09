@@ -18,7 +18,8 @@ class UserEventController extends Controller
         $eventsWithNearbyUsers = [];
 
         foreach ($userEvents as $userEvent) {
-            $event = Event::find($userEvent->event_id);
+            $event = Event::with('userevent')
+                ->find($userEvent->event_id);
 
             $latitude = $userEvent->latitude;
             $longitude = $userEvent->longitude;
@@ -50,6 +51,8 @@ class UserEventController extends Controller
     public function dashboard()
     {
         $user = auth()->user();
+
+        if ($user->type == 'admin') return redirect()->route('events.index');
 
         // Fetch approved UserEvents where the user is the participant
         $userEvents = UserEvent::where('user_id', $user->id)
@@ -369,5 +372,15 @@ class UserEventController extends Controller
         $opponentUserEvent->save();
 
         return redirect()->route('user.events.score')->with('success', 'Match added successfully!');
+    }
+
+    public function removePlayer($id)
+    {
+        $userEvent = UserEvent::where('user_id', $id)
+            ->first();
+
+        $userEvent->delete();
+
+        return redirect()->back()->with('success', 'Player removed successfully!');
     }
 }

@@ -2,7 +2,7 @@
 
 @section('admin-content')
 
-<div class="container">
+<div class="container-fuild">
     <div class="table-responsive">
         <table class="table-auto w-full border border-gray-300 text-center">
             <thead class="bg-blue-100 text-blue-700">
@@ -10,8 +10,8 @@
                     <th class="py-2 border">#</th>
                     <th class=" py-2 border">Event Name</th>
                     <th class=" py-2 border">Game Name</th>
-                    <th class=" py-2 border">Registeration Start Date</th>
-                    <th class=" py-2 border">Registeration End Date</th>
+                    <th class=" py-2 border">Session Start Date</th>
+                    <th class=" py-2 border">Session End Date</th>
                     <th class=" py-2 border">Actions</th>
                 </tr>
             </thead>

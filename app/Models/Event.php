@@ -17,9 +17,14 @@ class Event extends Model
         'date',
         'capacity',
         'pricing',
-        'enddate',        
-        'game_name',      
-        'double_price',   
+        'enddate',
+        'game_name',
+        'double_price',
         'user_id'
     ];
+
+    public function userevent()
+    {
+        return $this->belongsTo(UserEvent::class, 'id', 'event_id');
+    }
 }

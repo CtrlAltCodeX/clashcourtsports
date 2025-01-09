@@ -1,7 +1,7 @@
 @extends('layouts.sidebar')
 
 @section('admin-content')
-<div class="container">
+<div class="container-fuild">
     <h1 class="text-xl font-bold mb-4">Manage Event Scores</h1>
 
     @if (session('success'))
@@ -28,8 +28,6 @@
                     <td class="px-4 py-2 border">{{ $userEvent->user->name }}</td>
                     <td class="px-4 py-2 border">{{ $userEvent->user->email }}</td>
                     <td class="px-4 py-2 border">{{ $userEvent->score }}</td>
-                
-
                 </tr>
                 @empty
                 <tr>

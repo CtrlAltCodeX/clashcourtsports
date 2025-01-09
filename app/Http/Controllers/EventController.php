@@ -81,7 +81,7 @@ class EventController extends Controller
     public function playerGroupWise(Request $request)
     {
         $events = Event::all();
-        $groups = User::select('group')->distinct()->pluck('group');
+        $groups = User::select('group')->whereNotNull('group')->distinct()->pluck('group');
 
         $usersevents = UserEvent::with('user', 'event');
 

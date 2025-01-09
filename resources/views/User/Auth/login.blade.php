@@ -37,6 +37,7 @@
     <div class="login_banner_section bg_img_login">
       <div class="login_section">
         <div class="container sports_container">
+          <div class="login_form_c">
           <form action="{{ route('userPost.auth.login') }}" method="POST">
             @csrf
             <div class="login_box">
@@ -82,6 +83,7 @@
               </div>
             </div>
           </form>
+        </div>
         </div>
       </div>
     </div>

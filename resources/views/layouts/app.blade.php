@@ -8,15 +8,16 @@
 
     <title>Clash Court Sports</title>
 
+    <link rel="icon" type="image/ico" href="{{ asset('assets/images/favicon.ico') }}">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <!-- Font Awesome CDN -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-    <link rel="preload" as="style" href="https://clashcourtsports.com/build/assets/app-DtY2Ah0U.css" />
+    <link rel="preload" as="style" href="https://clashcourtsports.com/build/assets/app-Be24Q6Z-.css" />
     <link rel="modulepreload" href="https://clashcourtsports.com/build/assets/app-BPnfBaih.js" />
-    <link rel="stylesheet" href="https://clashcourtsports.com/build/assets/app-DtY2Ah0U.css" />
+    <link rel="stylesheet" href="https://clashcourtsports.com/build/assets/app-Be24Q6Z-.css" />
     <script type="module" src="https://clashcourtsports.com/build/assets/app-BPnfBaih.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
@@ -81,7 +82,7 @@
                                     <form method="POST" action="{{ route('logout') }}" class="block">
                                         @csrf
                                         <button type="submit"
-                                            class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center">
                                             Logout
                                         </button>
                                     </form>

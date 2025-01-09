@@ -2,10 +2,10 @@
 
 
 @section('admin-content')
-<div class="container">
+<div class="container-fuild">
     <div class="flex justify-between items-center mb-4">
         <h5 class="text-lg font-medium">Officials List</h5>
-        <a href="{{ route('officials_registration.create') }}" style="background-color: #10B981; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem;">
+        <a href="{{ route('officials_registration.create') }}" style="background-color: #B95B00;; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem;">
             Add New
         </a>
     </div>

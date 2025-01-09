@@ -11,7 +11,7 @@ class OfficialsRegistrationController extends Controller
 
     public function index()
     {
-        $officials = User::where('type', '=', 'admin')
+        $officials = User::where('type', '=', 'official')
             ->orderBy('created_at', 'desc') // Order by latest created records
             ->get();
 
@@ -38,7 +38,7 @@ class OfficialsRegistrationController extends Controller
 
         $user = new User();
         $user->name = $request->organization_name;
-        $user->type = 'admin';
+        $user->type = 'official';
         $user->phone_number = $request->phone_number;
         $user->email = $request->email;
         $user->city = $request->city;

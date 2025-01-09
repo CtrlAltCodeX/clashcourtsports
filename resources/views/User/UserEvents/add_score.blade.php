@@ -1,7 +1,7 @@
 @extends('layouts.sidebar')
 
 @section('admin-content')
-<div class="card shadow-sm">
+<div class="">
     <h2 class="text-xl font-semibold">Participated Events</h2>
 
     <div class="mb-4 text-right">
@@ -34,17 +34,17 @@
                 <input type="hidden" name="event_id" value="{{ $userEvent->id }}">
 
                 <!-- Event Name -->
-                <div class="px-4 py-2 border" style="width: 200px;align-content: center;">
+                <div class="px-4 py-2 border" style="width: 200px;align-content: center;overflow: auto;;">
                     {{ $userEvent->event->name }}
                 </div>
 
                 <!-- Game Name -->
-                <div class="px-4 py-2 border" style="width: 200px;align-content: center;">
+                <div class="px-4 py-2 border" style="width: 200px;align-content: center;overflow: auto;;">
                     {{ $userEvent->event->game_name }}
                 </div>
 
                 <!-- Your Score -->
-                <div class="px-4 py-2 border" style="width: 200px;align-content: center;">
+                <div class="px-4 py-2 border" style="width: 200px;align-content: center;overflow: auto;;">
                     @php $scores = json_decode($userEvent->score); @endphp
                     @if ($userEvent->status === 'Rejected')
                     <div id="score-display-{{ $userEvent->id }}">
@@ -76,12 +76,12 @@
                 </div>
 
                 <!-- Status -->
-                <div class="px-4 py-2 border" style="width: 200px;align-content: center;">
+                <div class="px-4 py-2 border" style="width: 200px;align-content: center;overflow: auto;;">
                     {{ ucfirst($userEvent->status) }}
                 </div>
 
                 <!-- Select Opponent -->
-                <div class="px-4 py-2 border" style="width: 200px;align-content: center;">
+                <div class="px-4 py-2 border" style="width: 200px;align-content: center;overflow: auto;;">
                     @if ($userEvent->status === 'pending')
                     <select
                         name="selected_users[{{ $userEvent->id }}]"
@@ -99,7 +99,7 @@
                 </div>
 
                 <!-- Opponent Score -->
-                <div class="px-4 py-2 border" style="width: 200px;align-content: center;">
+                <div class="px-4 py-2 border" style="width: 200px;align-content: center;overflow: auto;;">
                     @if ($userEvent->status === 'Rejected')
                     <div>{{ $userEvent->opponent_score ? implode(', ', $userEvent->opponent_score) : 'No opponent score available' }}</div>
                     @elseif ($userEvent->status === 'pending')
@@ -118,7 +118,7 @@
                 </div>
 
                 <!-- Actions -->
-                <div class="px-4 py-2 border text-center" style="width: 200px;align-content: center;">
+                <div class="px-4 py-2 border text-center" style="width: 200px;align-content: center;overflow: auto;;">
                     <input type="hidden" name="event_ids[]" value="{{ $userEvent->id }}">
 
                     @if (isset($userEvent->show_approval_buttons) && $userEvent->show_approval_buttons)

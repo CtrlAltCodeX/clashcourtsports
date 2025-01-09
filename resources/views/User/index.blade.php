@@ -30,7 +30,7 @@
       <div class="container sports_container">
         <div class="banner_content">
           <h1 class="banner_headng">Clash Court Sports</h1>
-          <p class="banner_content">Long Island’s Premier Pick-Up Tennis & Pickleball League </p>
+          <p class="banner_content">Premier Pick-Up Tennis & Pickleball League </p>
           <div class="demo_btn_group">
             <a href="{{ route('clashsports.events') }}" class="btn join_now_btn">Join Now</a>
             <a href="{{ route('user.auth.faq') }}" class="btn faq_btn">FAQ</a>
@@ -68,7 +68,9 @@
             <li>
               <div class="registration_box_card">
                 <div class="registration_box_inner">
-                  <h6>Play Singles - $50</h6>
+                  <h6>
+                    Play Singles - <del>$50</del> $35
+                  </h6>
                   <a href="{{ route('clashsports.events') }}" class="btn registration_for_btn">Register for Spring 2025</a>
                 </div>
               </div>
@@ -76,7 +78,9 @@
             <li>
               <div class="registration_box_card bg_two">
                 <div class="registration_box_inner">
-                  <h6>Play Doubles - $40</h6>
+                  <h6>
+                    Play Doubles - <del>$40</del> $20
+                  </h6>
                   <a href="{{ route('clashsports.events') }}" class="btn registration_for_btn">Register for Spring 2025</a>
                 </div>
               </div>

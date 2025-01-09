@@ -28,8 +28,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if (auth()->user()->type != 'admin') {
-            return redirect()->intended(route('dashboard', absolute: false));
+        if (auth()->user()->type != 'admin' && auth()->user()->type != 'official') {
+            return redirect()->intended(route('user.dashboard', absolute: false));
         }
 
         return redirect()->intended(route('events.index', absolute: false));

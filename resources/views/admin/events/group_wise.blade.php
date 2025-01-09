@@ -1,7 +1,7 @@
 @extends('layouts.sidebar')
 
 @section('admin-content')
-<div class="container">
+<div class="container-fuild">
 
     @if (session('success'))
     <div class="bg-green-100 text-green-700 p-3 rounded mb-4">{{ session('success') }}</div>
@@ -38,7 +38,7 @@
             </div>
 
             <div class="flex items-end">
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                <button type="submit" class="text-white px-4 py-2 rounded hover:bg-blue-600" style="background-color: #B95B00;">
                     Filter
                 </button>
             </div>

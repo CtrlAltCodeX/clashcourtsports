@@ -1,7 +1,7 @@
 @extends('layouts.sidebar')
 
 @section('admin-content')
-<div class="card shadow-sm mb-6">
+<div class="">
     <h2 class="text-xl font-semibold">Event Participants</h2>
 
     <div class="card-body px-6 py-4">
@@ -19,7 +19,7 @@
                 <button
                     data-event-id="{{ $eventData['event']->id }}"
                     class="send-email-btn text-white px-4 py-2 rounded hover:bg-blue-700"
-                    style="background-color: blue;">
+                    style="background-color: #B95B00;">
                     Send Email
                 </button>
 
@@ -27,7 +27,7 @@
                 <button
                     class="btn btn-primary toggle-users-btn"
                     data-target="#users-{{ $eventData['event']->id }}"
-                    style="background-color:blue; color: #fff; border: none; padding: 10px 20px; font-size: 14px; border-radius: 5px; cursor: pointer; text-align: center;">
+                    style="background-color: #B95B00; color: #fff; border: none; padding: 10px 20px; font-size: 14px; border-radius: 5px; cursor: pointer; text-align: center;">
                     View Users
                 </button>
             </div>
@@ -46,6 +46,7 @@
                         <th class="px-4 py-2 border">Phone Number</th>
                         <th class="px-4 py-2 border">City</th>
                         <th class="px-4 py-2 border">State</th>
+                        <th class="px-4 py-2 border">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,6 +60,11 @@
                         <td class="px-4 py-2 border">{{ $userEvent->user->phone_number }}</td>
                         <td class="px-4 py-2 border">{{ $userEvent->user->city }}</td>
                         <td class="px-4 py-2 border">{{ $userEvent->user->state }}</td>
+                        <td class="px-4 py-2 border">
+                            <a href="{{ route('event.remove.player', $userEvent->user_id) }}" onclick="return confirm('Deleting Participant. Are you sure?')">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

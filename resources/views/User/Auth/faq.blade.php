@@ -127,7 +127,7 @@
               </h2>
               <div id="collapseEight" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body accordion_body">
-                  <p>We understand that life happens or sometimes injuries get in the way. We refund back 100% one week before the season begins. Once a season has started, 25% of the refund will be deducted each week. Please note, if you are found harassing other members, we will not issue any refunds.</p>
+                  <p>We understand that life happens or sometimes injuries get in the way. We will issue a 100% refund before the season begins. Once a season (session) has started, no refunds can be given. For extenuating circumstances, please email us at support@clashcourtsports.com. Please note, if you are found harassing other members, we will not issue any refunds.</p>
                 </div>
               </div>
             </div>

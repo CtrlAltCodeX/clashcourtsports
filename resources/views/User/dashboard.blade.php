@@ -7,7 +7,7 @@
     </div>
     @endif
 
-<div class="container mx-auto my-5">
+<div class="container-fuild mx-auto my-5">
     <div class="flex justify-between">
         <div class="flex justify-between items-center mb-4">
             <h5 class="text-lg font-medium">Win/Loss Dashboard</h5>

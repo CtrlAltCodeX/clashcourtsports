@@ -33,10 +33,7 @@
           <p class="event_sub_heading">Get ready for something exciting! Our team is hard at work crafting an exceptional experience for you.</p>
           <!-- <a href="{{ route('user.auth.login') }}" class="btn event_btn" target="_blank">Join Now</a> -->
         </div>
-      </div>
-    </div>
-    <div class="login_section">
-      <div class="container sports_container">
+        <div class="test_join_box">
         <div class="timer_box">
           <ul class="timer_list">
             <li>
@@ -56,8 +53,6 @@
             </li>
           </ul>
         </div>
-
-
         <div id="event-details" style=" text-align: center; margin-top: 20px; font-size: 1.2em;">
           <p>
             Registration will start on:
@@ -95,7 +90,7 @@
                   @else
                   <li>
                     <div class="login_group mb_30">
-                      <p class="label_from" style="color:black">First Name <span>*</span></p>
+                      <p class="label_from text-white" style="color:black">First Name <span>*</span></p>
                       <input type="text" name="first_name" class="form-control info_form_control" value="{{ old('first_name') }}">
                       @error('first_name')
                       <small class="text-danger">{{ $message }}</small>
@@ -105,7 +100,7 @@
                   <!-- Last Name -->
                   <li>
                     <div class="login_group mb_30">
-                      <p class="label_from" style="color:black">Last Name <span>*</span></p>
+                      <p class="label_from text-white" style="color:black">Last Name <span>*</span></p>
                       <input type="text" name="last_name" class="form-control info_form_control" value="{{ old('last_name') }}">
                       @error('last_name')
                       <small class="text-danger">{{ $message }}</small>
@@ -115,7 +110,7 @@
                   <!-- Phone Number -->
                   <li>
                     <div class="login_group mb_30">
-                      <p class="label_from" style="color:black">Phone Number <span>*</span></p>
+                      <p class="label_from text-white" style="color:black">Phone Number <span>*</span></p>
                       <input type="text" name="phone_number" class="form-control info_form_control" value="{{ old('phone_number') }}">
                       @error('phone_number')
                       <small class="text-danger">{{ $message }}</small>
@@ -125,7 +120,7 @@
                   <!-- Email -->
                   <li>
                     <div class="login_group mb_30">
-                      <p class="label_from" style="color:black">Email <span>*</span></p>
+                      <p class="label_from text-white" style="color:black">Email <span>*</span></p>
                       <input type="email" name="email" class="form-control info_form_control" value="{{ old('email') }}">
                       @error('email')
                       <small class="text-danger">{{ $message }}</small>
@@ -135,7 +130,7 @@
                   <!-- City -->
                   <li>
                     <div class="login_group mb_30">
-                      <p class="label_from" style="color:black">City <span>*</span></p>
+                      <p class="label_from text-white" style="color:black">City <span>*</span></p>
                       <input type="text" name="city" class="form-control info_form_control" value="{{ old('city') }}">
                       @error('city')
                       <small class="text-danger">{{ $message }}</small>
@@ -145,7 +140,7 @@
                   <!-- State -->
                   <li>
                     <div class="login_group mb_30">
-                      <p class="label_from" style="color:black">State <span>*</span></p>
+                      <p class="label_from text-white" style="color:black">State <span>*</span></p>
                       <input type="text" name="state" class="form-control info_form_control" value="{{ old('state') }}">
                       @error('state')
                       <small class="text-danger">{{ $message }}</small>
@@ -155,7 +150,7 @@
                   <!-- Zip/Postal Code -->
                   <li>
                     <div class="login_group mb_30">
-                      <p class="label_from" style="color:black">Zip/Postal Code <span>*</span></p>
+                      <p class="label_from text-white" style="color:black">Zip/Postal Code <span>*</span></p>
                       <input type="text" name="zip_code" class="form-control info_form_control" value="{{ old('zip_code') }}">
                       @error('zip_code')
                       <small class="text-danger">{{ $message }}</small>
@@ -165,7 +160,7 @@
                   <!-- Password -->
                   <li>
                     <div class="login_group mb_30">
-                      <p class="label_from" style="color:black">Password <span>*</span></p>
+                      <p class="label_from text-white" style="color:black">Password <span>*</span></p>
                       <input type="password" name="password" class="form-control info_form_control">
                       @error('password')
                       <small class="text-danger">{{ $message }}</small>
@@ -177,16 +172,16 @@
                   <!-- Game Option -->
                   <li>
                     <div class="radio_box mb_30">
-                      <p class="label_from mb_30" style="color:black">{{ $official->game_name }}<span>*</span></p>
+                      <p class="label_from mb_30  text-white" style="color:black">{{ $official->game_name }}<span>*</span></p>
                       <div class="form-check remember_check radio_check">
                         <input class="form-check-input" type="radio" name="game_type" value="{{ $official->pricing }}" id="radiocheck_single" data-type="singles">
-                        <label class="form-check-label" for="radiocheck_single" style="color:black">
+                        <label class="form-check-label text-white" for="radiocheck_single" style="color:black">
                           Singles - ${{ number_format($official->pricing, 2) }}
                         </label>
                       </div>
                       <div class="form-check remember_check radio_check">
                         <input class="form-check-input" type="radio" name="game_type" value="{{ $official->double_price }}" id="radiocheck_double" data-type="doubles">
-                        <label class="form-check-label" for="radiocheck_double" style="color:black">
+                        <label class="form-check-label text-white" for="radiocheck_double" style="color:black">
                           Doubles - ${{ number_format($official->double_price, 2) }}
                         </label>
                       </div>
@@ -202,10 +197,10 @@
 
                   <li>
                     <div class="radio_box mb_30">
-                      <p class="label_from mb_30" style="color:black">Skill Level<span>*</span></p>
+                      <p class="label_from mb_30 text-white" style="color:black">Skill Level<span>*</span></p>
                       <div class="form-check join_now_radio">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" value="beginner" id="radiocheck1">
-                        <label class="form-check-label" for="radiocheck1">
+                        <label class="form-check-label text-white" for="radiocheck1">
 
                           Beginner (1.0- 2.5) *
                           <p class="tooltip_text">
@@ -216,7 +211,7 @@
                       </div>
                       <div class="form-check join_now_radio">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" value="advanced" id="radiocheck2">
-                        <label class="form-check-label" for="radiocheck2">
+                        <label class="form-check-label text-white" for="radiocheck2">
                           Advanced (3.0-4.0) *
                           <p class="tooltip_text">
                             • 3.0: Can rally with moderate consistency; developing placement, serves, and volleys.
@@ -238,14 +233,14 @@
 
                   <!-- Submit Button -->
                   <li class="width_full">
-                    <button class="btn btn-primary mt-3" id="submit-button">Pay and Register</button>
+                    <button class="btn join_now_btn mt-3" id="submit-button">Pay and Register</button>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
         </form>
-
+        </div>
       </div>
     </div>
     @include('layouts.footer')

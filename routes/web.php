@@ -12,10 +12,6 @@ use App\Http\Controllers\ManageScoreController;
 use App\Http\Controllers\DonationController;
 
 Route::middleware('admin')->prefix('admin')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
     Route::resource('events', EventController::class);
 
     Route::resource('officials_registration', OfficialsRegistrationController::class);
@@ -23,7 +19,7 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/user-events', [UserEventController::class, 'index'])
         ->name('user.events')->middleware('auth');
 
-    Route::get('/user-dashboard', [UserEventController::class, 'dashboard'])
+    Route::get('dashboard', [UserEventController::class, 'dashboard'])
         ->name('user.dashboard')->middleware('auth');
 
     Route::get('/events-score', [UserEventController::class, 'AddScore'])

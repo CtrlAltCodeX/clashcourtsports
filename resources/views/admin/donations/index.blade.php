@@ -1,7 +1,7 @@
 @extends('layouts.sidebar')
 
 @section('admin-content')
-<div class="container">
+<div class="container-fuild">
     <div class="flex justify-between items-center mb-4">
         <h5 class="text-lg font-medium">Donations List</h5>
      
@@ -21,8 +21,6 @@
                     <th class="py-2 border">Plan</th>
                     <th class="py-2 border">Amount</th>
                     <th class="py-2 border">Payment Status</th>
-                  
-           
 
                 </tr>
             </thead>
@@ -35,9 +33,6 @@
                         <td class="py-2 border">{{ $donation->plan }}</td>
                         <td class="py-2 border">${{ number_format($donation->amount, 2) }}</td>
                         <td class="py-2 border">{{ ucfirst($donation->payment_status) }}</td>
-                      
-
-                     
                     </tr>
                 @empty
                     <tr>
