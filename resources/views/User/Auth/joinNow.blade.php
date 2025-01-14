@@ -29,8 +29,8 @@
     <div class="join_now_bannner">
       <div class="container sports_container">
         <div class="event_content">
-          <h1 class="event_headng">The {{$official->name}} is coming soon</h1>
-          <p class="event_sub_heading">Get ready for something exciting! Our team is hard at work crafting an exceptional experience for you.</p>
+          <!-- <h1 class="event_headng">The {{$official->name}} is coming soon</h1>
+          <p class="event_sub_heading">Get ready for something exciting! Our team is hard at work crafting an exceptional experience for you.</p> -->
           <!-- <a href="{{ route('user.auth.login') }}" class="btn event_btn" target="_blank">Join Now</a> -->
         </div>
         <div class="test_join_box">

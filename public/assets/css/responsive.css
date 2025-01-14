@@ -5,9 +5,9 @@
     padding-right: 0px;
   }
   .menu_container{
-    max-width: 1440px;
-    padding-left: 24px;
-    padding-right: 24px;
+    max-width: 1800px;
+    padding-left: 50px;
+    padding-right: 50px;
   }
 }
 
@@ -96,6 +96,17 @@
         font-size: 18px;
         line-height: 28px;
     }
+	
+.footer_top_box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.footer_social_icon {
+    padding-top: 15px;
+}
+
 }
 
 @media (max-width: 360.98px) {

@@ -3,7 +3,7 @@
 @section('admin-content')
 <div class="container-fuild">
     <div class="table-responsive">
-        <table class="table-auto w-full border border-gray-300 text-center">
+        <table class="table-auto w-full border border-gray-300 text-center my-2">
             <thead class="bg-blue-100 text-blue-700">
                 <tr>
                     <th class="py-2 border">First Name</th>
@@ -43,6 +43,7 @@
                 @endforelse
             </tbody>
         </table>
+        {{ $contacts->links() }}
     </div>
 </div>
 

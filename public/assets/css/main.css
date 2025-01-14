@@ -134,7 +134,7 @@ button:focus {
 
 .banner_section {
 	width: 100%;
-	background-image: url(../images/hero-banner.png);
+	background-image: url(../images/Home_Banner.png);
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -148,7 +148,7 @@ button:focus {
 	background-repeat: no-repeat;
 	background-size: cover;
 	position: relative;
-	padding: 341px 0px;
+	padding: 100px 0px;
 }
 
 .banner_headng{
@@ -209,7 +209,7 @@ button:focus {
 }
 .registration_section{
 	background-color: #FFE7B4;
-	padding: 120px 0px;
+	padding: 60px 0px;
 }
 .registration_list{
 	display: -ms-flexbox;
@@ -280,7 +280,7 @@ button:focus {
 }
 
 .bg_two{	
-	background-image: url(../images/doubles-banner.png);
+	background-image: url(../images/double_player.jpeg);
 }
 
 .bg_three{
@@ -291,13 +291,14 @@ button:focus {
 }
 .back_section{
 	width: 100%;
-    background-image: url(../images/donation-banner.png);
+    background-image: url(../images/Donation.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
     padding: 159px 0px;
-    height: 636px;
+    height: 900px;
+    align-content: center;
 }
 /* .login_banner_section {
     width: 100%;
@@ -643,6 +644,10 @@ button:focus {
     padding-left: 8px;
     margin-bottom: 0px;
 }
+.join_now_list li p {
+    color:black;
+}
+
 .join_now_list .width_full{
 	flex: 0 0 100%;
     max-width: 100%;
@@ -738,8 +743,9 @@ button:focus {
 }
 .event_content{
 	text-align: center;
-    max-width: 832px;
-    margin: auto;
+   	max-width: 914px;
+    	margin: auto;
+	padding-bottom: 140px;
 }
 .timer_box{
 	max-width: 592px;
@@ -757,6 +763,9 @@ button:focus {
     padding: 0;
     margin-bottom: 0;
 	width: 100%;
+}
+#event-details p{
+color: #fff;
 }
 .timer_list li{
 	flex: 0 0 33.333333%;
@@ -793,7 +802,7 @@ button:focus {
 }
 .donation_section{
 	width: 100%;
-	background-image: url(../images/002.png);
+	background-image: url(../images/Donation.png);
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -1143,4 +1152,41 @@ button:focus {
 .join_now_radio .form-check-label:hover .tooltip_text {
 	visibility: visible;
 	opacity: 1;
+}
+.footer_top_box{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.footer_bottom_box {
+    text-align: center;
+    padding-top: 15px;
+}
+.footer_social_icon a {
+    font-size: 18px;
+    line-height: 18px;
+    color: #fff;
+    display: inline-block;
+    background-color: transparent;
+    text-align: center;
+    transition: all .2s linear;
+    border: 0px;
+}
+.footer_social_icon a+ a {
+    margin-left: 15px;
+}
+.bg_img_login {
+    background-image: url(../images/login-banner.png);
+    position: relative;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.bg_img_faq {
+    background-image: url(../images/faq.jpeg);
+}
+
+.login_form_c {
+    max-width: 800px;
+    margin: auto;
 }

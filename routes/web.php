@@ -62,6 +62,9 @@ Route::middleware('admin')->prefix('admin')->group(function () {
 
     Route::post('/contacts/reply', [ContactController::class, 'reply'])
         ->name('contacts.reply');
+
+    Route::get('event/player/remove/{id}', [UserEventController::class, 'removePlayer'])
+        ->name('event.remove.player');
 });
 
 Route::get('/', function () {
