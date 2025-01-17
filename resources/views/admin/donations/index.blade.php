@@ -17,7 +17,11 @@
                 <tr>
                     <th class="py-2 border">#</th>
                     <th class="py-2 border">Name</th>
+                    <th class="py-2 border">School Name</th>
                     <th class="py-2 border">Email</th>
+                    <th class="py-2 border">City</th>
+                    <th class="py-2 border">State</th>
+                    <th class="py-2 border">Zip Code</th>
                     <th class="py-2 border">Plan</th>
                     <th class="py-2 border">Amount</th>
                     <th class="py-2 border">Payment Status</th>
@@ -29,7 +33,11 @@
                     <tr class="hover:bg-gray-100">
                         <td class="py-2 border">{{ $donations->firstItem() + $index }}</td>
                         <td class="py-2 border">{{ $donation->name }}</td>
+                        <td class="py-2 border">{{ $donation->school_name }}</td>
                         <td class="py-2 border">{{ $donation->email }}</td>
+                        <td class="py-2 border">{{ $donation->city }}</td>
+                        <td class="py-2 border">{{ $donation->state }}</td>
+                        <td class="py-2 border">{{ $donation->zip_code }}</td>
                         <td class="py-2 border">{{ $donation->plan }}</td>
                         <td class="py-2 border">${{ number_format($donation->amount, 2) }}</td>
                         <td class="py-2 border">{{ ucfirst($donation->payment_status) }}</td>

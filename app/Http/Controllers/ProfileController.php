@@ -22,17 +22,36 @@ class ProfileController extends Controller
  
  public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+        // dd($request->all());
         // Fill the user model with validated data
         $request->user()->fill($request->validated());
 
         if ($request->has('phone_number')) {
             $request->user()->phone_number = $request->input('phone_number');
         }
+        if ($request->has('city')) {
+            $request->user()->city = $request->input('city');
+        }
+
+        if ($request->has('state')) {
+            $request->user()->state = $request->input('state');
+        }
+
+        if ($request->has('zip_code')) {
+            $request->user()->zip_code = $request->input('zip_code');
+        }
         // Check if the email field was modified and reset verification
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
 
+        if ($request->has('latitude')) {
+            $request->user()->latitude = $request->input('latitude');
+        }
+        if ($request->has('longitude')) {
+            $request->user()->longitude = $request->input('longitude');
+        }
+        
         // Handle profile image upload
         if ($request->hasFile('profile_image')) {
             // Delete old image if it exists

@@ -14,6 +14,7 @@ class DonationController extends Controller
     }
     public function submitDonation(Request $request)
     {
+      
         $plan = $request->input('plan');
     
         $amount = $request->input('amount') === 'other'
@@ -50,6 +51,13 @@ class DonationController extends Controller
                     ]],
                     'mode' => 'subscription',
                     'allow_promotion_codes' => true,
+                    'metadata' => [
+                        'school_name' => $request->school_name,
+                        'city' => $request->city,
+                        'state' => $request->state,
+                        'zip_code' => $request->zip_code,
+                    
+                    ],
                 ]);
             } else {
            
@@ -69,6 +77,13 @@ class DonationController extends Controller
                     ]],
                     'mode' => 'payment',
                     'allow_promotion_codes' => true,
+                    'metadata' => [
+                        'school_name' => $request->school_name,
+                        'city' => $request->city,
+                        'state' => $request->state,
+                        'zip_code' => $request->zip_code,
+                    
+                    ],
                 ]);
             }
 
@@ -100,6 +115,10 @@ class DonationController extends Controller
                     $donation = new Donation();
                     $donation->name = $customerDetails->name;
                     $donation->email = $customerDetails->email;
+                    $donation->school_name =$session->metadata->school_name ?? '';
+                    $donation->city =$session->metadata->city ?? '';
+                    $donation->state = $session->metadata->state ?? '';
+                    $donation->zip_code = $session->metadata->zip_code ?? '';
                     $donation->plan = $plan;
                     $donation->amount = $amountTotal;
                     $donation->payment_status = $session->payment_status;

@@ -54,6 +54,24 @@
                                     aria-controls="once-tab-pane" aria-selected="false">Give Once</button>
                             </li>
                         </ul>
+                  
+                        <div class="info_group">
+                <p class="info_label">School Name:</p>
+                <input type="text" name="school_name" class="form-control info_form_control" placeholder="Enter school name" required>
+              </div>
+        
+    <div class="info_group">
+        <p class="info_label">City:</p>
+        <input type="text" id="city" name="city" class="form-control info_form_control" placeholder="Enter city" required>
+    </div>
+    <div class="info_group">
+        <label class="info_label">State:</label>
+        <input type="text" id="state" name="state" class="form-control info_form_control" placeholder="Enter state" required>
+    </div>
+    <div class="info_group">
+        <label class="info_label">Zip Code:</label>
+        <input type="text" id="zip_code" name="zip_code" class="form-control info_form_control" placeholder="Enter zip code" required>
+    </div>
                         <div class="donation_box_body">
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="monthly-tab-pane" role="tabpanel"
