@@ -18,6 +18,7 @@
                 <tr>
                     <th class="px-4 py-2 border">Event Name</th>
                     <th class="px-4 py-2 border">Game Name</th>
+                    <th class="px-4 py-2 border">You & Partner</th>
                     <th class="px-4 py-2 border">Your Score</th>
                     <th class="px-4 py-2 border">Status</th>
                     <th class="px-4 py-2 border">Select Opponent</th>
@@ -29,7 +30,7 @@
 
         <div class="">
             @foreach ($userEvents as $userEvent)
-            <form action="{{ route('user.events.save_score') }}" method="POST" class="table-row hover:bg-gray-100 w-full grid text-center" style="grid-template-columns: auto auto auto auto auto auto auto;">
+            <form action="{{ route('user.events.save_score') }}" method="POST" class="table-row hover:bg-gray-100 w-full grid text-center" style="grid-template-columns: auto auto auto auto auto auto auto auto;">
                 @csrf
                 <input type="hidden" name="event_id" value="{{ $userEvent->id }}">
 
@@ -41,6 +42,35 @@
                 <!-- Game Name -->
                 <div class="px-4 py-2 border" style="width: 200px;align-content: center;overflow: auto;;">
                     {{ $userEvent->event->game_name }}
+                </div>
+                @php
+                if($userEvent->partners_scores) {
+                $user = app('App\Models\User')->find($userEvent->partners_scores);
+                }
+                @endphp
+
+                <div class="px-4 py-2 border" style="width: 200px;align-content: center;overflow: auto;">
+                    <ul>
+                        <li>
+                            {{ auth()->user()->email }}
+                            @if($userEvent->selected_game === 'doubles' && !$userEvent->partners_scores)
+                            <select
+                                name="your_partner"
+                                class="form-select w-full mx-auto border border-gray-300 rounded px-2 py-1 mt-2">
+                                <option value="">Select a User</option>
+                                @if(isset($usersForDropdown[$userEvent->id]))
+                                @foreach ($usersForDropdown[$userEvent->id] as $users)
+                                <option value="{{ $users[0]?->user_event_id }}">{{ $users[0]?->name }} {{ $users[0]?->email }}</option>
+                                @endforeach
+                                @endif
+                            </select>
+                            @endif
+
+                        </li>
+                        @if($userEvent->partners_scores)
+                        <li>{{ $user->email }}</li>
+                        @endif
+                    </ul>
                 </div>
 
                 <!-- Your Score -->
@@ -93,13 +123,47 @@
                         @endforeach
                         @endif
                     </select>
+                    @if($userEvent->selected_game === 'doubles' && !$userEvent->partners_scores)
+                    <select
+                        name="partner_opp"
+                        class="form-select w-full mx-auto border border-gray-300 rounded px-2 py-1 mt-2">
+                        <option value="">Select a User</option>
+                        @if(isset($usersForDropdown[$userEvent->id]))
+                        @foreach ($usersForDropdown[$userEvent->id] as $users)
+                        <option value="{{ $users[0]?->user_event_id }}">{{ $users[0]?->name }} {{ $users[0]?->email }}</option>
+                        @endforeach
+                        @endif
+                    </select>
+                    @endif
+
                     @else
-                    <div>Opponent: {{ $userEvent->opponent_email ?? 'No opponent' }}</div>
+                    @php
+                    $oppentUser = app('App\Models\User')->where('email', $userEvent->opponent_email)
+                    ->first();
+
+                    $oppentUserEvent = app('App\Models\UserEvent')->where('user_id', $oppentUser->id)
+                    ->where('event_id', $userEvent->event_id)
+                    ->first();
+
+                    if($userEvent->partners_scores) {
+                        $user = app('App\Models\User')->find($oppentUserEvent->partners_scores);
+                    }
+                    @endphp
+
+                    <div>
+                        <ul>
+                            <li>
+                                {{ $userEvent->opponent_email ?? 'No opponent' }}
+                            </li>
+                            <li>
+                                {{ $userEvent->partners_scores ? $user->email??'' : '' }}
+                            </li>
+                        </ul>
+                    </div>
                     @endif
                 </div>
 
-                <!-- Opponent Score -->
-                <div class="px-4 py-2 border" style="width: 200px;align-content: center;overflow: auto;;">
+                <div class="px-4 py-2 border" style="width: 200px;align-content: center;overflow: auto;">
                     @if ($userEvent->status === 'Rejected')
                     <div>{{ $userEvent->opponent_score ? implode(', ', $userEvent->opponent_score) : 'No opponent score available' }}</div>
                     @elseif ($userEvent->status === 'pending')
@@ -117,13 +181,11 @@
                     @endif
                 </div>
 
-                <!-- Actions -->
-                <div class="px-4 py-2 border text-center" style="width: 200px;align-content: center;overflow: auto;;">
+                <div class="px-4 py-2 border text-center flex items-center" style="width: 200px;align-content: center;">
                     <input type="hidden" name="event_ids[]" value="{{ $userEvent->id }}">
 
                     @if (isset($userEvent->show_approval_buttons) && $userEvent->show_approval_buttons)
                     @if ($userEvent->status == 'Requested')
-
                     <button type="button" class="status-btn approve-btn" data-status="Approved"
                         style="background-color: #22c55e; color: #fff; padding: 6px 12px; border-radius: 4px; border: none; cursor: pointer; margin-right: 8px;">
                         Approve
@@ -138,7 +200,7 @@
                     @elseif ($userEvent->status == 'Rejected')
                     <span style="color: #ef4444;">Event Rejected</span>
                     @endif
-                    @else
+                    @elseif ($userEvent->status == 'Requested' || $userEvent->status == 'pending')
                     <button type="submit" class="btn btn-sm btn-primary" style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer;">
                         Submit
                     </button>

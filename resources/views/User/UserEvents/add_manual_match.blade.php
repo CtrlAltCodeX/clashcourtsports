@@ -23,6 +23,16 @@
             </select>
         </div>
 
+        <label for="selected_user" class="block font-medium text-gray-700">Your Partner Player</label>
+        <select id="selected_user" name="your_partner" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-blue-500" required>
+            <option value="">Your Partner Player</option>
+            @foreach ($usersForDropdown as $eventId => $users)
+            @foreach ($users as $user)
+            <option value="{{ $user[0]->user_event_id }}">{{ $user[0]->email }}</option>
+            @endforeach
+            @endforeach
+        </select>
+
         <!-- User Score (Multiple) -->
         <div id="scoresContainer">
             <label for="scores" class="block font-medium text-gray-700 mb-2">Your Score</label>
@@ -33,10 +43,18 @@
         </div>
 
         <!-- Opponent Dropdown -->
-        <div>
-            <label for="selected_user" class="block font-medium text-gray-700 mb-2">Select Opponent</label>
+        <label for="selected_user" class="block font-medium text-gray-700 mb-2">Select Opponent</label>
+        <div class="flex gap-2">
             <select id="selected_user" name="selected_user" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
                 <option value="">Select Opponent</option>
+                @foreach ($usersForDropdown as $eventId => $users)
+                @foreach ($users as $user)
+                <option value="{{ $user[0]->user_event_id }}">{{ $user[0]->email }}</option>
+                @endforeach
+                @endforeach
+            </select>
+            <select id="selected_user" name="partner_opp" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                <option value="">Select Partner Opponent</option>
                 @foreach ($usersForDropdown as $eventId => $users)
                 @foreach ($users as $user)
                 <option value="{{ $user[0]->user_event_id }}">{{ $user[0]->email }}</option>

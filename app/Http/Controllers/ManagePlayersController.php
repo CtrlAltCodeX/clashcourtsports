@@ -66,7 +66,7 @@ class ManagePlayersController extends Controller
                         'product_data' => [
                             'name' => "Event Participation: {$request->first_name}",
                         ],
-                        'unit_amount' => $request->game_type * 1000,
+                        'unit_amount' => $request->game_type * 100,
                         'currency' => "USD",
                     ],
                     'quantity' => 1,

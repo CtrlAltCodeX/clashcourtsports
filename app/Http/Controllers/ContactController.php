@@ -54,4 +54,12 @@ class ContactController extends Controller
 
         return redirect()->back()->with('success', 'Reply sent successfully.');
     }
+    
+    public function delete($id)
+    {
+        Contact::find($id)
+            ->delete();
+
+        return redirect()->back()->with('success', 'Contact Deleted Deleted successfully.');
+    }
 }

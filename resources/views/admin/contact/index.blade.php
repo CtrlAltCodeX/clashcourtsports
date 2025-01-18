@@ -11,6 +11,7 @@
                     <th class="py-2 border">Message</th>
                     <th class="py-2 border">Send Date</th>
                     <th class="py-2 border">Reply</th>
+                    <th class="py-2 border">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,6 +35,11 @@
                             Replied
                         </button>
                         @endif
+                    </td>
+                    <td class="py-2 border">
+                        <a href="{{ route('contacts.delete', $contact->id) }}" onclick="return confirm('Are you sure?')">
+                            <i class="fa fa-trash"></i>
+                        </a>
                     </td>
                 </tr>
                 @empty

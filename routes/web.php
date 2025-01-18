@@ -16,40 +16,40 @@ Route::middleware('admin')->prefix('admin')->group(function () {
 
     Route::resource('officials_registration', OfficialsRegistrationController::class);
 
-    Route::get('/user-events', [UserEventController::class, 'index'])
-        ->name('user.events')->middleware('auth');
+    Route::get('user/events', [UserEventController::class, 'index'])
+        ->name('user.events');
 
     Route::get('dashboard', [UserEventController::class, 'dashboard'])
-        ->name('user.dashboard')->middleware('auth');
+        ->name('user.dashboard');
 
-    Route::get('/events-score', [UserEventController::class, 'AddScore'])
-        ->name('user.events.score')->middleware('auth');
+    Route::get('events/list/score', [UserEventController::class, 'addScore'])
+        ->name('user.events.score');
 
-    Route::post('/events-score/save', [UserEventController::class, 'SaveScore'])
+    Route::post('events/list/score/save', [UserEventController::class, 'saveScore'])
         ->name('user.events.save_score');
 
-    // Route for showing the "Add Match Manually" page
-    Route::get('/user/events/add-manually', [UserEventController::class, 'showAddMatchForm'])
+    Route::get('user/events/manually', [UserEventController::class, 'showAddMatchForm'])
         ->name('user.events.add.manually');
 
     // Route to save the manually added match
-    Route::post('/user/events/save-match', [UserEventController::class, 'SaveManualMatch'])
+    Route::post('user/events/save/match', [UserEventController::class, 'saveManualMatch'])
         ->name('user.events.save.match');
 
-    Route::post('/events/update-status/{event}', [UserEventController::class, 'updateStatus'])->name('user.userevents.updateStatus');
+    Route::post('events/update/status/{event}', [UserEventController::class, 'updateStatus'])
+        ->name('user.userevents.updateStatus');
 
-    Route::get('/manage-scores', [ManageScoreController::class, 'index'])
+    Route::get('manage/scores', [ManageScoreController::class, 'index'])
         ->name('admin.manage_scores.index');
 
-    Route::post('/manage-scores/{id}/update-status', [ManageScoreController::class, 'updateStatus'])
+    Route::post('manage/scores/{id}/update/status', [ManageScoreController::class, 'updateStatus'])
         ->name('admin.manage_scores.update_status');
 
-    Route::get('/notifications', [NotificationController::class, 'index'])
+    Route::get('notifications', [NotificationController::class, 'index'])
         ->name('notifications.index');
 
     Route::get('events/{eventId}/participants', [NotificationController::class, 'getParticipants']);
 
-    Route::post('events/{eventId}/send-email', [NotificationController::class, 'sendEmail']);
+    Route::post('events/{eventId}/send/email', [NotificationController::class, 'sendEmail']);
 
     Route::get('events/group/wise', [EventController::class, 'playerGroupWise'])
         ->name('events.group.wise');
@@ -57,11 +57,16 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('upcoming/events', [EventController::class, 'upcomingEvents'])
         ->name('events.upcoming');
 
-    Route::get('/contact', [ContactController::class, 'index'])
-        ->name('admin.contact.index');
+    Route::prefix('contact')->group(function () {
+        Route::get('/', [ContactController::class, 'index'])
+            ->name('admin.contact.index');
 
-    Route::post('/contacts/reply', [ContactController::class, 'reply'])
-        ->name('contacts.reply');
+        Route::post('reply', [ContactController::class, 'reply'])
+            ->name('contacts.reply');
+
+        Route::get('delete/{id}', [ContactController::class, 'delete'])
+            ->name('contacts.delete');
+    });
 
     Route::get('event/player/remove/{id}', [UserEventController::class, 'removePlayer'])
         ->name('event.remove.player');
@@ -83,7 +88,7 @@ Route::get('donation', function () {
     return view('user.auth.donation');
 })->name('user.auth.donation');
 
-Route::post('/donation', [DonationController::class, 'submitDonation'])
+Route::post('donation', [DonationController::class, 'submitDonation'])
     ->name('donation.submit');
 
 Route::get('donation/checkout/success', [DonationController::class, 'DonationCheckoutSuccess'])
@@ -95,11 +100,10 @@ Route::get('donation/checkout/cancel', [DonationController::class, 'DonationChec
 Route::get('show/donations', [DonationController::class, 'index'])
     ->name('show.donations.index');
 
-
-Route::get('join-now/{id}', [ManagePlayersController::class, 'JoinNow'])
+Route::get('join/now/{id}', [ManagePlayersController::class, 'JoinNow'])
     ->name('user.auth.joinNow');
 
-Route::post('/contact', [ContactController::class, 'store'])
+Route::post('contact', [ContactController::class, 'store'])
     ->name('contact.store');
 
 Route::post('join-now/{id}', [ManagePlayersController::class, 'StripeCheckout'])

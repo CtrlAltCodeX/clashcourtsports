@@ -13,11 +13,16 @@ class UserEventController extends Controller
     {
         $user = auth()->user();
 
-        $userEvents = UserEvent::where('user_id', $user->id)->get();
+        $userEvents = UserEvent::selectRaw('MAX(id) as id')
+            ->where('user_id', $user->id)
+            ->groupBy('user_id')
+            ->get();
 
         $eventsWithNearbyUsers = [];
 
         foreach ($userEvents as $userEvent) {
+            $userEvent = UserEvent::find($userEvent->id);
+
             $event = Event::with('userevent')
                 ->find($userEvent->event_id);
 
@@ -112,8 +117,7 @@ class UserEventController extends Controller
         return view('user.dashboard', compact('data'));
     }
 
-
-    public function AddScore()
+    public function addScore()
     {
         $user = auth()->user();
 
@@ -193,6 +197,16 @@ class UserEventController extends Controller
         // Get the new status from the request
         $status = $request->status;
 
+        if ($userEvent->partners_scores) {
+            $userEventPartner = UserEvent::where('user_id', $userEvent->partners_scores)
+                ->where('event_id', $userEvent->event_id)
+                ->first();
+
+            $userEventPartner->update([
+                'status' => $status
+            ]);
+        }
+
         // Update the status of the current event
         $userEvent->status = $status;
         $userEvent->updated_at = now();
@@ -200,6 +214,7 @@ class UserEventController extends Controller
 
         // Update the opponent's event status if applicable
         $this->updateOpponentStatus($userEvent, $status);
+
         return response()->json([
             'success' => true,
             'message' => 'Event status updated successfully.'
@@ -211,6 +226,17 @@ class UserEventController extends Controller
         // Check if the current event has a receiver opponent ID
         if ($userEvent->reciver_opponent_id) {
             $opponentEvent = UserEvent::find($userEvent->reciver_opponent_id);
+
+            if ($opponentEvent->partners_scores) {
+                $oppEventPartner = UserEvent::where('user_id', $opponentEvent->partners_scores)
+                    ->where('event_id', $opponentEvent->event_id)
+                    ->first();
+
+                $oppEventPartner->update([
+                    'status' => $status
+                ]);
+            }
+
             if ($opponentEvent) {
                 $opponentEvent->status = $status;
                 $opponentEvent->updated_at = now();
@@ -221,6 +247,17 @@ class UserEventController extends Controller
         // Check if the current event has a sender opponent ID
         if ($userEvent->sender_opponent_id) {
             $opponentEvent = UserEvent::find($userEvent->sender_opponent_id);
+
+            if ($opponentEvent->partners_scores) {
+                $oppEventPartner = UserEvent::where('user_id', $opponentEvent->partners_scores)
+                    ->where('event_id', $opponentEvent->event_id)
+                    ->first();
+
+                $oppEventPartner->update([
+                    'status' => $status
+                ]);
+            }
+            
             if ($opponentEvent) {
                 $opponentEvent->status = $status;
                 $opponentEvent->updated_at = now();
@@ -229,10 +266,8 @@ class UserEventController extends Controller
         }
     }
 
-
-    public function SaveScore(Request $request)
+    public function saveScore(Request $request)
     {
-        // Validate the necessary fields
         $request->validate([
             'scores' => 'required',
             'event_id' => 'required',
@@ -242,8 +277,6 @@ class UserEventController extends Controller
 
         // Get the specific event_id for the clicked form
         $eventId = $request->input('event_id');
-        // echo $eventId;die;
-
 
         // Get the scores, selected user, and opponent scores for the specific event
         $currentUserScore = $request->input("scores.$eventId", null);
@@ -254,11 +287,23 @@ class UserEventController extends Controller
         if ($currentUserScore !== null) {
             $userEvent = UserEvent::find($eventId);
 
+            $userPartnerEvent = UserEvent::where('event_id', $userEvent->event_id)
+                ->where('user_id', request()->your_partner)
+                ->first();
+
             if ($userEvent && ($userEvent->score != json_encode($currentUserScore))) {
                 $userEvent->score = json_encode($currentUserScore);
                 $userEvent->status = 'Requested'; // Update status to 'Requested'
                 $userEvent->reciver_opponent_id = $opponentId; // Set the opponent ID
+                $userEvent->partners_scores =  request()->your_partner;
                 $userEvent->save(); // Save the updated user event
+
+                $userPartnerEvent->update([
+                    'partners_scores' => auth()->user()->id,
+                    'status' => 'Requested',
+                    'score' => json_encode($currentUserScore),
+                    'reciver_opponent_id' => $opponentId,
+                ]);
             }
         }
 
@@ -266,19 +311,29 @@ class UserEventController extends Controller
         if ($opponentId && $opponentScores !== null) {
             $opponentUserEvent = UserEvent::find($opponentId);
 
+            $userPartnerEvent = UserEvent::where('event_id', $opponentUserEvent->event_id)
+                ->where('user_id', request()->partner_opp)
+                ->first();
+
             if ($opponentUserEvent) {
                 $opponentUserEvent->score = json_encode($opponentScores);
                 $opponentUserEvent->sender_opponent_id = $eventId; // Set the sender_opponent_id to current user's event ID
                 $opponentUserEvent->status = 'Requested'; // Update status to 'Requested'
+                $opponentUserEvent->partners_scores =  request()->partner_opp;
                 $opponentUserEvent->save(); // Save the updated opponent event
+
+                $userPartnerEvent->update([
+                    'partners_scores' => request()->selected_users[$eventId],
+                    'status' => 'Requested',
+                    'sender_opponent_id' => $eventId,
+                    'score' => json_encode($opponentScores),
+                ]);
             }
         }
 
         // Redirect with success message
         return redirect()->route('user.events.score')->with('success', 'Scores updated successfully!');
     }
-
-
 
     public function showAddMatchForm()
     {
@@ -317,7 +372,7 @@ class UserEventController extends Controller
         return view('user.userevents.add_manual_match', compact('user', 'userEvents', 'usersForDropdown'));
     }
 
-    public function SaveManualMatch(Request $request)
+    public function saveManualMatch(Request $request)
     {
         // Validate the form data if necessary
         $request->validate([
@@ -325,7 +380,6 @@ class UserEventController extends Controller
             'scores' => 'required|array',
             'opponent_scores' => 'required|array',
             'selected_user' => 'required|exists:user_events,id',
-
         ]);
 
         $eventId = $request->input('event_id');
@@ -350,8 +404,9 @@ class UserEventController extends Controller
         $currentUserEvent->score = json_encode($request->input('scores'));
         $currentUserEvent->selected_game = $selectedGame;
         $currentUserEvent->status = 'Requested';
-        $currentUserEvent->latitude =   $latitude;
-        $currentUserEvent->longitude =   $longitude;
+        $currentUserEvent->latitude = $latitude;
+        $currentUserEvent->longitude = $longitude;
+        $currentUserEvent->partners_scores =  request()->your_partner;
         $currentUserEvent->save(); // Pehle save karein
 
         // Save the selected opponent's UserEvent
@@ -363,6 +418,7 @@ class UserEventController extends Controller
         $opponentUserEvent->status = 'Requested';
         $opponentUserEvent->latitude =  $latitude;
         $opponentUserEvent->longitude =  $longitude;
+        $opponentUserEvent->partners_scores = request()->partner_opp;
         $opponentUserEvent->save();
 
         $currentUserEvent->reciver_opponent_id = $opponentUserEvent->id;
