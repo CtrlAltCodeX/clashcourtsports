@@ -5,7 +5,7 @@
 <div class="container-fuild">
     <div class="table-responsive">
         <table class="table-auto w-full border border-gray-300 text-center">
-            <thead class="bg-blue-100 text-blue-700">
+            <thead class="bg-[#553D1D] text-[#FFE7B4]">
                 <tr>
                     <th class="py-2 border">#</th>
                     <th class=" py-2 border">Event Name</th>
@@ -27,7 +27,7 @@
 
                     <td class="py-2 border">
                         <div class="flex justify-center space-x-3">
-                            <a href="{{ route('user.auth.joinNow', $event->id) }}" target="_blank" style="background-color: #10B981" class="text-white px-3 py-2 rounded text-sm flex items-center hover:bg-teal-600 focus:outline-none">
+                            <a href="{{ route('user.auth.joinNow', $event->id) }}" target="_blank" style="background-color: #B95B00" class="text-white px-3 py-2 rounded text-sm flex items-center hover:bg-teal-600 focus:outline-none">
                                 <i class="fas fa-eye mr-1"></i>
                             </a>
                         </div>

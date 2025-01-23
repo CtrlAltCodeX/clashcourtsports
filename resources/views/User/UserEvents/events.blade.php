@@ -2,7 +2,7 @@
 
 @section('admin-content')
 <div class="container-fuild mx-auto py-10 px-6">
-    <h1 class="text-3xl font-bold text-center text-blue-700 mb-12">Your Participated Events</h1>
+    <h1 class="text-3xl font-bold text-center mb-12">Your Participated Events</h1>
 
     <div class="grid gap-8">
         @foreach ($eventsWithNearbyUsers as $data)
@@ -12,17 +12,17 @@
                 <h2 class="text-xl font-semibold">{{ $data['event']->name }}</h2>
 
                 <div class="flex gap-2">
-                    @if (now()->diffInDays($data['event']->game_start_date) <= 7 && now()->lte($data['event']->game_start_date))
+                        @if ($data['event']->game_start_date > date("Y-m-d"))
                         <a
                             href="{{ route('event.remove.player', $data['event']->userevent->user_id) }}"
-                            class="bg-white text-blue-700 font-medium py-2 px-4 rounded hover:bg-blue-100 focus:ring-2 focus:ring-blue-500"
+                            class="bg-[#B95B00] text-[#FFE7B4] font-medium py-2 px-4 rounded focus:ring-2 focus:ring-blue-500"
                             onclick="return confirm('Are you sure?')">
                             Refund Request
                         </a>
                         @endif
 
                         <button
-                            class="bg-white text-blue-700 font-medium py-2 px-4 rounded hover:bg-blue-100 focus:ring-2 focus:ring-blue-500"
+                            class="bg-[#B95B00] text-[#FFE7B4] font-medium py-2 px-4 rounded focus:ring-2 focus:ring-blue-500"
                             data-target="#users-{{ $data['event']->id }}">
                             Nearby Users
                         </button>
@@ -39,11 +39,11 @@
             <!-- Nearby Users Section -->
             <div id="users-{{ $data['event']->id }}" class="hidden transition-all duration-300 ease-in-out">
                 <div class="p-6 border-t">
-                    <h3 class="text-lg font-semibold text-blue-700 mb-4">Nearby Users:</h3>
+                    <h3 class="text-lg font-semibold mb-4">Nearby Users:</h3>
                     @if (count($data['nearby_users']) > 0)
                     <div class="overflow-x-auto">
                         <table class="min-w-full border border-gray-200 rounded-lg">
-                            <thead class="bg-blue-100 text-blue-700">
+                            <thead class="bg-[#553D1D] text-[#FFE7B4]">
                                 <tr>
                                     <th class="px-4 py-2 border">#</th>
                                     <th class="px-4 py-2 border">Name</th>

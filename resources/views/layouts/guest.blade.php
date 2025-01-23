@@ -13,9 +13,9 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    <link rel="preload" as="style" href="https://clashcourtsports.com/build/assets/app-DtY2Ah0U.css" />
+    <link rel="preload" as="style" href="https://clashcourtsports.com/build/assets/app-C84hwKuo.css" />
     <link rel="modulepreload" href="https://clashcourtsports.com/build/assets/app-BPnfBaih.js" />
-    <link rel="stylesheet" href="https://clashcourtsports.com/build/assets/app-DtY2Ah0U.css" />
+    <link rel="stylesheet" href="https://clashcourtsports.com/build/assets/app-C84hwKuo.css" />
     <script type="module" src="https://clashcourtsports.com/build/assets/app-BPnfBaih.js"></script>
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])

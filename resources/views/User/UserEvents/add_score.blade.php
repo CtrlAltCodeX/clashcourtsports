@@ -5,7 +5,7 @@
     <h2 class="text-xl font-semibold">Participated Events</h2>
 
     <div class="mb-4 text-right">
-        <a href="{{ route('user.events.add.manually') }}" style="background-color: #2563eb; color: white; padding: 0.5rem 1.5rem; font-weight: 600; border-radius: 0.5rem; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+        <a href="{{ route('user.events.add.manually') }}" style="background-color: #B95B00; color: white; padding: 0.5rem 1.5rem; font-weight: 600; border-radius: 0.5rem; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
             onmouseover="this.style.backgroundColor='#1d4ed8'; this.style.transform='scale(1.05)';"
             onmouseout="this.style.backgroundColor='#2563eb'; this.style.transform='scale(1)';">
             Add Manually
@@ -14,7 +14,7 @@
 
     <div class="table-responsive">
         <table class="table-auto w-full border border-gray-300 text-center">
-            <thead class="bg-blue-100 text-blue-700">
+            <thead class="bg-[#553D1D] text-[#FFE7B4]">
                 <tr>
                     <th class="px-4 py-2 border">Event Name</th>
                     <th class="px-4 py-2 border">Game Name</th>
@@ -98,7 +98,7 @@
                             class="form-input w-full mx-auto border border-gray-300 rounded px-2 py-1"
                             min="0" max="100"
                             placeholder="Enter your score">
-                        <button type="button" class="btn btn-success text-white bg-green-500 rounded px-3 py-1 add-score" data-id="{{ $userEvent->id }}">Add</button>
+                        <button type="button" class="btn btn-success text-white bg-[#B95B00] rounded px-3 py-1 add-score" data-id="{{ $userEvent->id }}">Add</button>
                     </div>
                     @else
                     <div>{{ $scores ? implode(', ', $scores) : 'No scores available' }}</div>
@@ -174,7 +174,7 @@
                             class="form-input w-full mx-auto border border-gray-300 rounded px-2 py-1"
                             min="0" max="100"
                             placeholder="Enter opponent's score">
-                        <button type="button" class="btn btn-success text-white bg-green-500 rounded px-3 py-1 add-opponent-score" data-id="{{ $userEvent->id }}">Add</button>
+                        <button type="button" class="btn btn-success text-white bg-[#B95B00] rounded px-3 py-1 add-opponent-score" data-id="{{ $userEvent->id }}">Add</button>
                     </div>
                     @else
                     <div>{{ $userEvent->opponent_score ? implode(', ', $userEvent->opponent_score) : 'No opponent score available' }}</div>
@@ -201,7 +201,7 @@
                     <span style="color: #ef4444;">Event Rejected</span>
                     @endif
                     @elseif ($userEvent->status == 'Requested' || $userEvent->status == 'pending')
-                    <button type="submit" class="btn btn-sm btn-primary" style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer;">
+                    <button type="submit" class="btn btn-sm btn-primary" style="padding: 5px 10px; background-color: #B95B00; color: white; border: none; border-radius: 3px; cursor: pointer;">
                         Submit
                     </button>
                     @endif

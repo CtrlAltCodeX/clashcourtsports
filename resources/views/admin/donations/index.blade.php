@@ -13,7 +13,7 @@
 
     <div class="table-responsive">
         <table class="table-auto w-full border border-gray-300 text-center">
-            <thead class="bg-blue-100 text-blue-700">
+            <thead class="bg-[#553D1D] text-[#FFE7B4]">
                 <tr>
                     <th class="py-2 border">#</th>
                     <th class="py-2 border">Name</th>

@@ -14,13 +14,13 @@
         </div>
 
         <div class="gap-2 flex items-center mb-2">
-            <a href="{{ route('profile.edit') }}" style="background-color: #10B981; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem;">
+            <a href="{{ route('profile.edit') }}" style="background-color: #B95B00; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem;">
                 Update Profile
             </a>
-            <a href="{{ route('user.events.add.manually') }}" style="background-color: #10B981; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem;">
+            <a href="{{ route('user.events.add.manually') }}" style="background-color: #B95B00; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem;">
                 Update Score
             </a>
-            <a href="{{ route('clashsports.events') }}" style="background-color: #10B981; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem;">
+            <a href="{{ route('clashsports.events') }}" style="background-color: #B95B00; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem;">
                 Register For Next Sessions
             </a>
         </div>
@@ -29,7 +29,7 @@
 
     <div class="table-responsive">
         <table class="table-auto w-full border border-gray-300 text-center">
-            <thead class="bg-blue-100 text-blue-700">
+            <thead class="bg-[#553D1D] text-[#FFE7B4]">
                 <tr>
                     <th class="py-2 border">Event Name</th>
                     <th class="py-2 border">Wins</th>

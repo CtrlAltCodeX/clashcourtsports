@@ -57,9 +57,9 @@ class ProfileController extends Controller
             // Delete old image if it exists
             if ($request->user()->profile_image) {
                 $oldImagePath = public_path('assets/storage/' . $request->user()->profile_image);
-                if (file_exists($oldImagePath)) {
-                    @unlink($oldImagePath);
-                }
+                // if (file_exists($oldImagePath)) {
+                //     @unlink($oldImagePath);
+                // }
             }
 
             // Store new image in the custom folder

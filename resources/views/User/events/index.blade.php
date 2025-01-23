@@ -19,6 +19,12 @@
   <div class="body_main">
     @include('layouts.header')
 
+    @if(session('error'))
+    <div class="alert alert-danger">
+      {{ session('error') }}
+    </div>
+    @endif
+
     <div class="faq_section">
       <div class="container sports_container">
         <div class="faq_box">
@@ -30,7 +36,18 @@
             $registrationNotStarted = \Carbon\Carbon::parse($event->date)->isFuture(); // Check if registration has not started
             @endphp
             <div class="event_box_card">
-              <h2 class="events_heading">{{ $event->name }}</h2>
+              <h2 class="events_heading flex" style="display: flex;justify-content: space-between;">
+                <p>
+                  {{ $event->name }}
+                </p>
+
+                @if(auth()->user())
+                <p>
+                  {{$event->selected_game}} - $@if($event->selected_game == 'singles'){{$event->pricing}} @else{{$event->double_price}}@endif
+                </p>
+                @endif
+
+              </h2>
               <p class="event_subheading">Session: {{ \Carbon\Carbon::parse($event->game_start_date)->format('F d Y') }} - {{ \Carbon\Carbon::parse($event->game_end_date)->format('F d Y') }}</p>
 
               <p class="event_date">
@@ -43,7 +60,25 @@
               @elseif ($registrationNotStarted)
               <span class="btn disabled_btn" style="background-color: #ccc; cursor: not-allowed;">Registration Not Started</span>
               @else
+              @if(auth()->user())
+              <form action="{{ route('stripe.checkout.joinNow', $event->id) }}" method="POST">
+                @csrf
+                <input type="hidden" name="first_name" value="{{ Auth::user()->name }}">
+                <input type="hidden" name="last_name" value="{{ Auth::user()->name }}">
+                <input type="hidden" name="phone_number" value="{{ Auth::user()->phone_number }}">
+                <input type="hidden" name="email" value="{{ Auth::user()->email }}">
+                <input type="hidden" name="city" value="{{ Auth::user()->city }}">
+                <input type="hidden" name="state" value="{{ Auth::user()->state }}">
+                <input type="hidden" name="zip_code" value="{{ Auth::user()->zip_code }}">
+                <input type="hidden" name="selected_game" value="{{ $event->selected_game }}">
+                <input type="hidden" name="flexRadioDefault" value="{{ $event->skill_level }}">
+                <input type="hidden" name="game_type" value="@if($event->pricing){{ $event->pricing }}@else{{ $event->double_price }}@endif">
+                <input type="hidden" name="password" value="">
+                <button class="btn join_now_btn">Register Now</button>
+              </form>
+              @else
               <a href="{{ route('user.auth.joinNow', ['id' => $event->id]) }}" class="btn join_now_btn">Register Now</a>
+              @endif
               @endif
             </div>
             @empty

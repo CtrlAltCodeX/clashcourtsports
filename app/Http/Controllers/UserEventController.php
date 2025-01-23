@@ -28,13 +28,13 @@ class UserEventController extends Controller
 
             $latitude = $userEvent->latitude;
             $longitude = $userEvent->longitude;
-            $userSkillLevel = $user->Skill_Level;
+            $userSkillLevel = $userEvent->Skill_Level;
 
             $nearbyUsers = UserEvent::select('user_events.*', 'users.name', 'users.email', 'users.Skill_Level')
                 ->join('users', 'users.id', '=', 'user_events.user_id')
                 ->where('user_events.selected_game', $userEvent->selected_game)
                 ->where('user_events.event_id', $userEvent->event_id)
-                ->where('users.skill_level', $userSkillLevel)
+                ->where('user_events.skill_level', $userSkillLevel)
                 ->where('users.id', '!=', $user->id)
                 ->whereRaw("
                     3959 * acos(
@@ -125,10 +125,11 @@ class UserEventController extends Controller
             ->where('user_id', $user->id)
             ->get();
 
-        $userSkillLevel = $user->Skill_Level;
         $usersForDropdown = [];
 
         foreach ($userEvents as $userEvent) {
+            $userSkillLevel = $userEvent->Skill_Level;
+            
             $usersForEvent = UserEvent::select(
                 'user_events.*',
                 'users.name',
@@ -139,7 +140,7 @@ class UserEventController extends Controller
                 ->join('users', 'users.id', '=', 'user_events.user_id')
                 ->where('user_events.selected_game', $userEvent->selected_game)
                 ->where('user_events.event_id', $userEvent->event_id)
-                ->where('users.skill_level', $userSkillLevel)
+                ->where('user_events.Skill_Level', $userSkillLevel)
                 ->where('users.id', '!=', $user->id)
                 ->get()
                 ->groupBy('user_id');
@@ -162,7 +163,6 @@ class UserEventController extends Controller
                     $userEvent->opponent_score = json_decode($opponentScore->score);
                 }
             } elseif ($userEvent->sender_opponent_id) {
-
                 $sender_opponent_id = $userEvent->sender_opponent_id;
                 $opponentScore = UserEvent::where('id', $sender_opponent_id)
                     ->where('event_id', $userEvent->event_id)

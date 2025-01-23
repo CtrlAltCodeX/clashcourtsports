@@ -20,7 +20,9 @@ class Event extends Model
         'enddate',
         'game_name',
         'double_price',
-        'user_id'
+        'user_id',
+        'selected_game',
+        'skill_level',
     ];
 
     public function userevent()

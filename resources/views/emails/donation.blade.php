@@ -82,13 +82,13 @@
 <body>
     <div class="email-container">
         <div class="header">
-            <h1>Welcome to Clash Court Sports, {{ $contact['first_name'] }}!</h1>
+            <h1>You have recieved Donation</h1>
         </div>
         <div class="content">
-            <p>We are thrilled to announce that you have successfully registered for the <strong>{{ $contact['season_name'] }}</strong> season. {{ \Illuminate\Support\Str::ucfirst($skill_level) }}, {{ \Illuminate\Support\Str::ucfirst($selected_game) }}</p>
-            <p>Get ready for an unforgettable experience filled with excitement, competition, and camaraderie. Whether you're here to sharpen your skills, make new friends, or simply enjoy the game you love, you're now part of a vibrant community that lives and breathes sports.</p>
-            <p>At Clash Court Sports, every match is a chance to bring your best and create lasting memories on and off the court.</p>
-            <!-- <a href="#" class="btn">Visit Your Dashboard</a> -->
+            <p><strong>Name:</strong> {{ $customerDetails->name }}</p>
+            <p><strong>Email:</strong> {{ $customerDetails->email }}</p>
+            <p><strong>Plan:</strong> {{ $plan }}</p>
+            <p><strong>Amount:</strong> {{ $amount }}</p>
         </div>
         <div class="footer">
             <p>&copy; 2025 Clash Court Sports. All rights reserved.</p>

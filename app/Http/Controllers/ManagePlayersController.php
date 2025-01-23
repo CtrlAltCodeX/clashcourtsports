@@ -20,7 +20,6 @@ class ManagePlayersController extends Controller
     {
         $currentDate = Carbon::now();
 
-
         $events = Event::all()->sortBy(function ($event) use ($currentDate) {
             return $event->enddate < $currentDate ? 1 : 0;
         });
@@ -30,71 +29,77 @@ class ManagePlayersController extends Controller
 
     public function JoinNow($id)
     {
+        $event = Event::findOrFail($id);
 
-        $official = Event::findOrFail($id);
-
-        return view('user.auth.joinNow', compact('official'));
+        return view('user.auth.joinNow', compact('event'));
     }
 
     public function StripeCheckout(Request $request, $id)
     {
-        $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:20',
-            'email' => 'required|email',
-            'city' => 'required|string|max:255',
-            'state' => 'required|string|max:255',
-            'zip_code' => 'required|string|max:10',
-            'game_type' => 'required',
-            'selected_game' => 'required',
-            'flexRadioDefault' => 'required',
-            'password' => 'nullable|string'
-        ]);
+        try {
+            $validation = [
+                'first_name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
+                'phone_number' => 'required|string|max:20',
+                'city' => 'required|string|max:255',
+                'state' => 'required|string|max:255',
+                'zip_code' => 'required|string|max:10',
+                'game_type' => 'required',
+                'selected_game' => 'required',
+                'flexRadioDefault' => 'required',
+                'password' => 'nullable|string'
+            ];
 
-        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+            if (!auth()->user()) {
+                $validation['email'] = 'required|email|unique:users,email';
+            }
 
-        $redirectUrl = route('stripe.checkout.success') . '?session_id={CHECKOUT_SESSION_ID}';
+            $request->validate($validation);
 
-        $response = $stripe->checkout->sessions->create([
-            'success_url' => $redirectUrl,
-            'customer_email' => $request->email,
-            'payment_method_types' => ['link', 'card'],
-            'line_items' => [
-                [
-                    'price_data' => [
-                        'product_data' => [
-                            'name' => "Event Participation: {$request->first_name}",
+            $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+
+            $redirectUrl = route('stripe.checkout.success') . '?session_id={CHECKOUT_SESSION_ID}';
+
+            $response = $stripe->checkout->sessions->create([
+                'success_url' => $redirectUrl,
+                'customer_email' => $request->email,
+                'payment_method_types' => ['link', 'card'],
+                'line_items' => [
+                    [
+                        'price_data' => [
+                            'product_data' => [
+                                'name' => "Event Participation: {$request->first_name}",
+                            ],
+                            'unit_amount' => $request->game_type * 100,
+                            'currency' => "USD",
                         ],
-                        'unit_amount' => $request->game_type * 100,
-                        'currency' => "USD",
+                        'quantity' => 1,
                     ],
-                    'quantity' => 1,
                 ],
-            ],
-            'mode' => 'payment',
-            'allow_promotion_codes' => true,
-            'metadata' => [
-                'event_id' => $id,
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'phone_number' => $request->phone_number,
-                'city' => $request->city,
-                'state' => $request->state,
-                'zip_code' => $request->zip_code,
-                'Skill_Level' => $request->flexRadioDefault,
-                'password' => $request->password,
-                'latitude' => $request->latitude,
-                'selected_game' => $request->selected_game,
-                'longitude' => $request->longitude,
-                'session_name' => $request->session_name,
-            ],
-        ]);
+                'mode' => 'payment',
+                'allow_promotion_codes' => true,
+                'metadata' => [
+                    'event_id' => $id,
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'phone_number' => $request->phone_number,
+                    'city' => $request->city,
+                    'state' => $request->state,
+                    'zip_code' => $request->zip_code,
+                    'Skill_Level' => $request->flexRadioDefault,
+                    'password' => $request->password,
+                    'latitude' => $request->latitude,
+                    'selected_game' => $request->selected_game,
+                    'longitude' => $request->longitude,
+                    'session_name' => $request->session_name,
+                ],
+            ]);
 
-        return redirect($response['url']);
+            return redirect($response['url']);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
-
-
 
     public function StripeCheckoutSuccess(Request $request)
     {
@@ -131,9 +136,9 @@ class ManagePlayersController extends Controller
                     'city' => $session->metadata->city ?? '',
                     'state' => $session->metadata->state ?? '',
                     'zip_code' => $session->metadata->zip_code ?? '',
-                    'Skill_Level' => $session->metadata->Skill_Level ?? '',
                     'password' => Hash::make($session->metadata->password),
-                    'group' => $groupName, // Assign group name
+                    'Skill_Level' => $session->metadata->Skill_Level ?? '',
+                    'group' => $groupName,
                 ]
             );
 
@@ -146,25 +151,31 @@ class ManagePlayersController extends Controller
                 [
                     'latitude' => $session->metadata->latitude,
                     'longitude' => $session->metadata->longitude,
-                    'selected_game' => $session->metadata->selected_game
+                    'selected_game' => $session->metadata->selected_game,
+                    'Skill_Level' => $session->metadata->Skill_Level ?? '',
                 ]
             );
 
             // Send the welcome email
-            Mail::send('emails.register', ['contact' => [
-                'first_name' => $session->metadata->first_name,
-                'season_name' => $session->metadata->session_name ?? '',
-            ]], function ($message) use ($session) {
+            Mail::send('emails.register', [
+                'contact' => [
+                    'first_name' => $session->metadata->first_name,
+                    'season_name' => $session->metadata->session_name ?? '',
+                ],
+                'skill_level' => $session->metadata->Skill_Level ?? '',
+                'selected_game' => $session->metadata->selected_game,
+            ], function ($message) use ($session) {
                 $message->to($session->customer_email)
                     ->subject('Welcome to Clash Court Sports!');
             });
 
             if (Auth::check()) {
-                return redirect()->route('user.dashboard')->with('alert', ' Thank you for joining , See you on the courts!');
+                return redirect()->route('user.dashboard')->with('alert', ' Thank you for joining , See you on the courts!. Please click the Event Tab.');
             } else {
-                return redirect()->route('user.auth.login')->with('alert', ' Thank you for joining , See you on the courts!');
+                return redirect()->route('user.auth.login')->with('alert', ' Thank you for joining , See you on the courts!. Please click the Event Tab.');
             }
         } catch (\Exception $e) {
+            dd($e->getMessage());
             return redirect()->route('user.auth.login')->with('error', 'Payment failed. Please try again.');
         }
     }
@@ -185,11 +196,9 @@ class ManagePlayersController extends Controller
             'password' => 'nullable|string',
         ]);
 
-
         $existingUser = User::where('email', $request->email)->first();
 
         if ($existingUser) {
-
             UserEvent::create([
                 'user_id' => $existingUser->id,
                 'event_id' => $id,
@@ -211,7 +220,6 @@ class ManagePlayersController extends Controller
 
             'password' => Hash::make($request->password),
         ]);
-
 
         UserEvent::create([
             'user_id' => $user->id,

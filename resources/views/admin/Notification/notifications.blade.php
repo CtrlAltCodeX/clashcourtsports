@@ -37,7 +37,7 @@
         <div id="users-{{ $eventData['event']->id }}" class="table-responsive mb-4" style="display: none;">
             @if($eventData['count'] > 0)
             <table class="table-auto w-full border border-gray-300 text-center">
-                <thead class="bg-blue-100 text-blue-700">
+                <thead class="bg-[#553D1D] text-[#FFE7B4]">
                     <tr>
                         <th class="px-4 py-2 border">#</th>
                         <th class="px-4 py-2 border">Name</th>
@@ -55,7 +55,7 @@
                         <td class="px-4 py-2 border">{{ $index + 1 }}</td>
                         <td class="px-4 py-2 border">{{ $userEvent->user->name }}</td>
                         <td class="px-4 py-2 border">{{ $userEvent->user->email }}</td>
-                        <td class="px-4 py-2 border">{{ $userEvent->user->Skill_Level }}</td>
+                        <td class="px-4 py-2 border">{{ $userEvent->Skill_Level }}</td>
 
                         <td class="px-4 py-2 border">{{ $userEvent->user->phone_number }}</td>
                         <td class="px-4 py-2 border">{{ $userEvent->user->city }}</td>
@@ -158,7 +158,7 @@
             }
             sendEmailModal.classList.add('hidden');
 
-            fetch(`/admin/events/${eventId}/send-email`, {
+            fetch(`/admin/events/${eventId}/send/email`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

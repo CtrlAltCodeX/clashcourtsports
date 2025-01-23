@@ -59,10 +59,8 @@ class EventController extends Controller
             'location' => 'required|string|max:255',
             'date' => 'required|date',
             'capacity' => 'required|integer|min:1',
-            'pricing' => 'required|numeric|min:0',
             'enddate' => 'nullable|date',
             'game_name' => 'nullable|string|max:255',
-            'double_price' => 'nullable|numeric|min:0',
         ]);
 
         $event->update($request->all());

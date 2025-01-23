@@ -15,9 +15,9 @@
     <!-- Font Awesome CDN -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-    <link rel="preload" as="style" href="https://clashcourtsports.com/build/assets/app-Be24Q6Z-.css" />
+    <link rel="preload" as="style" href="https://clashcourtsports.com/build/assets/app-C84hwKuo.css" />
     <link rel="modulepreload" href="https://clashcourtsports.com/build/assets/app-BPnfBaih.js" />
-    <link rel="stylesheet" href="https://clashcourtsports.com/build/assets/app-Be24Q6Z-.css" />
+    <link rel="stylesheet" href="https://clashcourtsports.com/build/assets/app-C84hwKuo.css" />
     <script type="module" src="https://clashcourtsports.com/build/assets/app-BPnfBaih.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
