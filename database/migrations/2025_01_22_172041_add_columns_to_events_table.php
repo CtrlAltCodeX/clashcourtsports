@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('events', function (Blueprint $table) {
             $table->string('selected_game');
-            $table->string('skill_Level');
+            $table->string('skill_level');
         });
     }
 

@@ -34,6 +34,26 @@
         background-image: url('/assets/images/faq.jpeg');
         background-size: cover;
     }
+
+    @media (max-width: 1024px) {
+        .desktop-menu {
+            display: none;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .navbar-toggler {
+            display: none;
+        }
+
+        .navbar-nav {
+            flex-direction: row;
+        }
+
+        .desktop-menu {
+            visibility: visible !important;
+        }
+    }
 </style>
 
 <body class="font-sans antialiased">
@@ -44,12 +64,73 @@
                     <a class="navbar-brand" href="/">
                         <img src="{{ asset('assets/images/logo.svg') }}" alt="Clash Court Sports Logo" title="Clash Court Sports" />
                     </a>
-                    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sportsmenunavbar"
+
+                    <ul class="navbar-nav ms-auto gap-2 desktop-menu" style="align-items:center;visibility: hidden;">
+                        <li class="nav-item"><a class="nav-link active" href="{{ route('clashsports') }}">Home</a></li>
+                        @if(!auth()->user())
+                        <li class="nav-item"><a class="nav-link" href="{{ route('user.auth.login') }}">Login</a></li>
+                        @endif
+                        <li class="nav-item"><a class="nav-link" href="{{ route('clashsports.events') }}">Join Now</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('user.auth.faq') }}">FAQ</a></li>
+
+                        @if(auth()->user())
+                        <div class="relative">
+                            <a href="#" id="profileDropdownButton" class="flex items-center focus:outline-none">
+                                @if (Auth::user()->profile_image)
+                                <div class="relative w-16 h-16">
+                                    <img src="{{ asset('assets/storage/' . Auth::user()->profile_image) }}"
+                                        alt="Profile Image"
+                                        class="w-full h-full rounded-full object-cover border-2 border-gray-300 shadow">
+                                </div>
+                                @else
+                                <div class="relative w-16 h-16">
+                                    <img src="{{ asset('assets/images/dummy.jpg') }}"
+                                        alt="Default Profile Image"
+                                        class="w-full h-full rounded-full object-cover border-2 border-gray-300 shadow">
+                                </div>
+                                @endif
+                            </a>
+                            <!-- Dropdown -->
+                            <div id="profileDropdownMenu"
+                                class="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded shadow-lg hidden">
+                                <a href="{{ route('profile.edit') }}"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center">Profile</a>
+                                <form method="POST" action="{{ route('logout') }}" class="block">
+                                    @csrf
+                                    <button type="submit"
+                                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center">
+                                        Logout
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Dropdown Toggle Script -->
+                        <script>
+                            document.getElementById('profileDropdownButton').addEventListener('click', function(e) {
+                                e.preventDefault();
+                                const menu = document.getElementById('profileDropdownMenu');
+                                menu.classList.toggle('hidden');
+                            });
+
+                            // Close dropdown when clicking outside
+                            document.addEventListener('click', function(e) {
+                                const button = document.getElementById('profileDropdownButton');
+                                const menu = document.getElementById('profileDropdownMenu');
+                                if (!button.contains(e.target) && !menu.contains(e.target)) {
+                                    menu.classList.add('hidden');
+                                }
+                            });
+                        </script>
+                        @endif
+
+                    </ul>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sportsmenunavbar"
                         aria-controls="sportsmenunavbar" aria-expanded="false" aria-label="Toggle navigation">
-                        <img src="{{ asset('assets/images/menu.svg') }}" alt="">
-                    </button> -->
-                    <div class="" id="sportsmenunavbar">
-                        <ul class="navbar-nav ms-auto" style="align-items:center;flex-direction: row;">
+                        <img src="{{ asset('assets/images/menu.svg') }}">
+                    </button>
+                    <div class="collapse navbar-collapse" id="sportsmenunavbar">
+                        <ul class="navbar-nav ms-auto gap-2" style="align-items:center;">
                             <li class="nav-item"><a class="nav-link active" href="{{ route('clashsports') }}">Home</a></li>
                             @if(!auth()->user())
                             <li class="nav-item"><a class="nav-link" href="{{ route('user.auth.login') }}">Login</a></li>
@@ -147,6 +228,18 @@
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.navbar-toggler').on('click', function() {
+                setTimeout(() => {
+                    if ($(".navbar-collapse").hasClass('show')) {
+                        $(".navbar-collapse").removeClass("collapse");
+                    }
+                }, 500);
+            });
+        })
+    </script>
 </body>
 
 </html>

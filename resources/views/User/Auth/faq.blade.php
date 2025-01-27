@@ -115,7 +115,7 @@
               </h2>
               <div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body accordion_body">
-                  <p>Clash Court Tennis will NEVER sell your information. All information attained is to be shared with fellow players for appropriate communication. Any form of harassment from any member will not be tolerated.</p>
+                  <p>Clash Court Sports will NEVER sell your information. All information attained is to be shared with fellow players for appropriate communication. Any form of harassment from any member will not be tolerated.</p>
                 </div>
               </div>
             </div>

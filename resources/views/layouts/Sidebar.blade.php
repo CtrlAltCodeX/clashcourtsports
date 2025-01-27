@@ -1,6 +1,6 @@
 <!-- resources/views/admin/dashboard.blade.php -->
 <x-app-layout>
-    <div class="flex min-h-screen">
+    <div class="flex min-h-screen flex-wrap">
         <!-- sidebar -->
         <div class="w-64 text-white p-6" style="background-color: #553D1D;">
             <ul class="space-y-2 p-0">

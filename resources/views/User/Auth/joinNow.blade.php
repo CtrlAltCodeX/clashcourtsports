@@ -173,7 +173,7 @@
                     <!-- Game Option -->
                     <li>
                       <div class="radio_box mb_30">
-                        <p class="label_from mb_30  text-white" style="color:black">Game Name - {{ $event->game_name }}<span>*</span></p>
+                        <p class="label_from mb_30  text-white" style="color:black">Event Name - {{ $event->name }}<span>*</span></p>
                         @if($event->selected_game == 'singles')
                         <div class="form-check remember_check radio_check hidden">
                           <input class="form-check-input" checked type="radio" name="game_type" value="{{ $event->pricing }}" id="radiocheck_single" data-type="singles">
@@ -239,7 +239,7 @@
 
                     <!-- Submit Button -->
                     <li class="width_full">
-                      <button class="btn join_now_btn mt-3" id="submit-button">Pay and Register</button>
+                      <button class="btn join_now_btn mt-3" id="submit-button">Register and Pay</button>
                     </li>
                   </ul>
                 </div>

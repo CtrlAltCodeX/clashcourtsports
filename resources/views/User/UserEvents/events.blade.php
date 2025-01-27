@@ -6,7 +6,7 @@
 
     <div class="grid gap-8">
         @foreach ($eventsWithNearbyUsers as $data)
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="rounded-lg shadow-md overflow-hidden">
             <!-- Event Header -->
             <div class="bg-blue-700 text-white px-6 py-4 flex items-center justify-between">
                 <h2 class="text-xl font-semibold">{{ $data['event']->name }}</h2>

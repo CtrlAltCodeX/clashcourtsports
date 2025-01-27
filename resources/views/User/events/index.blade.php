@@ -43,7 +43,7 @@
 
                 @if(auth()->user())
                 <p>
-                  {{$event->selected_game}} - $@if($event->selected_game == 'singles'){{$event->pricing}} @else{{$event->double_price}}@endif
+                  $@if($event->selected_game == 'singles'){{$event->pricing}} @else{{$event->double_price}}@endif
                 </p>
                 @endif
 
@@ -72,7 +72,7 @@
                 <input type="hidden" name="zip_code" value="{{ Auth::user()->zip_code }}">
                 <input type="hidden" name="selected_game" value="{{ $event->selected_game }}">
                 <input type="hidden" name="flexRadioDefault" value="{{ $event->skill_level }}">
-                <input type="hidden" name="game_type" value="@if($event->pricing){{ $event->pricing }}@else{{ $event->double_price }}@endif">
+                <input type="hidden" name="game_type" value="@if($event->selected_game == 'singles'){{ $event->pricing }}@elseif($event->selected_game == 'doubles'){{ $event->double_price }}@endif">
                 <input type="hidden" name="password" value="">
                 <button class="btn join_now_btn">Register Now</button>
               </form>
